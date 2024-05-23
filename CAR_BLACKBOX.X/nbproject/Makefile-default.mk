@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c
+SOURCEFILES_QUOTED_IF_SPACED=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/adc.p1.d ${OBJECTDIR}/clcd.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/matrix_keypad.p1.d ${OBJECTDIR}/dashboard.p1.d ${OBJECTDIR}/password.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/adc.p1.d ${OBJECTDIR}/clcd.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/matrix_keypad.p1.d ${OBJECTDIR}/dashboard.p1.d ${OBJECTDIR}/password.p1.d ${OBJECTDIR}/ds1307.p1.d ${OBJECTDIR}/i2c.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1
+OBJECTFILES=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1
 
 # Source Files
-SOURCEFILES=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c
+SOURCEFILES=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c
 
 
 
@@ -142,6 +142,22 @@ ${OBJECTDIR}/password.p1: password.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/password.d ${OBJECTDIR}/password.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/password.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/ds1307.p1: ds1307.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ds1307.p1.d 
+	@${RM} ${OBJECTDIR}/ds1307.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/ds1307.p1 ds1307.c 
+	@-${MV} ${OBJECTDIR}/ds1307.d ${OBJECTDIR}/ds1307.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ds1307.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/i2c.p1: i2c.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/i2c.p1.d 
+	@${RM} ${OBJECTDIR}/i2c.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/i2c.p1 i2c.c 
+	@-${MV} ${OBJECTDIR}/i2c.d ${OBJECTDIR}/i2c.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/adc.p1: adc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -190,6 +206,22 @@ ${OBJECTDIR}/password.p1: password.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/password.p1 password.c 
 	@-${MV} ${OBJECTDIR}/password.d ${OBJECTDIR}/password.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/password.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/ds1307.p1: ds1307.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/ds1307.p1.d 
+	@${RM} ${OBJECTDIR}/ds1307.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/ds1307.p1 ds1307.c 
+	@-${MV} ${OBJECTDIR}/ds1307.d ${OBJECTDIR}/ds1307.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/ds1307.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/i2c.p1: i2c.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/i2c.p1.d 
+	@${RM} ${OBJECTDIR}/i2c.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/i2c.p1 i2c.c 
+	@-${MV} ${OBJECTDIR}/i2c.d ${OBJECTDIR}/i2c.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

@@ -13,6 +13,7 @@
 #include "adc.h"
 
 int i=0;
+char chance=3;
 int my_strcmp(char *one, char *two)
 {   
     int i=0,flag=0;
@@ -43,7 +44,28 @@ void password(char key)
             i++;
         }
         if (i == 4) {
-            temp_password[i] = '\0';
+            temp_password[i] = '\0'; 
         }
-       
+    if(my_strcmp(pass,temp_password)==0)
+    {
+        clcd_print("SUCCESS",LINE2(2));
+    }
+    else
+    {
+        chance--;   //decrementing chances
+        i=0; //for reattempt of the password
+        if(chance==0)
+        {
+           clcd_print("Attempt Over",LINE1(0));
+           clcd_print("Verification failed",LINE2(0));   
+        }
+        else
+        {
+            clcd_print("   Try Again    ", LINE1(0));
+            clcd_putch('0' + chance, LINE2(0));
+            clcd_print(" Chances Left ", LINE2(1));
+        }
+        
+    }
+         
 }

@@ -17957,11 +17957,33 @@ void init_adc(void);
 unsigned short read_adc(unsigned char channel);
 # 13 "main.c" 2
 
+# 1 "./ds1307.h" 1
+# 18 "./ds1307.h"
+void write_ds1307(unsigned char address1, unsigned char data);
+unsigned char read_ds1307(unsigned char address1);
+void init_ds1307(void);
+# 14 "main.c" 2
 
-static void init_config(void) {
+# 1 "./i2c.h" 1
+
+
+
+
+void init_i2c(void);
+void i2c_start(void);
+void i2c_rep_start(void);
+void i2c_stop(void);
+void i2c_write(unsigned char data);
+unsigned char i2c_read(void);
+# 15 "main.c" 2
+
+
+void init_config(void) {
     init_clcd();
     init_matrix_keypad();
     init_adc();
+    init_i2c();
+ init_ds1307();
 
 
     clcd_print("  TIME    EV  SP", (0x80 + (0)));
@@ -17969,7 +17991,7 @@ static void init_config(void) {
 
 }
 char key;
-short adc_reg_val;
+unsigned short adc_reg_val;
 void main(void) {
     init_config();
 
@@ -17977,17 +17999,15 @@ void main(void) {
 
     while (1) {
         key = read_switches(1);
+        adc_reg_val = read_adc(0x04);
 
-        if(main_f == 0)
-        {
+        if (main_f == 0) {
             dashboard();
         }
         else if(main_f == 1)
         {
             password(key);
         }
-
-
 
     }
 }

@@ -17959,6 +17959,7 @@ unsigned short read_adc(unsigned char channel);
 
 
 int i=0;
+char chance=3;
 int my_strcmp(char *one, char *two)
 {
     int i=0,flag=0;
@@ -17991,5 +17992,26 @@ void password(char key)
         if (i == 4) {
             temp_password[i] = '\0';
         }
+    if(my_strcmp(pass,temp_password)==0)
+    {
+        clcd_print("SUCCESS",(0xC0 + (2)));
+    }
+    else
+    {
+        chance--;
+        i=0;
+        if(chance==0)
+        {
+           clcd_print("Attempt Over",(0x80 + (0)));
+           clcd_print("Verification failed",(0xC0 + (0)));
+        }
+        else
+        {
+            clcd_print("   Try Again    ", (0x80 + (0)));
+            clcd_putch('0' + chance, (0xC0 + (0)));
+            clcd_print(" Chances Left ", (0xC0 + (1)));
+        }
+
+    }
 
 }

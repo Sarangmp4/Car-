@@ -2,15 +2,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32 ./clcd.h
 [; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"15 dashboard.c
-[; ;dashboard.c: 15: extern char key;
+"19 ./ds1307.h
+[; ;./ds1307.h: 19: unsigned char read_ds1307(unsigned char address1);
+[v _read_ds1307 `(uc ~T0 @X0 0 ef1`uc ]
+"17 dashboard.c
+[; ;dashboard.c: 17: extern char key;
 [v _key `uc ~T0 @X0 0 e ]
-"16
-[; ;dashboard.c: 16: extern short adc_reg_val;
-[v _adc_reg_val `s ~T0 @X0 0 e ]
-"17 ./adc.h
-[; ;./adc.h: 17: unsigned short read_adc(unsigned char channel);
-[v _read_adc `(us ~T0 @X0 0 ef1`uc ]
+"18
+[; ;dashboard.c: 18: extern unsigned short adc_reg_val;
+[v _adc_reg_val `us ~T0 @X0 0 e ]
 "33 ./clcd.h
 [; ;./clcd.h: 33: void clcd_putch(const unsigned char data, unsigned char addr);
 [v _clcd_putch `(v ~T0 @X0 0 ef2`Cuc`uc ]
@@ -1253,23 +1253,108 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"17 dashboard.c
-[; ;dashboard.c: 17: int i = 0;
+"19 dashboard.c
+[; ;dashboard.c: 19: int i = 0;
 [v _i `i ~T0 @X0 1 e ]
 [i _i
 -> 0 `i
 ]
-"19
-[; ;dashboard.c: 19: void dashboard() {
+"20
+[; ;dashboard.c: 20: unsigned char clock_reg[3];
+[v _clock_reg `uc ~T0 @X0 -> 3 `i e ]
+"21
+[; ;dashboard.c: 21: unsigned char time[9];
+[v _time `uc ~T0 @X0 -> 9 `i e ]
+"25
+[; ;dashboard.c: 25: void display_time(void) {
+[v _display_time `(v ~T0 @X0 1 ef ]
+{
+[e :U _display_time ]
+[f ]
+"26
+[; ;dashboard.c: 26:     clcd_print(time, (0xC0 + (0)));
+[e ( _clcd_print (2 , -> &U _time `*Cuc -> + -> 192 `i -> 0 `i `uc ]
+"27
+[; ;dashboard.c: 27: }
+[e :UE 1088 ]
+}
+"29
+[; ;dashboard.c: 29:  void get_time(void) {
+[v _get_time `(v ~T0 @X0 1 ef ]
+{
+[e :U _get_time ]
+[f ]
+"30
+[; ;dashboard.c: 30:     clock_reg[0] = read_ds1307(0x02);
+[e = *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux ( _read_ds1307 (1 -> -> 2 `i `uc ]
+"31
+[; ;dashboard.c: 31:     clock_reg[1] = read_ds1307(0x01);
+[e = *U + &U _clock_reg * -> -> -> 1 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux ( _read_ds1307 (1 -> -> 1 `i `uc ]
+"32
+[; ;dashboard.c: 32:     clock_reg[2] = read_ds1307(0x00);
+[e = *U + &U _clock_reg * -> -> -> 2 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux ( _read_ds1307 (1 -> -> 0 `i `uc ]
+"34
+[; ;dashboard.c: 34:     if (clock_reg[0] & 0x40) {
+[e $ ! != & -> *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 64 `i -> 0 `i 1090  ]
+{
+"35
+[; ;dashboard.c: 35:         time[0] = '0' + ((clock_reg[0] >> 4) & 0x01);
+[e = *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & >> -> *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 4 `i -> 1 `i `ui `uc ]
+"36
+[; ;dashboard.c: 36:         time[1] = '0' + (clock_reg[0] & 0x0F);
+[e = *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & -> *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 15 `i `ui `uc ]
+"37
+[; ;dashboard.c: 37:     } else {
+}
+[e $U 1091  ]
+[e :U 1090 ]
+{
+"38
+[; ;dashboard.c: 38:         time[0] = '0' + ((clock_reg[0] >> 4) & 0x03);
+[e = *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & >> -> *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 4 `i -> 3 `i `ui `uc ]
+"39
+[; ;dashboard.c: 39:         time[1] = '0' + (clock_reg[0] & 0x0F);
+[e = *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & -> *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 15 `i `ui `uc ]
+"40
+[; ;dashboard.c: 40:     }
+}
+[e :U 1091 ]
+"41
+[; ;dashboard.c: 41:     time[2] = ':';
+[e = *U + &U _time * -> -> -> 2 `i `ui `ux -> -> # *U &U _time `ui `ux -> -> 58 `ui `uc ]
+"42
+[; ;dashboard.c: 42:     time[3] = '0' + ((clock_reg[1] >> 4) & 0x0F);
+[e = *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & >> -> *U + &U _clock_reg * -> -> -> 1 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 4 `i -> 15 `i `ui `uc ]
+"43
+[; ;dashboard.c: 43:     time[4] = '0' + (clock_reg[1] & 0x0F);
+[e = *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & -> *U + &U _clock_reg * -> -> -> 1 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 15 `i `ui `uc ]
+"44
+[; ;dashboard.c: 44:     time[5] = ':';
+[e = *U + &U _time * -> -> -> 5 `i `ui `ux -> -> # *U &U _time `ui `ux -> -> 58 `ui `uc ]
+"45
+[; ;dashboard.c: 45:     time[6] = '0' + ((clock_reg[2] >> 4) & 0x0F);
+[e = *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & >> -> *U + &U _clock_reg * -> -> -> 2 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 4 `i -> 15 `i `ui `uc ]
+"46
+[; ;dashboard.c: 46:     time[7] = '0' + (clock_reg[2] & 0x0F);
+[e = *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux -> + -> 48 `ui -> & -> *U + &U _clock_reg * -> -> -> 2 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux `i -> 15 `i `ui `uc ]
+"47
+[; ;dashboard.c: 47:     time[8] = '\0';
+[e = *U + &U _time * -> -> -> 8 `i `ui `ux -> -> # *U &U _time `ui `ux -> -> 0 `ui `uc ]
+"48
+[; ;dashboard.c: 48: }
+[e :UE 1089 ]
+}
+"50
+[; ;dashboard.c: 50: void dashboard() {
 [v _dashboard `(v ~T0 @X0 1 ef ]
 {
 [e :U _dashboard ]
 [f ]
-[v F10484 `*uc ~T0 @X0 -> 8 `i s ]
-[i F10484
+[v F10501 `*uc ~T0 @X0 -> 8 `i s ]
+[i F10501
 :U ..
-"21
-[; ;dashboard.c: 21:     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
+"52
+[; ;dashboard.c: 52:     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
 :s 1C
 :s 2C
 :s 3C
@@ -1281,92 +1366,95 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 [v _events `*uc ~T0 @X0 -> 8 `i a ]
-[e = _events F10484 ]
-"25
-[; ;dashboard.c: 25:     clcd_print(events[i], (0xC0 + (10)));
+[e = _events F10501 ]
+"56
+[; ;dashboard.c: 56:     clcd_print(events[i], (0xC0 + (10)));
 [e ( _clcd_print (2 , -> *U + &U _events * -> -> _i `ui `ux -> -> # *U &U _events `ui `ux `*Cuc -> + -> 192 `i -> 10 `i `uc ]
-"28
-[; ;dashboard.c: 28:     if (key == 2) {
-[e $ ! == -> _key `i -> 2 `i 1089  ]
+"59
+[; ;dashboard.c: 59:     if (key == 2) {
+[e $ ! == -> _key `i -> 2 `i 1093  ]
 {
-"29
-[; ;dashboard.c: 29:         if (i < 6) {
-[e $ ! < _i -> 6 `i 1090  ]
+"60
+[; ;dashboard.c: 60:         if (i < 6) {
+[e $ ! < _i -> 6 `i 1094  ]
 {
-"30
-[; ;dashboard.c: 30:             i++;
+"61
+[; ;dashboard.c: 61:             i++;
 [e ++ _i -> 1 `i ]
-"31
-[; ;dashboard.c: 31:         }
-}
-[e :U 1090 ]
-"32
-[; ;dashboard.c: 32:     }
-}
-[e :U 1089 ]
-"34
-[; ;dashboard.c: 34:     if (key == 3) {
-[e $ ! == -> _key `i -> 3 `i 1091  ]
-{
-"35
-[; ;dashboard.c: 35:         if (i > 1) {
-[e $ ! > _i -> 1 `i 1092  ]
-{
-"36
-[; ;dashboard.c: 36:             i--;
-[e -- _i -> 1 `i ]
-"37
-[; ;dashboard.c: 37:         }
-}
-[e :U 1092 ]
-"38
-[; ;dashboard.c: 38:     }
-}
-[e :U 1091 ]
-"40
-[; ;dashboard.c: 40:     if (key == 1) {
-[e $ ! == -> _key `i -> 1 `i 1093  ]
-{
-"41
-[; ;dashboard.c: 41:         i = 7;
-[e = _i -> 7 `i ]
-"42
-[; ;dashboard.c: 42:     }
-}
-[e :U 1093 ]
-"44
-[; ;dashboard.c: 44:     if (i == 7 && (key == 2 || key == 3)) {
-[e $ ! && == _i -> 7 `i || == -> _key `i -> 2 `i == -> _key `i -> 3 `i 1094  ]
-{
-"45
-[; ;dashboard.c: 45:         i = 2;
-[e = _i -> 2 `i ]
-"46
-[; ;dashboard.c: 46:     }
+"62
+[; ;dashboard.c: 62:         }
 }
 [e :U 1094 ]
-"50
-[; ;dashboard.c: 50:     adc_reg_val = read_adc(0x04);
-[e = _adc_reg_val -> ( _read_adc (1 -> -> 4 `i `uc `s ]
-"51
-[; ;dashboard.c: 51:     if (adc_reg_val < 100)
-[e $ ! < -> _adc_reg_val `i -> 100 `i 1095  ]
-"52
-[; ;dashboard.c: 52:     {
+"63
+[; ;dashboard.c: 63:     }
+}
+[e :U 1093 ]
+"65
+[; ;dashboard.c: 65:     if (key == 3 && i != 7) {
+[e $ ! && == -> _key `i -> 3 `i != _i -> 7 `i 1095  ]
 {
-"53
-[; ;dashboard.c: 53:         clcd_putch(((adc_reg_val / 10) + 48), (0xC0 + (14)));
-[e ( _clcd_putch (2 , -> + / -> _adc_reg_val `i -> 10 `i -> 48 `i `uc -> + -> 192 `i -> 14 `i `uc ]
-"54
-[; ;dashboard.c: 54:         clcd_putch(((adc_reg_val % 10) + 48), (0xC0 + (15)));
-[e ( _clcd_putch (2 , -> + % -> _adc_reg_val `i -> 10 `i -> 48 `i `uc -> + -> 192 `i -> 15 `i `uc ]
-"55
-[; ;dashboard.c: 55:     }
+"66
+[; ;dashboard.c: 66:         if (i > 1) {
+[e $ ! > _i -> 1 `i 1096  ]
+{
+"67
+[; ;dashboard.c: 67:             i--;
+[e -- _i -> 1 `i ]
+"68
+[; ;dashboard.c: 68:         }
+}
+[e :U 1096 ]
+"69
+[; ;dashboard.c: 69:     }
 }
 [e :U 1095 ]
-"57
-[; ;dashboard.c: 57: }
-[e :UE 1088 ]
+"71
+[; ;dashboard.c: 71:     if (key == 1) {
+[e $ ! == -> _key `i -> 1 `i 1097  ]
+{
+"72
+[; ;dashboard.c: 72:         i = 7;
+[e = _i -> 7 `i ]
+"73
+[; ;dashboard.c: 73:     }
+}
+[e :U 1097 ]
+"75
+[; ;dashboard.c: 75:     if (i == 7 && key == 2) {
+[e $ ! && == _i -> 7 `i == -> _key `i -> 2 `i 1098  ]
+{
+"76
+[; ;dashboard.c: 76:         i = 2;
+[e = _i -> 2 `i ]
+"77
+[; ;dashboard.c: 77:     }
+}
+[e :U 1098 ]
+"81
+[; ;dashboard.c: 81:     if (adc_reg_val < 1000)
+[e $ ! < -> _adc_reg_val `ui -> -> 1000 `i `ui 1099  ]
+"82
+[; ;dashboard.c: 82:     {
+{
+"83
+[; ;dashboard.c: 83:         clcd_putch(((adc_reg_val / 100) + 48), (0xC0 + (14)));
+[e ( _clcd_putch (2 , -> + / -> _adc_reg_val `ui -> -> 100 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 14 `i `uc ]
+"84
+[; ;dashboard.c: 84:         clcd_putch(((adc_reg_val / 10 % 10) + 48), (0xC0 + (15)));
+[e ( _clcd_putch (2 , -> + % / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 15 `i `uc ]
+"85
+[; ;dashboard.c: 85:     }
+}
+[e :U 1099 ]
+"88
+[; ;dashboard.c: 88:     get_time();
+[e ( _get_time ..  ]
+"89
+[; ;dashboard.c: 89:     display_time();
+[e ( _display_time ..  ]
+"91
+[; ;dashboard.c: 91: }
+[e :UE 1092 ]
 }
 [a 2C 71 82 0 ]
 [a 1C 79 78 0 ]
