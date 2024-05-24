@@ -1350,12 +1350,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _dashboard ]
 [f ]
+"52
+[; ;dashboard.c: 52:     clcd_print("  TIME    EV  SP", (0x80 + (0)));
+[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
 [v F10501 `*uc ~T0 @X0 -> 8 `i s ]
 [i F10501
 :U ..
-"52
-[; ;dashboard.c: 52:     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
-:s 1C
+"55
+[; ;dashboard.c: 55:     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
 :s 2C
 :s 3C
 :s 4C
@@ -1363,104 +1365,106 @@ Version 4.0 HI-TECH Software Intermediate Code
 :s 6C
 :s 7C
 :s 8C
+:s 9C
 ..
 ]
 [v _events `*uc ~T0 @X0 -> 8 `i a ]
 [e = _events F10501 ]
-"56
-[; ;dashboard.c: 56:     clcd_print(events[i], (0xC0 + (10)));
-[e ( _clcd_print (2 , -> *U + &U _events * -> -> _i `ui `ux -> -> # *U &U _events `ui `ux `*Cuc -> + -> 192 `i -> 10 `i `uc ]
 "59
-[; ;dashboard.c: 59:     if (key == 2) {
+[; ;dashboard.c: 59:     clcd_print(events[i], (0xC0 + (10)));
+[e ( _clcd_print (2 , -> *U + &U _events * -> -> _i `ui `ux -> -> # *U &U _events `ui `ux `*Cuc -> + -> 192 `i -> 10 `i `uc ]
+"62
+[; ;dashboard.c: 62:     if (key == 2) {
 [e $ ! == -> _key `i -> 2 `i 1093  ]
 {
-"60
-[; ;dashboard.c: 60:         if (i < 6) {
+"63
+[; ;dashboard.c: 63:         if (i < 6) {
 [e $ ! < _i -> 6 `i 1094  ]
 {
-"61
-[; ;dashboard.c: 61:             i++;
+"64
+[; ;dashboard.c: 64:             i++;
 [e ++ _i -> 1 `i ]
-"62
-[; ;dashboard.c: 62:         }
+"65
+[; ;dashboard.c: 65:         }
 }
 [e :U 1094 ]
-"63
-[; ;dashboard.c: 63:     }
+"66
+[; ;dashboard.c: 66:     }
 }
 [e :U 1093 ]
-"65
-[; ;dashboard.c: 65:     if (key == 3 && i != 7) {
+"68
+[; ;dashboard.c: 68:     if (key == 3 && i != 7) {
 [e $ ! && == -> _key `i -> 3 `i != _i -> 7 `i 1095  ]
 {
-"66
-[; ;dashboard.c: 66:         if (i > 1) {
+"69
+[; ;dashboard.c: 69:         if (i > 1) {
 [e $ ! > _i -> 1 `i 1096  ]
 {
-"67
-[; ;dashboard.c: 67:             i--;
+"70
+[; ;dashboard.c: 70:             i--;
 [e -- _i -> 1 `i ]
-"68
-[; ;dashboard.c: 68:         }
+"71
+[; ;dashboard.c: 71:         }
 }
 [e :U 1096 ]
-"69
-[; ;dashboard.c: 69:     }
+"72
+[; ;dashboard.c: 72:     }
 }
 [e :U 1095 ]
-"71
-[; ;dashboard.c: 71:     if (key == 1) {
+"74
+[; ;dashboard.c: 74:     if (key == 1) {
 [e $ ! == -> _key `i -> 1 `i 1097  ]
 {
-"72
-[; ;dashboard.c: 72:         i = 7;
+"75
+[; ;dashboard.c: 75:         i = 7;
 [e = _i -> 7 `i ]
-"73
-[; ;dashboard.c: 73:     }
+"76
+[; ;dashboard.c: 76:     }
 }
 [e :U 1097 ]
-"75
-[; ;dashboard.c: 75:     if (i == 7 && key == 2) {
+"78
+[; ;dashboard.c: 78:     if (i == 7 && key == 2) {
 [e $ ! && == _i -> 7 `i == -> _key `i -> 2 `i 1098  ]
 {
-"76
-[; ;dashboard.c: 76:         i = 2;
+"79
+[; ;dashboard.c: 79:         i = 2;
 [e = _i -> 2 `i ]
-"77
-[; ;dashboard.c: 77:     }
+"80
+[; ;dashboard.c: 80:     }
 }
 [e :U 1098 ]
-"81
-[; ;dashboard.c: 81:     if (adc_reg_val < 1000)
-[e $ ! < -> _adc_reg_val `ui -> -> 1000 `i `ui 1099  ]
-"82
-[; ;dashboard.c: 82:     {
-{
-"83
-[; ;dashboard.c: 83:         clcd_putch(((adc_reg_val / 100) + 48), (0xC0 + (14)));
-[e ( _clcd_putch (2 , -> + / -> _adc_reg_val `ui -> -> 100 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 14 `i `uc ]
 "84
-[; ;dashboard.c: 84:         clcd_putch(((adc_reg_val / 10 % 10) + 48), (0xC0 + (15)));
-[e ( _clcd_putch (2 , -> + % / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 15 `i `uc ]
+[; ;dashboard.c: 84:     if (adc_reg_val < 1000)
+[e $ ! < -> _adc_reg_val `ui -> -> 1000 `i `ui 1099  ]
 "85
-[; ;dashboard.c: 85:     }
+[; ;dashboard.c: 85:     {
+{
+"86
+[; ;dashboard.c: 86:         clcd_putch(((adc_reg_val / 100) + 48), (0xC0 + (14)));
+[e ( _clcd_putch (2 , -> + / -> _adc_reg_val `ui -> -> 100 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 14 `i `uc ]
+"87
+[; ;dashboard.c: 87:         clcd_putch(((adc_reg_val / 10 % 10) + 48), (0xC0 + (15)));
+[e ( _clcd_putch (2 , -> + % / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc -> + -> 192 `i -> 15 `i `uc ]
+"88
+[; ;dashboard.c: 88:     }
 }
 [e :U 1099 ]
-"88
-[; ;dashboard.c: 88:     get_time();
-[e ( _get_time ..  ]
-"89
-[; ;dashboard.c: 89:     display_time();
-[e ( _display_time ..  ]
 "91
-[; ;dashboard.c: 91: }
+[; ;dashboard.c: 91:     get_time();
+[e ( _get_time ..  ]
+"92
+[; ;dashboard.c: 92:     display_time();
+[e ( _display_time ..  ]
+"94
+[; ;dashboard.c: 94: }
 [e :UE 1092 ]
 }
-[a 2C 71 82 0 ]
-[a 1C 79 78 0 ]
-[a 3C 71 78 0 ]
-[a 7C 71 52 0 ]
-[a 6C 71 51 0 ]
-[a 5C 71 50 0 ]
-[a 4C 71 49 0 ]
-[a 8C 67 32 0 ]
+[a 3C 71 82 0 ]
+[a 1C 32 32 84 73 77 69 32 32 32 32 69 86 32 32 83 80 0 ]
+[a 2C 79 78 0 ]
+[a 4C 71 78 0 ]
+[a 8C 71 52 0 ]
+[a 7C 71 51 0 ]
+[a 6C 71 50 0 ]
+[a 5C 71 49 0 ]
+[a 9C 67 32 0 ]

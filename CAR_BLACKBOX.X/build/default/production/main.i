@@ -17977,21 +17977,30 @@ void i2c_write(unsigned char data);
 unsigned char i2c_read(void);
 # 15 "main.c" 2
 
+# 1 "./timer0.h" 1
+
+
+
+void init_timer0(void);
+# 16 "main.c" 2
+
 
 void init_config(void) {
     init_clcd();
     init_matrix_keypad();
     init_adc();
     init_i2c();
- init_ds1307();
+    init_ds1307();
 
+    PEIE = 1;
 
-    clcd_print("  TIME    EV  SP", (0x80 + (0)));
-    clcd_print("00:00:00", (0xC0 + (0)));
+ init_timer0();
 
+ GIE = 1;
 }
 char key;
 unsigned short adc_reg_val;
+
 void main(void) {
     init_config();
 
@@ -18003,11 +18012,13 @@ void main(void) {
 
         if (main_f == 0) {
             dashboard();
-        }
-        else if(main_f == 1)
-        {
+            if (key == 5) {
+                clcd_write(0x01, 0);
+                main_f = 1;
+            }
+        } else if (main_f == 1) {
             password(key);
-        }
 
+        }
     }
 }

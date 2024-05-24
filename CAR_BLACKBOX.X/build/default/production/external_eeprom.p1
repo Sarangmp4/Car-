@@ -1,44 +1,19 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"31 ./clcd.h
-[; ;./clcd.h: 31: void init_clcd(void);
-[v _init_clcd `(v ~T0 @X0 0 ef ]
-"39 ./matrix_keypad.h
-[; ;./matrix_keypad.h: 39: void init_matrix_keypad(void);
-[v _init_matrix_keypad `(v ~T0 @X0 0 ef ]
-"16 ./adc.h
-[; ;./adc.h: 16: void init_adc(void);
-[v _init_adc `(v ~T0 @X0 0 ef ]
-"5 ./i2c.h
-[; ;./i2c.h: 5: void init_i2c(void);
-[v _init_i2c `(v ~T0 @X0 0 ef ]
-"20 ./ds1307.h
-[; ;./ds1307.h: 20: void init_ds1307(void);
-[v _init_ds1307 `(v ~T0 @X0 0 ef ]
-"36081 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
-[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36081: extern volatile __bit PEIE __attribute__((address(0x7F96)));
-[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
-"4 ./timer0.h
-[; ;./timer0.h: 4: void init_timer0(void);
-[v _init_timer0 `(v ~T0 @X0 0 ef ]
-"35487 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
-[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 35487: extern volatile __bit GIE __attribute__((address(0x7F97)));
-[v _GIE `Vb ~T0 @X0 0 e@32663 ]
-[p mainexit ]
-"41 ./matrix_keypad.h
-[; ;./matrix_keypad.h: 41: unsigned char read_switches(unsigned char detection_type);
-[v _read_switches `(uc ~T0 @X0 0 ef1`uc ]
-"17 ./adc.h
-[; ;./adc.h: 17: unsigned short read_adc(unsigned char channel);
-[v _read_adc `(us ~T0 @X0 0 ef1`uc ]
-"14 ./main.h
-[; ;./main.h: 14: void dashboard();
-[v _dashboard `(v ~T0 @X0 0 e? ]
-"34 ./clcd.h
-[; ;./clcd.h: 34: void clcd_write(unsigned char bit_values, unsigned char control_bit);
-[v _clcd_write `(v ~T0 @X0 0 ef2`uc`uc ]
-"16 ./main.h
-[; ;./main.h: 16: void password(char key);
-[v _password `(v ~T0 @X0 0 ef1`uc ]
+"6 ./i2c.h
+[; ;./i2c.h: 6: void i2c_start(void);
+[v _i2c_start `(v ~T0 @X0 0 ef ]
+"9
+[; ;./i2c.h: 9: void i2c_write(unsigned char data);
+[v _i2c_write `(v ~T0 @X0 0 ef1`uc ]
+"8
+[; ;./i2c.h: 8: void i2c_stop(void);
+[v _i2c_stop `(v ~T0 @X0 0 ef ]
+"7
+[; ;./i2c.h: 7: void i2c_rep_start(void);
+[v _i2c_rep_start `(v ~T0 @X0 0 ef ]
+"10
+[; ;./i2c.h: 10: unsigned char i2c_read(void);
+[v _i2c_read `(uc ~T0 @X0 0 ef ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1278,115 +1253,92 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"18 main.c
-[; ;main.c: 18: void init_config(void) {
-[v _init_config `(v ~T0 @X0 1 ef ]
+"14 external_eeprom.c
+[; ;external_eeprom.c: 14: void write_external_eeprom(unsigned char address, unsigned char data)
+[v _write_external_eeprom `(v ~T0 @X0 1 ef2`uc`uc ]
+"15
+[; ;external_eeprom.c: 15: {
 {
-[e :U _init_config ]
+[e :U _write_external_eeprom ]
+"14
+[; ;external_eeprom.c: 14: void write_external_eeprom(unsigned char address, unsigned char data)
+[v _address `uc ~T0 @X0 1 r1 ]
+[v _data `uc ~T0 @X0 1 r2 ]
+"15
+[; ;external_eeprom.c: 15: {
 [f ]
+"16
+[; ;external_eeprom.c: 16:  i2c_start();
+[e ( _i2c_start ..  ]
+"17
+[; ;external_eeprom.c: 17:  i2c_write(0xA0);
+[e ( _i2c_write (1 -> -> 160 `i `uc ]
+"18
+[; ;external_eeprom.c: 18:  i2c_write(address);
+[e ( _i2c_write (1 _address ]
 "19
-[; ;main.c: 19:     init_clcd();
-[e ( _init_clcd ..  ]
+[; ;external_eeprom.c: 19:  i2c_write(data);
+[e ( _i2c_write (1 _data ]
 "20
-[; ;main.c: 20:     init_matrix_keypad();
-[e ( _init_matrix_keypad ..  ]
+[; ;external_eeprom.c: 20:  i2c_stop();
+[e ( _i2c_stop ..  ]
 "21
-[; ;main.c: 21:     init_adc();
-[e ( _init_adc ..  ]
+[; ;external_eeprom.c: 21:     for(int i=3000; i--;);
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 3000 `i ]
+[e $U 1092  ]
+[e :U 1089 ]
+[e :U 1092 ]
+[e $ != -- _i -> 1 `i -> 0 `i 1089  ]
+[e :U 1090 ]
+}
 "22
-[; ;main.c: 22:     init_i2c();
-[e ( _init_i2c ..  ]
-"23
-[; ;main.c: 23:     init_ds1307();
-[e ( _init_ds1307 ..  ]
-"25
-[; ;main.c: 25:     PEIE = 1;
-[e = _PEIE -> -> 1 `i `b ]
-"27
-[; ;main.c: 27:  init_timer0();
-[e ( _init_timer0 ..  ]
-"29
-[; ;main.c: 29:  GIE = 1;
-[e = _GIE -> -> 1 `i `b ]
-"30
-[; ;main.c: 30: }
+[; ;external_eeprom.c: 22: }
 [e :UE 1088 ]
 }
-"31
-[; ;main.c: 31: char key;
-[v _key `uc ~T0 @X0 1 e ]
-"32
-[; ;main.c: 32: unsigned short adc_reg_val;
-[v _adc_reg_val `us ~T0 @X0 1 e ]
-[v $root$_main `(v ~T0 @X0 0 e ]
-"34
-[; ;main.c: 34: void main(void) {
-[v _main `(v ~T0 @X0 1 ef ]
+"24
+[; ;external_eeprom.c: 24: unsigned char read_external_eeprom(unsigned char address)
+[v _read_external_eeprom `(uc ~T0 @X0 1 ef1`uc ]
+"25
+[; ;external_eeprom.c: 25: {
 {
-[e :U _main ]
+[e :U _read_external_eeprom ]
+"24
+[; ;external_eeprom.c: 24: unsigned char read_external_eeprom(unsigned char address)
+[v _address `uc ~T0 @X0 1 r1 ]
+"25
+[; ;external_eeprom.c: 25: {
 [f ]
-"35
-[; ;main.c: 35:     init_config();
-[e ( _init_config ..  ]
+"26
+[; ;external_eeprom.c: 26:  unsigned char data;
+[v _data `uc ~T0 @X0 1 a ]
+"28
+[; ;external_eeprom.c: 28:  i2c_start();
+[e ( _i2c_start ..  ]
+"29
+[; ;external_eeprom.c: 29:  i2c_write(0xA0);
+[e ( _i2c_write (1 -> -> 160 `i `uc ]
+"30
+[; ;external_eeprom.c: 30:  i2c_write(address);
+[e ( _i2c_write (1 _address ]
+"31
+[; ;external_eeprom.c: 31:  i2c_rep_start();
+[e ( _i2c_rep_start ..  ]
+"32
+[; ;external_eeprom.c: 32:  i2c_write(0xA1);
+[e ( _i2c_write (1 -> -> 161 `i `uc ]
+"33
+[; ;external_eeprom.c: 33:  data = i2c_read();
+[e = _data ( _i2c_read ..  ]
+"34
+[; ;external_eeprom.c: 34:  i2c_stop();
+[e ( _i2c_stop ..  ]
+"36
+[; ;external_eeprom.c: 36:  return data;
+[e ) _data ]
+[e $UE 1093  ]
 "37
-[; ;main.c: 37:     char main_f = 0, menu_f = 0;
-[v _main_f `uc ~T0 @X0 1 a ]
-[e = _main_f -> -> 0 `i `uc ]
-[v _menu_f `uc ~T0 @X0 1 a ]
-[e = _menu_f -> -> 0 `i `uc ]
-"39
-[; ;main.c: 39:     while (1) {
-[e :U 1091 ]
-{
-"40
-[; ;main.c: 40:         key = read_switches(1);
-[e = _key -> ( _read_switches (1 -> -> 1 `i `uc `uc ]
-"41
-[; ;main.c: 41:         adc_reg_val = read_adc(0x04);
-[e = _adc_reg_val ( _read_adc (1 -> -> 4 `i `uc ]
-"43
-[; ;main.c: 43:         if (main_f == 0) {
-[e $ ! == -> _main_f `i -> 0 `i 1093  ]
-{
-"44
-[; ;main.c: 44:             dashboard();
-[e ( _dashboard ..  ]
-"45
-[; ;main.c: 45:             if (key == 5) {
-[e $ ! == -> _key `i -> 5 `i 1094  ]
-{
-"46
-[; ;main.c: 46:                 clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
-"47
-[; ;main.c: 47:                 main_f = 1;
-[e = _main_f -> -> 1 `i `uc ]
-"48
-[; ;main.c: 48:             }
-}
-[e :U 1094 ]
-"49
-[; ;main.c: 49:         } else if (main_f == 1) {
-}
-[e $U 1095  ]
-[e :U 1093 ]
-[e $ ! == -> _main_f `i -> 1 `i 1096  ]
-{
-"50
-[; ;main.c: 50:             password(key);
-[e ( _password (1 _key ]
-"52
-[; ;main.c: 52:         }
-}
-[e :U 1096 ]
-[e :U 1095 ]
-"53
-[; ;main.c: 53:     }
-}
-[e :U 1090 ]
-[e $U 1091  ]
-[e :U 1092 ]
-"54
-[; ;main.c: 54: }
-[e :UE 1089 ]
+[; ;external_eeprom.c: 37: }
+[e :UE 1093 ]
 }

@@ -1,4 +1,4 @@
-# 1 "dashboard.c"
+# 1 "timer0.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,15 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "dashboard.c" 2
-
-
-
-
-
-
-
-
+# 1 "timer0.c" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -17921,138 +17913,39 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 9 "dashboard.c" 2
+# 2 "timer0.c" 2
+# 1 "./timer0.h" 1
 
-# 1 "./main.h" 1
-# 14 "./main.h"
-void dashboard();
-void store_event();
-void password(char key);
-void menu(char key);
-void view_log(char key);
-void download_log();
-void clear_log(char key);
-void settime(char key);
-void change_pass(char key);
-# 10 "dashboard.c" 2
 
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 11 "dashboard.c" 2
 
-# 1 "./clcd.h" 1
-# 31 "./clcd.h"
-void init_clcd(void);
-void clcd_print(const unsigned char *data, unsigned char addr);
-void clcd_putch(const unsigned char data, unsigned char addr);
-void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 12 "dashboard.c" 2
+void init_timer0(void);
+# 3 "timer0.c" 2
 
-# 1 "./adc.h" 1
-# 16 "./adc.h"
-void init_adc(void);
-unsigned short read_adc(unsigned char channel);
-# 13 "dashboard.c" 2
-
-# 1 "./ds1307.h" 1
-# 18 "./ds1307.h"
-void write_ds1307(unsigned char address1, unsigned char data);
-unsigned char read_ds1307(unsigned char address1);
-void init_ds1307(void);
-# 14 "dashboard.c" 2
-
-# 1 "./i2c.h" 1
+void init_timer0(void)
+{
 
 
 
 
-void init_i2c(void);
-void i2c_start(void);
-void i2c_rep_start(void);
-void i2c_stop(void);
-void i2c_write(unsigned char data);
-unsigned char i2c_read(void);
-# 15 "dashboard.c" 2
 
 
-extern char key;
-extern unsigned short adc_reg_val;
-int i = 0;
-unsigned char clock_reg[3];
-unsigned char time[9];
+ T08BIT = 1;
 
 
-
-void display_time(void) {
-    clcd_print(time, (0xC0 + (0)));
-}
-
- void get_time(void) {
-    clock_reg[0] = read_ds1307(0x02);
-    clock_reg[1] = read_ds1307(0x01);
-    clock_reg[2] = read_ds1307(0x00);
-
-    if (clock_reg[0] & 0x40) {
-        time[0] = '0' + ((clock_reg[0] >> 4) & 0x01);
-        time[1] = '0' + (clock_reg[0] & 0x0F);
-    } else {
-        time[0] = '0' + ((clock_reg[0] >> 4) & 0x03);
-        time[1] = '0' + (clock_reg[0] & 0x0F);
-    }
-    time[2] = ':';
-    time[3] = '0' + ((clock_reg[1] >> 4) & 0x0F);
-    time[4] = '0' + (clock_reg[1] & 0x0F);
-    time[5] = ':';
-    time[6] = '0' + ((clock_reg[2] >> 4) & 0x0F);
-    time[7] = '0' + (clock_reg[2] & 0x0F);
-    time[8] = '\0';
-}
-
-void dashboard() {
-
-    clcd_print("  TIME    EV  SP", (0x80 + (0)));
+ T0CS = 0;
 
 
-    char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
+ TMR0ON = 1;
 
 
-
-    clcd_print(events[i], (0xC0 + (10)));
-
-
-    if (key == 2) {
-        if (i < 6) {
-            i++;
-        }
-    }
-
-    if (key == 3 && i != 7) {
-        if (i > 1) {
-            i--;
-        }
-    }
-
-    if (key == 1) {
-        i = 7;
-    }
-
-    if (i == 7 && key == 2) {
-        i = 2;
-    }
+ PSA = 1;
 
 
-
-    if (adc_reg_val < 1000)
-    {
-        clcd_putch(((adc_reg_val / 100) + 48), (0xC0 + (14)));
-        clcd_putch(((adc_reg_val / 10 % 10) + 48), (0xC0 + (15)));
-    }
+ TMR0 = 6;
 
 
-    get_time();
-    display_time();
+ TMR0IF = 0;
 
+
+ TMR0IE = 1;
 }

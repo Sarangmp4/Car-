@@ -1,44 +1,25 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"31 ./clcd.h
-[; ;./clcd.h: 31: void init_clcd(void);
-[v _init_clcd `(v ~T0 @X0 0 ef ]
-"39 ./matrix_keypad.h
-[; ;./matrix_keypad.h: 39: void init_matrix_keypad(void);
-[v _init_matrix_keypad `(v ~T0 @X0 0 ef ]
-"16 ./adc.h
-[; ;./adc.h: 16: void init_adc(void);
-[v _init_adc `(v ~T0 @X0 0 ef ]
-"5 ./i2c.h
-[; ;./i2c.h: 5: void init_i2c(void);
-[v _init_i2c `(v ~T0 @X0 0 ef ]
-"20 ./ds1307.h
-[; ;./ds1307.h: 20: void init_ds1307(void);
-[v _init_ds1307 `(v ~T0 @X0 0 ef ]
-"36081 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
-[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36081: extern volatile __bit PEIE __attribute__((address(0x7F96)));
-[v _PEIE `Vb ~T0 @X0 0 e@32662 ]
-"4 ./timer0.h
-[; ;./timer0.h: 4: void init_timer0(void);
-[v _init_timer0 `(v ~T0 @X0 0 ef ]
-"35487 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
-[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 35487: extern volatile __bit GIE __attribute__((address(0x7F97)));
-[v _GIE `Vb ~T0 @X0 0 e@32663 ]
-[p mainexit ]
-"41 ./matrix_keypad.h
-[; ;./matrix_keypad.h: 41: unsigned char read_switches(unsigned char detection_type);
-[v _read_switches `(uc ~T0 @X0 0 ef1`uc ]
-"17 ./adc.h
-[; ;./adc.h: 17: unsigned short read_adc(unsigned char channel);
-[v _read_adc `(us ~T0 @X0 0 ef1`uc ]
-"14 ./main.h
-[; ;./main.h: 14: void dashboard();
-[v _dashboard `(v ~T0 @X0 0 e? ]
-"34 ./clcd.h
-[; ;./clcd.h: 34: void clcd_write(unsigned char bit_values, unsigned char control_bit);
-[v _clcd_write `(v ~T0 @X0 0 ef2`uc`uc ]
-"16 ./main.h
-[; ;./main.h: 16: void password(char key);
-[v _password `(v ~T0 @X0 0 ef1`uc ]
+"38964 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 38964: extern volatile __bit T08BIT __attribute__((address(0x7EAE)));
+[v _T08BIT `Vb ~T0 @X0 0 e@32430 ]
+"38970
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 38970: extern volatile __bit T0CS __attribute__((address(0x7EAD)));
+[v _T0CS `Vb ~T0 @X0 0 e@32429 ]
+"39102
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39102: extern volatile __bit TMR0ON __attribute__((address(0x7EAF)));
+[v _TMR0ON `Vb ~T0 @X0 0 e@32431 ]
+"36117
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36117: extern volatile __bit PSA __attribute__((address(0x7EAB)));
+[v _PSA `Vb ~T0 @X0 0 e@32427 ]
+"31712
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 31712: extern volatile unsigned short TMR0 __attribute__((address(0xFD6)));
+[v _TMR0 `Vus ~T0 @X0 0 e@4054 ]
+"39096
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39096: extern volatile __bit TMR0IF __attribute__((address(0x7F92)));
+[v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
+"39093
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39093: extern volatile __bit TMR0IE __attribute__((address(0x7F95)));
+[v _TMR0IE `Vb ~T0 @X0 0 e@32661 ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1278,115 +1259,36 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"18 main.c
-[; ;main.c: 18: void init_config(void) {
-[v _init_config `(v ~T0 @X0 1 ef ]
+"4 timer0.c
+[; ;timer0.c: 4: void init_timer0(void)
+[v _init_timer0 `(v ~T0 @X0 1 ef ]
+"5
+[; ;timer0.c: 5: {
 {
-[e :U _init_config ]
+[e :U _init_timer0 ]
 [f ]
-"19
-[; ;main.c: 19:     init_clcd();
-[e ( _init_clcd ..  ]
-"20
-[; ;main.c: 20:     init_matrix_keypad();
-[e ( _init_matrix_keypad ..  ]
+"12
+[; ;timer0.c: 12:  T08BIT = 1;
+[e = _T08BIT -> -> 1 `i `b ]
+"15
+[; ;timer0.c: 15:  T0CS = 0;
+[e = _T0CS -> -> 0 `i `b ]
+"18
+[; ;timer0.c: 18:  TMR0ON = 1;
+[e = _TMR0ON -> -> 1 `i `b ]
 "21
-[; ;main.c: 21:     init_adc();
-[e ( _init_adc ..  ]
-"22
-[; ;main.c: 22:     init_i2c();
-[e ( _init_i2c ..  ]
-"23
-[; ;main.c: 23:     init_ds1307();
-[e ( _init_ds1307 ..  ]
-"25
-[; ;main.c: 25:     PEIE = 1;
-[e = _PEIE -> -> 1 `i `b ]
+[; ;timer0.c: 21:  PSA = 1;
+[e = _PSA -> -> 1 `i `b ]
+"24
+[; ;timer0.c: 24:  TMR0 = 6;
+[e = _TMR0 -> -> 6 `i `us ]
 "27
-[; ;main.c: 27:  init_timer0();
-[e ( _init_timer0 ..  ]
-"29
-[; ;main.c: 29:  GIE = 1;
-[e = _GIE -> -> 1 `i `b ]
+[; ;timer0.c: 27:  TMR0IF = 0;
+[e = _TMR0IF -> -> 0 `i `b ]
 "30
-[; ;main.c: 30: }
-[e :UE 1088 ]
-}
+[; ;timer0.c: 30:  TMR0IE = 1;
+[e = _TMR0IE -> -> 1 `i `b ]
 "31
-[; ;main.c: 31: char key;
-[v _key `uc ~T0 @X0 1 e ]
-"32
-[; ;main.c: 32: unsigned short adc_reg_val;
-[v _adc_reg_val `us ~T0 @X0 1 e ]
-[v $root$_main `(v ~T0 @X0 0 e ]
-"34
-[; ;main.c: 34: void main(void) {
-[v _main `(v ~T0 @X0 1 ef ]
-{
-[e :U _main ]
-[f ]
-"35
-[; ;main.c: 35:     init_config();
-[e ( _init_config ..  ]
-"37
-[; ;main.c: 37:     char main_f = 0, menu_f = 0;
-[v _main_f `uc ~T0 @X0 1 a ]
-[e = _main_f -> -> 0 `i `uc ]
-[v _menu_f `uc ~T0 @X0 1 a ]
-[e = _menu_f -> -> 0 `i `uc ]
-"39
-[; ;main.c: 39:     while (1) {
-[e :U 1091 ]
-{
-"40
-[; ;main.c: 40:         key = read_switches(1);
-[e = _key -> ( _read_switches (1 -> -> 1 `i `uc `uc ]
-"41
-[; ;main.c: 41:         adc_reg_val = read_adc(0x04);
-[e = _adc_reg_val ( _read_adc (1 -> -> 4 `i `uc ]
-"43
-[; ;main.c: 43:         if (main_f == 0) {
-[e $ ! == -> _main_f `i -> 0 `i 1093  ]
-{
-"44
-[; ;main.c: 44:             dashboard();
-[e ( _dashboard ..  ]
-"45
-[; ;main.c: 45:             if (key == 5) {
-[e $ ! == -> _key `i -> 5 `i 1094  ]
-{
-"46
-[; ;main.c: 46:                 clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
-"47
-[; ;main.c: 47:                 main_f = 1;
-[e = _main_f -> -> 1 `i `uc ]
-"48
-[; ;main.c: 48:             }
-}
-[e :U 1094 ]
-"49
-[; ;main.c: 49:         } else if (main_f == 1) {
-}
-[e $U 1095  ]
-[e :U 1093 ]
-[e $ ! == -> _main_f `i -> 1 `i 1096  ]
-{
-"50
-[; ;main.c: 50:             password(key);
-[e ( _password (1 _key ]
-"52
-[; ;main.c: 52:         }
-}
-[e :U 1096 ]
-[e :U 1095 ]
-"53
-[; ;main.c: 53:     }
-}
-[e :U 1090 ]
-[e $U 1091  ]
-[e :U 1092 ]
-"54
-[; ;main.c: 54: }
-[e :UE 1089 ]
+[; ;timer0.c: 31: }
+[e :UE 1088 ]
 }

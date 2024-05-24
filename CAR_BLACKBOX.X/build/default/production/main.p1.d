@@ -5,4 +5,5 @@ clcd.h  \
 matrix_keypad.h  \
 adc.h  \
 ds1307.h  \
-i2c.h 
+i2c.h  \
+timer0.h 

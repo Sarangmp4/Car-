@@ -11,61 +11,89 @@
 #include "matrix_keypad.h"
 #include "clcd.h"
 #include "adc.h"
+#include <string.h>
+#include "isr.h"
 
-int i=0;
-char chance=3;
-int my_strcmp(char *one, char *two)
-{   
-    int i=0,flag=0;
-    while(one[i])
-    {
-        if(one[i] != two[i])
-        {
-            flag= one[i]-two[i];
+int i = 0;
+char chance = 3; //variable for chance
+extern char tick_count;
+
+int my_strcmp(char *one, char *two) {
+    int k = 0, last = 0;
+    while (one[k] != '\0') {
+        if (one[k] != two[k]) {
+            last = one[k] - two[k];
             break;
         }
+        k++;
     }
-    return flag;
+    return last;
 }
-void password(char key)
-{
+char pass[5] = "0000";
+char temp_password[5];
+int delay = 0;
+
+void password(char key) {
+    int flag = 0;
     clcd_print(" Enter Password ", LINE1(0));
-    char pass[4]="0000";
-    char temp_password[4];
-    
+
+
+    //providing non blocking delay for blink the '-'
+    if (delay++ < 500) {
+        clcd_putch('_', LINE2(i));
+    } else if (delay > 500 && delay < 1000) {
+        clcd_putch(' ', LINE2(i));
+    } else
+        delay = 0;
+
     if (key == MK_SW5) {
-            temp_password[i] = '0';
-            clcd_putch('*', LINE2(i)); //printing star for identify
-            i++;
-            
-        } else if (key == MK_SW6) {
-            temp_password[i] = '1';
-            clcd_putch('*', LINE2(i));
-            i++;
-        }
-        if (i == 4) {
-            temp_password[i] = '\0'; 
-        }
-    if(my_strcmp(pass,temp_password)==0)
-    {
-        clcd_print("SUCCESS",LINE2(2));
+        temp_password[i] = '0';
+        clcd_putch('*', LINE2(i)); //printing star for identify
+        i++;
+
+    } else if (key == MK_SW6) {
+        temp_password[i] = '1';
+        clcd_putch('*', LINE2(i));
+        i++;
     }
-    else
-    {
-        chance--;   //decrementing chances
-        i=0; //for reattempt of the password
-        if(chance==0)
-        {
-           clcd_print("Attempt Over",LINE1(0));
-           clcd_print("Verification failed",LINE2(0));   
+
+
+    if (i == 4) {
+        temp_password[i] = '\0';
+
+        if (my_strcmp(pass, temp_password) == 0) {
+
+            clcd_print("               ", LINE1(0));
+            clcd_print("      SUCCESS     ", LINE2(0));
+            while (1);
+
+            /*password not matching*/
+        } else {
+            chance--; //decrementing chances
+            i = 0; //for reattempt of the password
+            if (chance == 0) {
+                clcd_print(" Attempt Failed", LINE1(0));
+                clcd_putch('0' + (tick_count / 100), LINE2(5));
+                clcd_putch('0' + (tick_count / 10) % 10, LINE2(6));
+                clcd_putch('0' + (tick_count % 10), LINE2(7));
+                flag = 1;
+            } else {
+
+                clcd_print("   Try Again    ", LINE1(0));
+                clcd_putch('0' + chance, LINE2(0));
+                clcd_print(" Chances Left ", LINE2(1));
+                for (unsigned long long int wait = 500000; wait--;);
+                CLEAR_DISP_SCREEN;
+            }
         }
-        else
-        {
-            clcd_print("   Try Again    ", LINE1(0));
-            clcd_putch('0' + chance, LINE2(0));
-            clcd_print(" Chances Left ", LINE2(1));
-        }
-        
+
     }
-         
+
+
 }
+/*clcd_putch('0' + (tick_count / 100), LINE2(5));
+clcd_putch('0' + (tick_count / 10) % 10, LINE2(6));
+clcd_putch('0' + (tick_count % 10), LINE2(7));
+
+ */
+

@@ -48,6 +48,9 @@ void display_time(void) {
 }
  
 void dashboard() {
+    /*printing the headings*/
+    clcd_print("  TIME    EV  SP", LINE1(0));
+    
     /*Array of pointer for storing the gear and event names*/
     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
 
