@@ -8,7 +8,10 @@
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/dashboard.c</file>
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/isr.c</file>
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/main.c</file>
+            <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/external_eeprom.c</file>
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/i2c.c</file>
+            <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/menu.c</file>
+            <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/clcd.h</file>
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/password.c</file>
             <file>file:/C:/Users/sarang%20mp/Desktop/Car%20Blackbox/CAR_BLACKBOX.X/matrix_keypad.c</file>
         </group>

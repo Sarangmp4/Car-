@@ -1,7 +1,7 @@
 #include <xc.h>
 #include "main.h"
 
-char tick_count=190;
+unsigned char tick_count=180;
 
 void __interrupt() isr(void)
 {
@@ -13,8 +13,10 @@ void __interrupt() isr(void)
 
 		if (count++ == 20000) // 1 second
 		{
+            
 			count = 0;
             tick_count--;
+            
             
 		}
 		TMR0IF = 0;

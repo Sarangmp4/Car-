@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "menu.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
+# 1 "menu.c" 2
 
 
 
@@ -17921,7 +17921,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
+# 9 "menu.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17934,123 +17934,10 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 10 "main.c" 2
-
-# 1 "./clcd.h" 1
-# 31 "./clcd.h"
-void init_clcd(void);
-void clcd_print(const unsigned char *data, unsigned char addr);
-void clcd_putch(const unsigned char data, unsigned char addr);
-void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 11 "main.c" 2
-
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 12 "main.c" 2
-
-# 1 "./adc.h" 1
-# 16 "./adc.h"
-void init_adc(void);
-unsigned short read_adc(unsigned char channel);
-# 13 "main.c" 2
-
-# 1 "./ds1307.h" 1
-# 18 "./ds1307.h"
-void write_ds1307(unsigned char address1, unsigned char data);
-unsigned char read_ds1307(unsigned char address1);
-void init_ds1307(void);
-# 14 "main.c" 2
-
-# 1 "./i2c.h" 1
+# 10 "menu.c" 2
 
 
-
-
-void init_i2c(void);
-void i2c_start(void);
-void i2c_rep_start(void);
-void i2c_stop(void);
-void i2c_write(unsigned char data);
-unsigned char i2c_read(void);
-# 15 "main.c" 2
-
-# 1 "./timer0.h" 1
-
-
-
-void init_timer0(void);
-# 16 "main.c" 2
-
-# 1 "./external_eeprom_2.h" 1
-
-
-
-
-
-
-
-
-void write_external_eeprom(unsigned char , unsigned char );
-unsigned char read_external_eeprom(unsigned char );
-# 17 "main.c" 2
-
-
-char pass[5];
-
-void init_config(void) {
-    init_clcd();
-    init_matrix_keypad();
-    init_adc();
-    init_i2c();
-    init_ds1307();
- init_timer0();
-    write_external_eeprom(200,'0');
-    write_external_eeprom(201,'0');
-    write_external_eeprom(202,'0');
-    write_external_eeprom(203,'0');
-
-
-for(int j=0; j<4; j++)
+void menu(char key)
 {
-    pass[j] = read_external_eeprom(j);
-}
 
-
-}
-char key;
-unsigned short adc_reg_val;
-extern char flag;
-
-void main(void) {
-    init_config();
-
-    char main_f = 0, menu_f = 0;
-
-    while (1) {
-        key = read_switches(1);
-        adc_reg_val = read_adc(0x04);
-
-        if (main_f == 0) {
-            dashboard();
-            if (key == 5) {
-                clcd_write(0x01, 0);
-                main_f = 1;
-            }
-        } else if (main_f == 1) {
-            password(key);
-            if(flag==1)
-            {
-                clcd_write(0x01, 0);
-                main_f=2;
-            }
-        }
-        else if(main_f == 2)
-        {
-            menu(key);
-            clcd_print("Menu Entered", (0x80 + (0)));
-        }
-    }
 }

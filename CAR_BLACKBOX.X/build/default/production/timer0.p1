@@ -17,9 +17,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "39096
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39096: extern volatile __bit TMR0IF __attribute__((address(0x7F92)));
 [v _TMR0IF `Vb ~T0 @X0 0 e@32658 ]
-"39093
-[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39093: extern volatile __bit TMR0IE __attribute__((address(0x7F95)));
-[v _TMR0IE `Vb ~T0 @X0 0 e@32661 ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1285,10 +1282,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "27
 [; ;timer0.c: 27:  TMR0IF = 0;
 [e = _TMR0IF -> -> 0 `i `b ]
-"30
-[; ;timer0.c: 30:  TMR0IE = 1;
-[e = _TMR0IE -> -> 1 `i `b ]
-"31
-[; ;timer0.c: 31: }
+"29
+[; ;timer0.c: 29: }
 [e :UE 1088 ]
 }

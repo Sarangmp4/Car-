@@ -17946,6 +17946,4 @@ void init_timer0(void)
 
  TMR0IF = 0;
 
-
- TMR0IE = 1;
 }

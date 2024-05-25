@@ -1247,10 +1247,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "4 isr.c
-[; ;isr.c: 4: char tick_count=190;
+[; ;isr.c: 4: unsigned char tick_count=180;
 [v _tick_count `uc ~T0 @X0 1 e ]
 [i _tick_count
--> -> 190 `i `uc
+-> -> 180 `i `uc
 ]
 [v $root$_isr `(v ~T0 @X0 0 e ]
 "6
@@ -1279,24 +1279,24 @@ Version 4.0 HI-TECH Software Intermediate Code
 "15
 [; ;isr.c: 15:   {
 {
-"16
-[; ;isr.c: 16:    count = 0;
-[e = F10465 -> -> -> 0 `i `l `ul ]
 "17
-[; ;isr.c: 17:             tick_count--;
+[; ;isr.c: 17:    count = 0;
+[e = F10465 -> -> -> 0 `i `l `ul ]
+"18
+[; ;isr.c: 18:             tick_count--;
 [e -- _tick_count -> -> 1 `i `uc ]
-"19
-[; ;isr.c: 19:   }
+"21
+[; ;isr.c: 21:   }
 }
 [e :U 1090 ]
-"20
-[; ;isr.c: 20:   TMR0IF = 0;
+"22
+[; ;isr.c: 22:   TMR0IF = 0;
 [e = _TMR0IF -> -> 0 `i `b ]
-"21
-[; ;isr.c: 21:  }
+"23
+[; ;isr.c: 23:  }
 }
 [e :U 1089 ]
-"22
-[; ;isr.c: 22: }
+"24
+[; ;isr.c: 24: }
 [e :UE 1088 ]
 }

@@ -11,11 +11,10 @@
 #include "matrix_keypad.h"
 #include "clcd.h"
 #include "adc.h"
-#include <string.h>
 #include "isr.h"
 
 int i = 0;
-char chance = 3; //variable for chance
+char chance = 2; //variable for chance
 extern char tick_count;
 
 int my_strcmp(char *one, char *two) {
@@ -29,14 +28,15 @@ int my_strcmp(char *one, char *two) {
     }
     return last;
 }
-char pass[5] = "0000";
-char temp_password[5];
+
 int delay = 0;
+char flag = 0;
+char temp_password[5];
 
+extern char pass[5];
 void password(char key) {
-    int flag = 0;
-    clcd_print(" Enter Password ", LINE1(0));
 
+    clcd_print(" Enter Password ", LINE1(0));
 
     //providing non blocking delay for blink the '-'
     if (delay++ < 500) {
@@ -60,30 +60,47 @@ void password(char key) {
 
     if (i == 4) {
         temp_password[i] = '\0';
-
-        if (my_strcmp(pass, temp_password) == 0) {
+        if (my_strcmp(pass,temp_password) == 0) {
 
             clcd_print("               ", LINE1(0));
             clcd_print("      SUCCESS     ", LINE2(0));
-            while (1);
+            flag = 1;
+            return;
 
-            /*password not matching*/
+
         } else {
-            chance--; //decrementing chances
-            i = 0; //for reattempt of the password
+
             if (chance == 0) {
-                clcd_print(" Attempt Failed", LINE1(0));
+                /* Enabling timer0 overflow interrupt */
+
+                TMR0IE = 1;
+                GIE = 1;
+                PEIE = 1;
+
+                clcd_print(" System Blocked", LINE1(0));
+                clcd_print("     ", LINE2(0));
                 clcd_putch('0' + (tick_count / 100), LINE2(5));
                 clcd_putch('0' + (tick_count / 10) % 10, LINE2(6));
                 clcd_putch('0' + (tick_count % 10), LINE2(7));
-                flag = 1;
+                for (unsigned long int delay = 200000; delay--;);
+
+                if (tick_count == 0) {
+                    chance = 2;
+                    i = 0;
+                    CLEAR_DISP_SCREEN;
+                }
+
             } else {
 
                 clcd_print("   Try Again    ", LINE1(0));
                 clcd_putch('0' + chance, LINE2(0));
                 clcd_print(" Chances Left ", LINE2(1));
-                for (unsigned long long int wait = 500000; wait--;);
+                for (unsigned long long int wait = 400000; wait--;);
+                chance--;
+                i = 0;
                 CLEAR_DISP_SCREEN;
+
+
             }
         }
 
@@ -91,9 +108,5 @@ void password(char key) {
 
 
 }
-/*clcd_putch('0' + (tick_count / 100), LINE2(5));
-clcd_putch('0' + (tick_count / 10) % 10, LINE2(6));
-clcd_putch('0' + (tick_count % 10), LINE2(7));
 
- */
 

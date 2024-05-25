@@ -17957,71 +17957,12 @@ void init_adc(void);
 unsigned short read_adc(unsigned char channel);
 # 13 "password.c" 2
 
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\c99\\string.h" 1 3
-# 25 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\c99\\string.h" 3
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\c99\\bits/alltypes.h" 1 3
-# 421 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\c99\\bits/alltypes.h" 3
-typedef struct __locale_struct * locale_t;
-# 26 "C:\\Program Files\\Microchip\\xc8\\v2.46\\pic\\include\\c99\\string.h" 2 3
-
-void *memcpy (void *restrict, const void *restrict, size_t);
-void *memmove (void *, const void *, size_t);
-void *memset (void *, int, size_t);
-int memcmp (const void *, const void *, size_t);
-void *memchr (const void *, int, size_t);
-
-char *strcpy (char *restrict, const char *restrict);
-char *strncpy (char *restrict, const char *restrict, size_t);
-
-char *strcat (char *restrict, const char *restrict);
-char *strncat (char *restrict, const char *restrict, size_t);
-
-int strcmp (const char *, const char *);
-int strncmp (const char *, const char *, size_t);
-
-int strcoll (const char *, const char *);
-size_t strxfrm (char *restrict, const char *restrict, size_t);
-
-char *strchr (const char *, int);
-char *strrchr (const char *, int);
-
-size_t strcspn (const char *, const char *);
-size_t strspn (const char *, const char *);
-char *strpbrk (const char *, const char *);
-char *strstr (const char *, const char *);
-char *strtok (char *restrict, const char *restrict);
-
-size_t strlen (const char *);
-
-char *strerror (int);
-
-
-
-
-char *strtok_r (char *restrict, const char *restrict, char **restrict);
-int strerror_r (int, char *, size_t);
-char *stpcpy(char *restrict, const char *restrict);
-char *stpncpy(char *restrict, const char *restrict, size_t);
-size_t strnlen (const char *, size_t);
-char *strdup (const char *);
-char *strndup (const char *, size_t);
-char *strsignal(int);
-char *strerror_l (int, locale_t);
-int strcoll_l (const char *, const char *, locale_t);
-size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
-
-
-
-
-void *memccpy (void *restrict, const void *restrict, int, size_t);
-# 14 "password.c" 2
-
 # 1 "./isr.h" 1
-# 15 "password.c" 2
+# 14 "password.c" 2
 
 
 int i = 0;
-char chance = 3;
+char chance = 2;
 extern char tick_count;
 
 int my_strcmp(char *one, char *two) {
@@ -18035,14 +17976,15 @@ int my_strcmp(char *one, char *two) {
     }
     return last;
 }
-char pass[5] = "0000";
-char temp_password[5];
+
 int delay = 0;
+char flag = 0;
+char temp_password[5];
 
+extern char pass[5];
 void password(char key) {
-    int flag = 0;
-    clcd_print(" Enter Password ", (0x80 + (0)));
 
+    clcd_print(" Enter Password ", (0x80 + (0)));
 
 
     if (delay++ < 500) {
@@ -18057,8 +17999,7 @@ void password(char key) {
         clcd_putch('*', (0xC0 + (i)));
         i++;
 
-    }
-    else if (key == 6) {
+    } else if (key == 6) {
         temp_password[i] = '1';
         clcd_putch('*', (0xC0 + (i)));
         i++;
@@ -18067,33 +18008,47 @@ void password(char key) {
 
     if (i == 4) {
         temp_password[i] = '\0';
-
-        if (my_strcmp(pass, temp_password) == 0)
-        {
+        if (my_strcmp(pass,temp_password) == 0) {
 
             clcd_print("               ", (0x80 + (0)));
             clcd_print("      SUCCESS     ", (0xC0 + (0)));
-            while (1);
+            flag = 1;
+            return;
 
 
-        }
-        else {
-            chance--;
-            i = 0;
+        } else {
+
             if (chance == 0) {
-                clcd_print(" Attempt Failed", (0x80 + (0)));
+
+
+                TMR0IE = 1;
+                GIE = 1;
+                PEIE = 1;
+
+                clcd_print(" System Blocked", (0x80 + (0)));
+                clcd_print("     ", (0xC0 + (0)));
                 clcd_putch('0' + (tick_count / 100), (0xC0 + (5)));
-clcd_putch('0' + (tick_count / 10) % 10, (0xC0 + (6)));
-clcd_putch('0' + (tick_count % 10), (0xC0 + (7)));
-                flag=1;
-            }
-            else {
+                clcd_putch('0' + (tick_count / 10) % 10, (0xC0 + (6)));
+                clcd_putch('0' + (tick_count % 10), (0xC0 + (7)));
+                for (unsigned long int delay = 200000; delay--;);
+
+                if (tick_count == 0) {
+                    chance = 2;
+                    i = 0;
+                    clcd_write(0x01, 0);
+                }
+
+            } else {
 
                 clcd_print("   Try Again    ", (0x80 + (0)));
                 clcd_putch('0' + chance, (0xC0 + (0)));
                 clcd_print(" Chances Left ", (0xC0 + (1)));
-                for (unsigned long long int wait = 500000; wait--;);
+                for (unsigned long long int wait = 400000; wait--;);
+                chance--;
+                i = 0;
                 clcd_write(0x01, 0);
+
+
             }
         }
 

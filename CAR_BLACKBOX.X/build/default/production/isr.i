@@ -17927,7 +17927,7 @@ void settime(char key);
 void change_pass(char key);
 # 3 "isr.c" 2
 
-char tick_count=190;
+unsigned char tick_count=180;
 
 void __attribute__((picinterrupt(("")))) isr(void)
 {
@@ -17939,8 +17939,10 @@ void __attribute__((picinterrupt(("")))) isr(void)
 
   if (count++ == 20000)
   {
+
    count = 0;
             tick_count--;
+
 
   }
   TMR0IF = 0;

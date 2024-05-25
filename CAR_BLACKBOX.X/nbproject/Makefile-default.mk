@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c external_eeprom.c isr.c timer0.c
+SOURCEFILES_QUOTED_IF_SPACED=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c external_eeprom.c isr.c timer0.c menu.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1 ${OBJECTDIR}/external_eeprom.p1 ${OBJECTDIR}/isr.p1 ${OBJECTDIR}/timer0.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/adc.p1.d ${OBJECTDIR}/clcd.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/matrix_keypad.p1.d ${OBJECTDIR}/dashboard.p1.d ${OBJECTDIR}/password.p1.d ${OBJECTDIR}/ds1307.p1.d ${OBJECTDIR}/i2c.p1.d ${OBJECTDIR}/external_eeprom.p1.d ${OBJECTDIR}/isr.p1.d ${OBJECTDIR}/timer0.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1 ${OBJECTDIR}/external_eeprom.p1 ${OBJECTDIR}/isr.p1 ${OBJECTDIR}/timer0.p1 ${OBJECTDIR}/menu.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/adc.p1.d ${OBJECTDIR}/clcd.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/matrix_keypad.p1.d ${OBJECTDIR}/dashboard.p1.d ${OBJECTDIR}/password.p1.d ${OBJECTDIR}/ds1307.p1.d ${OBJECTDIR}/i2c.p1.d ${OBJECTDIR}/external_eeprom.p1.d ${OBJECTDIR}/isr.p1.d ${OBJECTDIR}/timer0.p1.d ${OBJECTDIR}/menu.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1 ${OBJECTDIR}/external_eeprom.p1 ${OBJECTDIR}/isr.p1 ${OBJECTDIR}/timer0.p1
+OBJECTFILES=${OBJECTDIR}/adc.p1 ${OBJECTDIR}/clcd.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/matrix_keypad.p1 ${OBJECTDIR}/dashboard.p1 ${OBJECTDIR}/password.p1 ${OBJECTDIR}/ds1307.p1 ${OBJECTDIR}/i2c.p1 ${OBJECTDIR}/external_eeprom.p1 ${OBJECTDIR}/isr.p1 ${OBJECTDIR}/timer0.p1 ${OBJECTDIR}/menu.p1
 
 # Source Files
-SOURCEFILES=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c external_eeprom.c isr.c timer0.c
+SOURCEFILES=adc.c clcd.c main.c matrix_keypad.c dashboard.c password.c ds1307.c i2c.c external_eeprom.c isr.c timer0.c menu.c
 
 
 
@@ -182,6 +182,14 @@ ${OBJECTDIR}/timer0.p1: timer0.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/timer0.d ${OBJECTDIR}/timer0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/timer0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/menu.p1: menu.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/menu.p1.d 
+	@${RM} ${OBJECTDIR}/menu.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/menu.p1 menu.c 
+	@-${MV} ${OBJECTDIR}/menu.d ${OBJECTDIR}/menu.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/adc.p1: adc.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -270,6 +278,14 @@ ${OBJECTDIR}/timer0.p1: timer0.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/timer0.p1 timer0.c 
 	@-${MV} ${OBJECTDIR}/timer0.d ${OBJECTDIR}/timer0.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/timer0.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/menu.p1: menu.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/menu.p1.d 
+	@${RM} ${OBJECTDIR}/menu.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp=${DFP_DIR}/xc8  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx032 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/menu.p1 menu.c 
+	@-${MV} ${OBJECTDIR}/menu.d ${OBJECTDIR}/menu.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/menu.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

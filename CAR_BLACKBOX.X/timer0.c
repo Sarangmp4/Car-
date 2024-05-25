@@ -26,6 +26,4 @@ void init_timer0(void)
 	/* Clearing timer0 overflow interrupt flag bit */
 	TMR0IF = 0;
 
-	/* Enabling timer0 overflow interrupt */
-	TMR0IE = 1;
 }

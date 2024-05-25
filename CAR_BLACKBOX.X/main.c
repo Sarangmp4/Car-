@@ -14,6 +14,9 @@
 #include "ds1307.h"
 #include "i2c.h"
 #include "timer0.h"
+#include "external_eeprom_2.h"
+
+char pass[5];
 
 void init_config(void) {
     init_clcd();
@@ -21,15 +24,23 @@ void init_config(void) {
     init_adc();
     init_i2c();
     init_ds1307();
-    
-    PEIE = 1;
-
 	init_timer0();
+    write_external_eeprom(200,'0');
+    write_external_eeprom(201,'0');
+    write_external_eeprom(202,'0');
+    write_external_eeprom(203,'0');
 
-	GIE = 1;
+
+for(int j=0; j<4; j++) 
+{
+    pass[j] = read_external_eeprom(j);
+}
+
+	
 }
 char key;
 unsigned short adc_reg_val;
+extern char flag;
 
 void main(void) {
     init_config();
@@ -48,7 +59,16 @@ void main(void) {
             }
         } else if (main_f == PASSWORD) {
             password(key);
-            
+            if(flag==1)
+            {
+                CLEAR_DISP_SCREEN;
+                main_f=2;
+            }
+        }
+        else if(main_f == MENU)
+        {
+            menu(key);
+            clcd_print("Menu Entered", LINE1(0));
         }
     }
 }
