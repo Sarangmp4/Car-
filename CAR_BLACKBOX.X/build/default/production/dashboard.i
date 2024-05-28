@@ -17980,11 +17980,12 @@ unsigned char i2c_read(void);
 
 extern char key;
 extern unsigned short adc_reg_val;
-int i = 0;
+char i = 0;
 unsigned char clock_reg[3];
 unsigned char time[9];
 
 
+    char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
 
 void display_time(void) {
     clcd_print(time, (0xC0 + (0)));
@@ -18016,40 +18017,40 @@ void dashboard() {
     clcd_print("  TIME    EV  SP", (0x80 + (0)));
 
 
-    char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
 
 
 
     clcd_print(events[i], (0xC0 + (10)));
 
 
-    if (key == 2) {
-        if (i < 6) {
+    if (key == 2 && i < 6) {
             i++;
-        }
+            store_event();
+
     }
 
     if (key == 3 && i != 7) {
         if (i > 1) {
             i--;
+            store_event();
         }
     }
 
-    if (key == 1) {
+    if (key == 1 ) {
         i = 7;
+        store_event();
     }
 
     if (i == 7 && key == 2) {
         i = 2;
+        store_event();
     }
 
 
 
-    if (adc_reg_val < 1000)
-    {
-        clcd_putch(((adc_reg_val / 100) + 48), (0xC0 + (14)));
-        clcd_putch(((adc_reg_val / 10 % 10) + 48), (0xC0 + (15)));
-    }
+        clcd_putch(((adc_reg_val / 10) + 48), (0xC0 + (14)));
+        clcd_putch(((adc_reg_val % 10) + 48), (0xC0 + (15)));
+
 
 
     get_time();

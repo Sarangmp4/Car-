@@ -15,6 +15,8 @@
 [v ___fleq __fleq `(b  1 e 0 0 ]
 "62 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\float.c
 [v ___ftpack __ftpack `(f  1 e 4 0 ]
+"43 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\fltol.c
+[v ___fltol __fltol `(l  1 e 4 0 ]
 "86 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 4 0 ]
 "54 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\ftdiv.c
@@ -39,6 +41,8 @@
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\xxtofl.c
+[v ___xxtofl __xxtofl `(d  1 e 4 0 ]
 "5 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\clcd.c
 [v _clcd_write clcd_write `(v  1 e 1 0 ]
 "28
@@ -47,11 +51,11 @@
 [v _clcd_print clcd_print `(v  1 e 1 0 ]
 "68
 [v _clcd_putch clcd_putch `(v  1 e 1 0 ]
-"25 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
+"26 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
 [v _display_time display_time `(v  1 e 1 0 ]
-"29
+"30
 [v _get_time get_time `(v  1 e 1 0 ]
-"50
+"51
 [v _dashboard dashboard `(v  1 e 1 0 ]
 "13 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\ds1307.c
 [v _init_ds1307 init_ds1307 `(v  1 e 1 0 ]
@@ -85,7 +89,7 @@
 [v _isr isr `IIH(v  1 e 1 0 ]
 "21 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\main.c
 [v _init_config init_config `(v  1 e 1 0 ]
-"45
+"53
 [v _main main `(v  1 e 1 0 ]
 "5 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\matrix_keypad.c
 [v _init_matrix_keypad init_matrix_keypad `(v  1 e 1 0 ]
@@ -93,17 +97,21 @@
 [v _scan_key scan_key `(uc  1 e 1 0 ]
 "89
 [v _read_switches read_switches `(uc  1 e 1 0 ]
-"12 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\menu.c
+"20 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\menu.c
 [v _menu menu `(v  1 e 1 0 ]
-"20 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\password.c
+"25 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\password.c
 [v _my_strcmp my_strcmp `(i  1 e 2 0 ]
 "37
 [v _password password `(v  1 e 1 0 ]
+"22 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\store_event.c
+[v _store_event store_event `(v  1 e 1 0 ]
 "4 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\timer0.c
 [v _init_timer0 init_timer0 `(v  1 e 1 0 ]
+"24 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\view_log.c
+[v _view_log view_log `(v  1 e 1 0 ]
 "25714 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [v _PORTB PORTB `VEuc  1 e 1 @3969 ]
-[s S142 . 1 `uc 1 RB0 1 0 :1:0 
+[s S146 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -113,7 +121,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "25758
-[s S151 . 1 `uc 1 INT0 1 0 :1:0 
+[s S155 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CANRX 1 0 :1:3 
@@ -122,7 +130,7 @@
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S160 . 1 `uc 1 AN10 1 0 :1:0 
+[s S164 . 1 `uc 1 AN10 1 0 :1:0 
 `uc 1 AN8 1 0 :1:1 
 `uc 1 CANTX 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -131,13 +139,13 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S169 . 1 `uc 1 FLT0 1 0 :1:0 
+[s S173 . 1 `uc 1 FLT0 1 0 :1:0 
 ]
-[s S171 . 1 `uc 1 . 1 0 :3:0 
+[s S175 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S174 . 1 `S142 1 . 1 0 `S151 1 . 1 0 `S160 1 . 1 0 `S169 1 . 1 0 `S171 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES174  1 e 1 @3969 ]
+[u S178 . 1 `S146 1 . 1 0 `S155 1 . 1 0 `S164 1 . 1 0 `S173 1 . 1 0 `S175 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES178  1 e 1 @3969 ]
 "26058
 [v _PORTD PORTD `VEuc  1 e 1 @3971 ]
 "27059
@@ -240,34 +248,72 @@
 [v _VCFG0 VCFG0 `VEb  1 e 0 @32268 ]
 "40356
 [v _VCFG1 VCFG1 `VEb  1 e 0 @32269 ]
-"20 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
+"19 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
+[v _i i `uc  1 e 1 0 ]
+"20
 [v _clock_reg clock_reg `[3]uc  1 e 3 0 ]
 "21
 [v _time time `[9]uc  1 e 9 0 ]
+"24
+[v _events events `[8]*.31uc  1 e 8 0 ]
 "4 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\isr.c
 [v _tick_count tick_count `uc  1 e 1 0 ]
 "19 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\main.c
 [v _pass pass `[5]uc  1 e 5 0 ]
-"41
+"44
 [v _key key `uc  1 e 1 0 ]
-"42
+"45
+[v _pre_key pre_key `uc  1 e 1 0 ]
+"46
 [v _adc_reg_val adc_reg_val `us  1 e 2 0 ]
+"48
+[v _key_time key_time `i  1 e 2 0 ]
+"14 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\menu.c
+[v _logs logs `[5]*.31uc  1 e 5 0 ]
+"15
+[v _main_f main_f `uc  1 e 1 0 ]
+[v _menu_f menu_f `uc  1 e 1 0 ]
+"17
+[v _star_flag star_flag `uc  1 e 1 0 ]
+"18
+[v _log_index log_index `uc  1 e 1 0 ]
 "16 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\password.c
-[v _i i `i  1 e 2 0 ]
+[v _index index `i  1 e 2 0 ]
 "17
 [v _chance chance `uc  1 e 1 0 ]
-"32
+"20
 [v _delay delay `i  1 e 2 0 ]
-"33
+"21
 [v _flag flag `uc  1 e 1 0 ]
-"34
+"22
 [v _temp_password temp_password `[5]uc  1 e 5 0 ]
-"45 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\main.c
+"14 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\store_event.c
+[v _store store `[11]uc  1 e 11 0 ]
+"18
+[v _lap lap `uc  1 e 1 0 ]
+"18 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\view_log.c
+[v _view_array view_array `[11]uc  1 e 11 0 ]
+"20
+[v _overflow overflow `uc  1 e 1 0 ]
+"22
+[v _start_index start_index `uc  1 e 1 0 ]
+[v _apend_index apend_index `uc  1 e 1 0 ]
+"53 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"48
-[v main@main_f main_f `uc  1 a 1 31 ]
-"74
+"134
+} 0
+"24 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\view_log.c
+[v _view_log view_log `(v  1 e 1 0 ]
+{
+[v view_log@key key `uc  1 a 1 wreg ]
+"59
+[v view_log@j j `i  1 a 2 22 ]
+"24
+[v view_log@key key `uc  1 a 1 wreg ]
+"27
+[v view_log@key key `uc  1 a 1 21 ]
+"90
 } 0
 "89 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\matrix_keypad.c
 [v _read_switches read_switches `(uc  1 e 1 0 ]
@@ -312,16 +358,16 @@
 [v password@key key `uc  1 a 1 30 ]
 "110
 } 0
-"20
+"25
 [v _my_strcmp my_strcmp `(i  1 e 2 0 ]
 {
-"21
+"26
 [v my_strcmp@k k `i  1 a 2 6 ]
 [v my_strcmp@last last `i  1 a 2 4 ]
-"20
+"25
 [v my_strcmp@one one `*.30uc  1 p 1 0 ]
 [v my_strcmp@two two `*.30uc  1 p 1 1 ]
-"30
+"35
 } 0
 "7 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
@@ -347,32 +393,23 @@
 [v ___awdiv@divisor divisor `i  1 p 2 2 ]
 "41
 } 0
-"12 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\menu.c
+"20 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\menu.c
 [v _menu menu `(v  1 e 1 0 ]
 {
-"15
+[v menu@key key `uc  1 a 1 wreg ]
+[v menu@key key `uc  1 a 1 wreg ]
+"22
+[v menu@key key `uc  1 a 1 17 ]
+"67
 } 0
 "21 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\main.c
 [v _init_config init_config `(v  1 e 1 0 ]
 {
-"34
+"36
 [v init_config@j j `i  1 a 2 5 ]
-"40
+"43
 } 0
-"14 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\external_eeprom.c
-[v _write_external_eeprom write_external_eeprom `(v  1 e 1 0 ]
-{
-[v write_external_eeprom@address address `uc  1 a 1 wreg ]
-"21
-[v write_external_eeprom@i i `i  1 a 2 2 ]
-"14
-[v write_external_eeprom@address address `uc  1 a 1 wreg ]
-[v write_external_eeprom@data data `uc  1 p 1 1 ]
-"16
-[v write_external_eeprom@address address `uc  1 a 1 4 ]
-"22
-} 0
-"24
+"24 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\external_eeprom.c
 [v _read_external_eeprom read_external_eeprom `(uc  1 e 1 0 ]
 {
 [v read_external_eeprom@address address `uc  1 a 1 wreg ]
@@ -426,19 +463,57 @@
 {
 "41
 } 0
-"50 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
+"51 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
 [v _dashboard dashboard `(v  1 e 1 0 ]
 {
-"55
-[v dashboard@events events `[8]*.31uc  1 a 8 17 ]
-"52
-[v dashboard@F10501 F10501 `[8]*.31uc  1 s 8 F10501 ]
-"94
+"95
 } 0
-"29
+"22 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\store_event.c
+[v _store_event store_event `(v  1 e 1 0 ]
+{
+"41
+[v store_event@k k `uc  1 a 1 8 ]
+"52
+} 0
+"14 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\external_eeprom.c
+[v _write_external_eeprom write_external_eeprom `(v  1 e 1 0 ]
+{
+[v write_external_eeprom@address address `uc  1 a 1 wreg ]
+"21
+[v write_external_eeprom@i i `i  1 a 2 2 ]
+"14
+[v write_external_eeprom@address address `uc  1 a 1 wreg ]
+[v write_external_eeprom@data data `uc  1 p 1 1 ]
+"16
+[v write_external_eeprom@address address `uc  1 a 1 4 ]
+"22
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwmod@counter counter `uc  1 a 1 4 ]
+"7
+[v ___lwmod@dividend dividend `ui  1 p 2 0 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 2 ]
+"25
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"10
+[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+"11
+[v ___lwdiv@counter counter `uc  1 a 1 6 ]
+"7
+[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
+"30
+} 0
+"30 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
 [v _get_time get_time `(v  1 e 1 0 ]
 {
-"48
+"49
 } 0
 "55 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\ds1307.c
 [v _read_ds1307 read_ds1307 `(uc  1 e 1 0 ]
@@ -496,10 +571,10 @@
 {
 "71
 } 0
-"25 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
+"26 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\dashboard.c
 [v _display_time display_time `(v  1 e 1 0 ]
 {
-"27
+"28
 } 0
 "59 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\clcd.c
 [v _clcd_print clcd_print `(v  1 e 1 0 ]
@@ -528,27 +603,50 @@
 [v clcd_write@byte byte `uc  1 a 1 1 ]
 "26
 } 0
-"7 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\lwmod.c
-[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\xxtofl.c
+[v ___xxtofl __xxtofl `(d  1 e 4 0 ]
 {
+[v ___xxtofl@sign sign `uc  1 a 1 wreg ]
+"13
+[v ___xxtofl@arg arg `ul  1 a 4 17 ]
+"12
+[v ___xxtofl@exp exp `uc  1 a 1 16 ]
 "10
-[v ___lwmod@counter counter `uc  1 a 1 11 ]
-"7
-[v ___lwmod@dividend dividend `ui  1 p 2 7 ]
-[v ___lwmod@divisor divisor `ui  1 p 2 9 ]
-"25
+[v ___xxtofl@sign sign `uc  1 a 1 wreg ]
+[v ___xxtofl@val val `l  1 p 4 7 ]
+"15
+[v ___xxtofl@sign sign `uc  1 a 1 15 ]
+"44
 } 0
-"7 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\lwdiv.c
-[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"43 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\fltol.c
+[v ___fltol __fltol `(l  1 e 4 0 ]
 {
-"10
-[v ___lwdiv@quotient quotient `ui  1 a 2 4 ]
+"45
+[v ___fltol@exp1 exp1 `uc  1 a 1 55 ]
+[v ___fltol@sign1 sign1 `uc  1 a 1 54 ]
+"43
+[v ___fltol@f1 f1 `d  1 p 4 46 ]
+"70
+} 0
+"11 C:\Program Files\Microchip\xc8\v2.46\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+{
+"21
+[v ___fldiv@grs grs `ul  1 a 4 40 ]
+"22
+[v ___fldiv@rem rem `ul  1 a 4 33 ]
+"20
+[v ___fldiv@new_exp new_exp `s  1 a 2 38 ]
+"19
+[v ___fldiv@aexp aexp `uc  1 a 1 45 ]
+"18
+[v ___fldiv@bexp bexp `uc  1 a 1 44 ]
+"16
+[v ___fldiv@sign sign `uc  1 a 1 37 ]
 "11
-[v ___lwdiv@counter counter `uc  1 a 1 6 ]
-"7
-[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
-"30
+[v ___fldiv@b b `d  1 p 4 21 ]
+[v ___fldiv@a a `d  1 p 4 25 ]
+"185
 } 0
 "6 C:\Users\sarang mp\Desktop\Car Blackbox\CAR_BLACKBOX.X\isr.c
 [v _isr isr `IIH(v  1 e 1 0 ]

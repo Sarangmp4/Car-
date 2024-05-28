@@ -25,6 +25,8 @@ void init_config(void) {
     init_i2c();
     init_ds1307();
 	init_timer0();
+    
+    /*writing password to external eeprom*/
     write_external_eeprom(200,'0');
     write_external_eeprom(201,'0');
     write_external_eeprom(202,'0');
@@ -33,23 +35,56 @@ void init_config(void) {
 
 for(int j=0; j<4; j++) 
 {
-    pass[j] = read_external_eeprom(j);
+    pass[j] = read_external_eeprom(j+200);
 }
+    pass[4]='\0';
 
 	
 }
 char key;
+char pre_key;
 unsigned short adc_reg_val;
 extern char flag;
+int key_time;
+
+
+char main_f = 0, menu_f = 0;
 
 void main(void) {
     init_config();
 
-    char main_f = 0, menu_f = 0;
+    
 
     while (1) {
-        key = read_switches(STATE_CHANGE); //reading key
-        adc_reg_val = read_adc(CHANNEL4); //reading adc value
+        
+        key = read_switches(LEVEL_CHANGE); //reading key
+        
+        if(key != ALL_RELEASED)
+        {
+            pre_key=key;
+            key_time++;
+            if(key_time == 1000)
+            {
+                key=key+10;
+            }
+            else
+            {
+                key=0;
+            }
+        }
+        else if(key_time > 0 && key_time <1000)
+        {
+            key_time=0;
+            key=pre_key;
+        }
+        else
+        {
+            key_time=0;
+            key=0;
+        }
+        
+        
+        adc_reg_val = read_adc(CHANNEL4)/10.33; //reading adc value
 
         if (main_f == DASHBOARD) {
             dashboard();
@@ -68,7 +103,32 @@ void main(void) {
         else if(main_f == MENU)
         {
             menu(key);
-            clcd_print("Menu Entered", LINE1(0));
+        }
+        else if(main_f == MENU_ENTER)
+        {
+            
+            if(menu_f == VIEWLOG)
+            {
+                
+                view_log(key);
+            }
+            
+            else if(menu_f == DOWNLOADLOG)
+            {
+                download_log();
+            }
+            else if(menu_f == CLEARLOG)
+            {
+                clear_log(key);
+            }/*
+            else if(menu_f == SETTIME)
+            {
+                settime(key);
+            }
+            else if(menu_f == CHANGEPASS)
+            {
+                change_pass(key);
+            }*/
         }
     }
 }

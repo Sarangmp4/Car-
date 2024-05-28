@@ -8,8 +8,60 @@
 
 #include <xc.h>
 #include "main.h"
+#include "matrix_keypad.h"
+#include "clcd.h"
 
+char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
+char main_f, menu_f;
+extern char key;
+char star_flag=0;
+char log_index=0;
+short press_delay=0;
 void menu(char key)
 {
-    //logic for menu
+    clcd_print(logs[log_index], LINE1(2));
+    clcd_print(logs[(log_index+1)], LINE2(2));
+    
+    if(star_flag==0)
+    {
+        clcd_putch('*',LINE1(0));
+        clcd_putch(' ',LINE2(0));
+    }
+    else
+    {
+        clcd_putch(' ',LINE1(0));
+        clcd_putch('*',LINE2(0));
+    }
+    
+    
+    if(key==MK_SW5 )
+    {
+        if(star_flag==0)
+            star_flag=1;
+        else if(log_index<3)
+            log_index++;
+        
+    }
+    if(key==MK_SW6  )
+    {
+         if(star_flag==1)
+            star_flag=0;
+        else if(log_index>0)
+            log_index--;
+    }
+    
+    
+    if(key==15)
+    {
+        CLEAR_DISP_SCREEN;
+        main_f=3;
+        menu_f=log_index;
+    }
+    if(key==16)
+    {
+        CLEAR_DISP_SCREEN;
+        main_f=0;
+    }
+   
+    
 }

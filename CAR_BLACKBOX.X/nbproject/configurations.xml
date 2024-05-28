@@ -33,6 +33,8 @@
       <itemPath>isr.c</itemPath>
       <itemPath>timer0.c</itemPath>
       <itemPath>menu.c</itemPath>
+      <itemPath>store_event.c</itemPath>
+      <itemPath>view_log.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

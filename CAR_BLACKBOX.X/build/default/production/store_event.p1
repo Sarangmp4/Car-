@@ -1,13 +1,19 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"32 ./clcd.h
-[; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
-[v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"33
-[; ;./clcd.h: 33: void clcd_putch(const unsigned char data, unsigned char addr);
-[v _clcd_putch `(v ~T0 @X0 0 ef2`Cuc`uc ]
-"34
-[; ;./clcd.h: 34: void clcd_write(unsigned char bit_values, unsigned char control_bit);
-[v _clcd_write `(v ~T0 @X0 0 ef2`uc`uc ]
+"15 store_event.c
+[; ;store_event.c: 15: extern unsigned char time[9];
+[v _time `uc ~T0 @X0 -> 0 `x e ]
+"16
+[; ;store_event.c: 16: extern char *events[8];
+[v _events `*uc ~T0 @X0 -> 0 `x e ]
+"17
+[; ;store_event.c: 17: extern char i;
+[v _i `uc ~T0 @X0 0 e ]
+"20
+[; ;store_event.c: 20: extern unsigned short adc_reg_val;
+[v _adc_reg_val `us ~T0 @X0 0 e ]
+"9 ./external_eeprom_2.h
+[; ;./external_eeprom_2.h: 9: void write_external_eeprom(unsigned char , unsigned char );
+[v _write_external_eeprom `(v ~T0 @X0 0 ef2`uc`uc ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1247,184 +1253,100 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"14 menu.c
-[; ;menu.c: 14: char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
-[v _logs `*uc ~T0 @X0 -> 5 `i e ]
-[i _logs
-:U ..
-:s 1C
-:s 2C
-:s 3C
-:s 4C
-:s 5C
-..
-]
-"15
-[; ;menu.c: 15: char main_f, menu_f;
-[v _main_f `uc ~T0 @X0 1 e ]
-[v _menu_f `uc ~T0 @X0 1 e ]
-"17
-[; ;menu.c: 17: char star_flag=0;
-[v _star_flag `uc ~T0 @X0 1 e ]
-[i _star_flag
--> -> 0 `i `uc
-]
+"14 store_event.c
+[; ;store_event.c: 14: char store[11];
+[v _store `uc ~T0 @X0 -> 11 `i e ]
 "18
-[; ;menu.c: 18: char log_index=0;
-[v _log_index `uc ~T0 @X0 1 e ]
-[i _log_index
+[; ;store_event.c: 18: char lap=0;
+[v _lap `uc ~T0 @X0 1 e ]
+[i _lap
 -> -> 0 `i `uc
 ]
 "19
-[; ;menu.c: 19: short press_delay=0;
-[v _press_delay `s ~T0 @X0 1 e ]
-[i _press_delay
--> -> 0 `i `s
+[; ;store_event.c: 19: char overflow=0;
+[v _overflow `uc ~T0 @X0 1 e ]
+[i _overflow
+-> -> 0 `i `uc
 ]
-"20
-[; ;menu.c: 20: void menu(char key)
-[v _menu `(v ~T0 @X0 1 ef1`uc ]
-"21
-[; ;menu.c: 21: {
-{
-[e :U _menu ]
-"20
-[; ;menu.c: 20: void menu(char key)
-[v _key `uc ~T0 @X0 1 r1 ]
-"21
-[; ;menu.c: 21: {
-[f ]
 "22
-[; ;menu.c: 22:     clcd_print(logs[log_index], (0x80 + (2)));
-[e ( _clcd_print (2 , -> *U + &U _logs * -> _log_index `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 128 `i -> 2 `i `uc ]
+[; ;store_event.c: 22: void store_event()
+[v _store_event `(v ~T0 @X0 1 ef ]
 "23
-[; ;menu.c: 23:     clcd_print(logs[(log_index+1)], (0xC0 + (2)));
-[e ( _clcd_print (2 , -> *U + &U _logs * -> -> + -> _log_index `i -> 1 `i `ui `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 192 `i -> 2 `i `uc ]
+[; ;store_event.c: 23: {
+{
+[e :U _store_event ]
+[f ]
 "25
-[; ;menu.c: 25:     if(star_flag==0)
-[e $ ! == -> _star_flag `i -> 0 `i 1089  ]
+[; ;store_event.c: 25:     store[0]=time[0];
+[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "26
-[; ;menu.c: 26:     {
-{
+[; ;store_event.c: 26:     store[1]=time[1];
+[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "27
-[; ;menu.c: 27:         clcd_putch('*',(0x80 + (0)));
-[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
+[; ;store_event.c: 27:     store[2]=time[3];
+[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "28
-[; ;menu.c: 28:         clcd_putch(' ',(0xC0 + (0)));
-[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[; ;store_event.c: 28:     store[3]=time[4];
+[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "29
-[; ;menu.c: 29:     }
-}
-[e $U 1090  ]
+[; ;store_event.c: 29:     store[4]=time[6];
+[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "30
-[; ;menu.c: 30:     else
-[e :U 1089 ]
-"31
-[; ;menu.c: 31:     {
-{
-"32
-[; ;menu.c: 32:         clcd_putch(' ',(0x80 + (0)));
-[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
+[; ;store_event.c: 30:     store[5]=time[7];
+[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
 "33
-[; ;menu.c: 33:         clcd_putch('*',(0xC0 + (0)));
-[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[; ;store_event.c: 33:     store[6]=events[i][0];
+[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux *U + *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux `ui `ux ]
 "34
-[; ;menu.c: 34:     }
-}
-[e :U 1090 ]
-"37
-[; ;menu.c: 37:     if(key==5 )
-[e $ ! == -> _key `i -> 5 `i 1091  ]
+[; ;store_event.c: 34:     store[7]=events[i][1];
+[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux *U + *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux `ui `ux ]
 "38
-[; ;menu.c: 38:     {
-{
+[; ;store_event.c: 38:         store[8]=(adc_reg_val / 10) + 48;
+[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
 "39
-[; ;menu.c: 39:         if(star_flag==0)
-[e $ ! == -> _star_flag `i -> 0 `i 1092  ]
-"40
-[; ;menu.c: 40:             star_flag=1;
-[e = _star_flag -> -> 1 `i `uc ]
-[e $U 1093  ]
+[; ;store_event.c: 39:         store[9]=(adc_reg_val % 10) + 48;
+[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
 "41
-[; ;menu.c: 41:         else if(log_index<3)
-[e :U 1092 ]
-[e $ ! < -> _log_index `i -> 3 `i 1094  ]
+[; ;store_event.c: 41:     for(char k=0; k<10; k++)
+{
+[v _k `uc ~T0 @X0 1 a ]
+[e = _k -> -> 0 `i `uc ]
+[e $ < -> _k `i -> 10 `i 1089  ]
+[e $U 1090  ]
+[e :U 1089 ]
 "42
-[; ;menu.c: 42:             log_index++;
-[e ++ _log_index -> -> 1 `i `uc ]
-[e :U 1094 ]
-[e :U 1093 ]
+[; ;store_event.c: 42:     {
+{
+"43
+[; ;store_event.c: 43:         write_external_eeprom( (lap*10+k),store[k]);
+[e ( _write_external_eeprom (2 , -> + * -> _lap `i -> 10 `i -> _k `i `uc -> *U + &U _store * -> _k `ux -> -> # *U &U _store `ui `ux `uc ]
 "44
-[; ;menu.c: 44:     }
+[; ;store_event.c: 44:     }
 }
-[e :U 1091 ]
-"45
-[; ;menu.c: 45:     if(key==6 )
-[e $ ! == -> _key `i -> 6 `i 1095  ]
+[e ++ _k -> -> 1 `i `uc ]
+[e $ < -> _k `i -> 10 `i 1089  ]
+[e :U 1090 ]
+}
 "46
-[; ;menu.c: 46:     {
-{
+[; ;store_event.c: 46:     lap++;
+[e ++ _lap -> -> 1 `i `uc ]
 "47
-[; ;menu.c: 47:          if(star_flag==1)
-[e $ ! == -> _star_flag `i -> 1 `i 1096  ]
+[; ;store_event.c: 47:     if(lap==10)
+[e $ ! == -> _lap `i -> 10 `i 1092  ]
 "48
-[; ;menu.c: 48:             star_flag=0;
-[e = _star_flag -> -> 0 `i `uc ]
-[e $U 1097  ]
+[; ;store_event.c: 48:     {
+{
 "49
-[; ;menu.c: 49:         else if(log_index>0)
-[e :U 1096 ]
-[e $ ! > -> _log_index `i -> 0 `i 1098  ]
+[; ;store_event.c: 49:         lap=0;
+[e = _lap -> -> 0 `i `uc ]
 "50
-[; ;menu.c: 50:             log_index--;
-[e -- _log_index -> -> 1 `i `uc ]
-[e :U 1098 ]
-[e :U 1097 ]
+[; ;store_event.c: 50:         overflow=1;
+[e = _overflow -> -> 1 `i `uc ]
 "51
-[; ;menu.c: 51:     }
+[; ;store_event.c: 51:     }
 }
-[e :U 1095 ]
-"54
-[; ;menu.c: 54:     if(key==15)
-[e $ ! == -> _key `i -> 15 `i 1099  ]
-"55
-[; ;menu.c: 55:     {
-{
-"56
-[; ;menu.c: 56:         clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
-"57
-[; ;menu.c: 57:         main_f=3;
-[e = _main_f -> -> 3 `i `uc ]
-"58
-[; ;menu.c: 58:         menu_f=log_index;
-[e = _menu_f _log_index ]
-"59
-[; ;menu.c: 59:     }
-}
-[e :U 1099 ]
-"60
-[; ;menu.c: 60:     if(key==16)
-[e $ ! == -> _key `i -> 16 `i 1100  ]
-"61
-[; ;menu.c: 61:     {
-{
-"62
-[; ;menu.c: 62:         clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
-"63
-[; ;menu.c: 63:         main_f=0;
-[e = _main_f -> -> 0 `i `uc ]
-"64
-[; ;menu.c: 64:     }
-}
-[e :U 1100 ]
-"67
-[; ;menu.c: 67: }
+[e :U 1092 ]
+"52
+[; ;store_event.c: 52: }
 [e :UE 1088 ]
 }
-[a 4C 83 101 116 32 116 105 109 101 0 ]
-[a 5C 67 104 97 110 103 101 32 80 97 115 115 119 111 114 100 0 ]
-[a 2C 68 111 119 110 108 111 97 100 32 108 111 103 32 32 32 0 ]
-[a 1C 86 105 101 119 32 76 111 103 32 32 32 32 32 32 0 ]
-[a 3C 67 108 101 97 114 32 76 111 103 32 32 32 32 32 32 32 0 ]

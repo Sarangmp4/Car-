@@ -17961,9 +17961,14 @@ unsigned short read_adc(unsigned char channel);
 # 14 "password.c" 2
 
 
-int i = 0;
+int index = 0;
 char chance = 2;
 extern char tick_count;
+
+int delay = 0;
+char flag = 0;
+char temp_password[5];
+extern char pass[5];
 
 int my_strcmp(char *one, char *two) {
     int k = 0, last = 0;
@@ -17977,37 +17982,32 @@ int my_strcmp(char *one, char *two) {
     return last;
 }
 
-int delay = 0;
-char flag = 0;
-char temp_password[5];
-
-extern char pass[5];
 void password(char key) {
 
     clcd_print(" Enter Password ", (0x80 + (0)));
 
 
     if (delay++ < 500) {
-        clcd_putch('_', (0xC0 + (i)));
+        clcd_putch('_', (0xC0 + (index)));
     } else if (delay > 500 && delay < 1000) {
-        clcd_putch(' ', (0xC0 + (i)));
+        clcd_putch(' ', (0xC0 + (index)));
     } else
         delay = 0;
 
     if (key == 5) {
-        temp_password[i] = '0';
-        clcd_putch('*', (0xC0 + (i)));
-        i++;
+        temp_password[index] = '0';
+        clcd_putch('*', (0xC0 + (index)));
+        index++;
 
     } else if (key == 6) {
-        temp_password[i] = '1';
-        clcd_putch('*', (0xC0 + (i)));
-        i++;
+        temp_password[index] = '1';
+        clcd_putch('*', (0xC0 + (index)));
+        index++;
     }
 
 
-    if (i == 4) {
-        temp_password[i] = '\0';
+    if (index == 4) {
+        temp_password[index] = '\0';
         if (my_strcmp(pass,temp_password) == 0) {
 
             clcd_print("               ", (0x80 + (0)));
@@ -18034,7 +18034,7 @@ void password(char key) {
 
                 if (tick_count == 0) {
                     chance = 2;
-                    i = 0;
+                    index = 0;
                     clcd_write(0x01, 0);
                 }
 
@@ -18045,7 +18045,7 @@ void password(char key) {
                 clcd_print(" Chances Left ", (0xC0 + (1)));
                 for (unsigned long long int wait = 400000; wait--;);
                 chance--;
-                i = 0;
+                index = 0;
                 clcd_write(0x01, 0);
 
 

@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "view_log.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,12 +6,16 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
+# 1 "view_log.c" 2
 
 
 
 
 
+
+
+extern char store[10];
+extern char main_f;
 
 
 
@@ -17921,7 +17925,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
+# 12 "view_log.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17934,7 +17938,7 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 10 "main.c" 2
+# 13 "view_log.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17942,47 +17946,7 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 11 "main.c" 2
-
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 12 "main.c" 2
-
-# 1 "./adc.h" 1
-# 16 "./adc.h"
-void init_adc(void);
-unsigned short read_adc(unsigned char channel);
-# 13 "main.c" 2
-
-# 1 "./ds1307.h" 1
-# 18 "./ds1307.h"
-void write_ds1307(unsigned char address1, unsigned char data);
-unsigned char read_ds1307(unsigned char address1);
-void init_ds1307(void);
-# 14 "main.c" 2
-
-# 1 "./i2c.h" 1
-
-
-
-
-void init_i2c(void);
-void i2c_start(void);
-void i2c_rep_start(void);
-void i2c_stop(void);
-void i2c_write(unsigned char data);
-unsigned char i2c_read(void);
-# 15 "main.c" 2
-
-# 1 "./timer0.h" 1
-
-
-
-void init_timer0(void);
-# 16 "main.c" 2
+# 14 "view_log.c" 2
 
 # 1 "./external_eeprom_2.h" 1
 
@@ -17995,106 +17959,86 @@ void init_timer0(void);
 
 void write_external_eeprom(unsigned char , unsigned char );
 unsigned char read_external_eeprom(unsigned char );
-# 17 "main.c" 2
+# 15 "view_log.c" 2
+
+# 1 "./matrix_keypad.h" 1
+# 39 "./matrix_keypad.h"
+void init_matrix_keypad(void);
+unsigned char scan_key(void);
+unsigned char read_switches(unsigned char detection_type);
+# 16 "view_log.c" 2
 
 
-char pass[5];
+char view_array[11];
+extern char lap;
+char overflow;
 
-void init_config(void) {
-    init_clcd();
-    init_matrix_keypad();
-    init_adc();
-    init_i2c();
-    init_ds1307();
- init_timer0();
+char start_index=0, apend_index=0;
+
+void view_log(char key) {
 
 
-    write_external_eeprom(200,'0');
-    write_external_eeprom(201,'0');
-    write_external_eeprom(202,'0');
-    write_external_eeprom(203,'0');
+    if(overflow==0)
+    {
+      start_index=0;
 
+      if(key==5 && apend_index < lap-1)
+      {
+          apend_index++;
+      }
 
-for(int j=0; j<4; j++)
-{
-    pass[j] = read_external_eeprom(j+200);
-}
-    pass[4]='\0';
-
-
-}
-char key;
-char pre_key;
-unsigned short adc_reg_val;
-extern char flag;
-int key_time;
-
-
-char main_f = 0, menu_f = 0;
-
-void main(void) {
-    init_config();
-
-
-
-    while (1) {
-
-        key = read_switches(0);
-
-        if(key != 0xFF)
-        {
-            pre_key=key;
-            key_time++;
-            if(key_time == 1000)
-            {
-                key=key+10;
-            }
-            else
-            {
-                key=0;
-            }
-        }
-        else if(key_time > 0 && key_time <1000)
-        {
-            key_time=0;
-            key=pre_key;
-        }
-        else
-        {
-            key_time=0;
-            key=0;
-        }
-
-
-        adc_reg_val = read_adc(0x04)/10.33;
-
-        if (main_f == 0) {
-            dashboard();
-            if (key == 5) {
-                clcd_write(0x01, 0);
-                main_f = 1;
-            }
-        } else if (main_f == 1) {
-            password(key);
-            if(flag==1)
-            {
-                clcd_write(0x01, 0);
-                main_f=2;
-            }
-        }
-        else if(main_f == 2)
-        {
-            menu(key);
-        }
-        else if(main_f == 3)
-        {
-
-            if(menu_f == 0)
-            {
-
-                view_log(key);
-            }
-# 132 "main.c"
-        }
+      if(key==6 && apend_index > 0)
+      {
+          apend_index--;
+      }
     }
+    else if(overflow==1)
+    {
+        start_index=lap;
+
+        if(key==5 && apend_index <9)
+        {
+        apend_index++;
+        }
+        if(key==6 && apend_index > 0)
+      {
+          apend_index--;
+      }
+    }
+
+
+
+
+
+    for (int j = 0; j < 10; j++) {
+        clcd_putch('0' + (start_index+(apend_index%10))+1, (0xC0 + (0)));
+        view_array[j] = read_external_eeprom( (start_index+(apend_index%10))*10 + j);
+
+    }
+
+
+    clcd_print("Entered View Log", (0x80 + (0)));
+
+    clcd_putch(view_array[0], (0xC0 + (2)));
+    clcd_putch(view_array[1], (0xC0 + (3)));
+    clcd_putch(':', (0xC0 + (4)));
+
+    clcd_putch(view_array[2], (0xC0 + (5)));
+    clcd_putch(view_array[3], (0xC0 + (6)));
+    clcd_putch(':', (0xC0 + (7)));
+
+    clcd_putch(view_array[4], (0xC0 + (8)));
+    clcd_putch(view_array[5], (0xC0 + (9)));
+
+
+    clcd_putch(view_array[6], (0xC0 + (11)));
+    clcd_putch(view_array[7], (0xC0 + (12)));
+
+
+    clcd_putch(view_array[8], (0xC0 + (14)));
+    clcd_putch(view_array[9], (0xC0 + (15)));
+
+
+
+
 }
