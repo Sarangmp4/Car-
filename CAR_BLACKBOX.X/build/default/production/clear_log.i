@@ -1,4 +1,4 @@
-# 1 "menu.c"
+# 1 "clear_log.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "menu.c" 2
+# 1 "clear_log.c" 2
 
 
 
@@ -14,6 +14,8 @@
 
 
 
+
+extern char lap;
 
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
@@ -17921,7 +17923,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 9 "menu.c" 2
+# 10 "clear_log.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17934,14 +17936,7 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 10 "menu.c" 2
-
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 11 "menu.c" 2
+# 11 "clear_log.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17949,73 +17944,15 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 12 "menu.c" 2
+# 12 "clear_log.c" 2
 
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
-char main_f, menu_f;
-extern char key;
-char star_flag=0;
-char star_index=0;
-char log_index=0;
-short press_delay=0;
-void menu(char key)
+void clear_log(char key)
 {
-    clcd_print(logs[log_index], (0x80 + (2)));
-    clcd_print(logs[(log_index+1)], (0xC0 + (2)));
+    lap=0;
+    clcd_print("   LOG CLEARED   ",(0x80 + (0)));
+    clcd_print("                 ",(0xC0 + (0)));
 
-    if(star_flag==0)
-    {
-        clcd_putch('*',(0x80 + (0)));
-        clcd_putch(' ',(0xC0 + (0)));
-    }
-    else
-    {
-        clcd_putch(' ',(0x80 + (0)));
-        clcd_putch('*',(0xC0 + (0)));
-    }
-
-
-    if(key==5 )
-    {
-        if(star_flag==0)
-        {
-            star_flag=1;
-            star_index++;
-        }
-        else if(log_index<3)
-        {
-            log_index++;
-            star_index++;
-        }
-
-    }
-    if(key==6 )
-    {
-         if(star_flag==1)
-         {
-           star_flag=0;
-           star_index--;
-         }
-
-        else if(log_index>0)
-        {
-            log_index--;
-            star_index--;
-        }
-    }
-
-
-    if(key==15)
-    {
-        clcd_write(0x01, 0);
-        main_f=3;
-        menu_f=star_index;
-    }
-    if(key==16)
-    {
-        main_f=0;
-    }
 
 
 }

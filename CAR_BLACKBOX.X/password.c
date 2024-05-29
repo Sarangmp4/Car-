@@ -61,9 +61,6 @@ void password(char key) {
     if (index == 4) {
         temp_password[index] = '\0';
         if (my_strcmp(pass,temp_password) == 0) {
-
-            clcd_print("               ", LINE1(0));
-            clcd_print("      SUCCESS     ", LINE2(0));
             flag = 1;
             return;
 

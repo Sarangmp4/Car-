@@ -15,6 +15,7 @@ char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time
 char main_f, menu_f;
 extern char key;
 char star_flag=0;
+char star_index=0;
 char log_index=0;
 short press_delay=0;
 void menu(char key)
@@ -37,17 +38,30 @@ void menu(char key)
     if(key==MK_SW5 )
     {
         if(star_flag==0)
+        {
             star_flag=1;
+            star_index++;
+        }
         else if(log_index<3)
+        {
             log_index++;
+            star_index++;
+        }
         
     }
     if(key==MK_SW6  )
     {
          if(star_flag==1)
-            star_flag=0;
+         {
+           star_flag=0;
+           star_index--;
+         }
+            
         else if(log_index>0)
+        {
             log_index--;
+            star_index--;
+        }
     }
     
     
@@ -55,11 +69,10 @@ void menu(char key)
     {
         CLEAR_DISP_SCREEN;
         main_f=3;
-        menu_f=log_index;
+        menu_f=star_index;
     }
     if(key==16)
     {
-        CLEAR_DISP_SCREEN;
         main_f=0;
     }
    

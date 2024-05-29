@@ -3,15 +3,15 @@
   <executable name="dist/default/production\CAR_BLACKBOX.X.production.hex">
     <memory name="program">
       <units>bytes</units>
-      <length>32768</length>
-      <used>6870</used>
-      <free>25898</free>
+      <length>12289</length>
+      <used>7371</used>
+      <free>4918</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>1536</length>
-      <used>144</used>
-      <free>1392</free>
+      <used>172</used>
+      <free>1364</free>
     </memory>
   </executable>
 </project>

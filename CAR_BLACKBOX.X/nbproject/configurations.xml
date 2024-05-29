@@ -13,6 +13,7 @@
       <itemPath>external_eeprom_2.h</itemPath>
       <itemPath>isr.h</itemPath>
       <itemPath>timer0.h</itemPath>
+      <itemPath>uart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -35,6 +36,9 @@
       <itemPath>menu.c</itemPath>
       <itemPath>store_event.c</itemPath>
       <itemPath>view_log.c</itemPath>
+      <itemPath>clear_log.c</itemPath>
+      <itemPath>download_log.c</itemPath>
+      <itemPath>uart.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -129,7 +133,7 @@
         <property key="calibrate-oscillator-value" value="0x3400"/>
         <property key="clear-bss" value="true"/>
         <property key="code-model-external" value="wordwrite"/>
-        <property key="code-model-rom" value=""/>
+        <property key="code-model-rom" value="0-3000"/>
         <property key="create-html-files" value="false"/>
         <property key="data-model-ram" value=""/>
         <property key="data-model-size-of-double" value="32"/>

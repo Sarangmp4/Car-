@@ -17997,6 +17997,21 @@ void write_external_eeprom(unsigned char , unsigned char );
 unsigned char read_external_eeprom(unsigned char );
 # 17 "main.c" 2
 
+# 1 "./uart.h" 1
+
+
+
+
+
+
+void init_uart(void);
+void putch(unsigned char byte);
+int puts(const char *s);
+unsigned char getch(void);
+unsigned char getch_with_timeout(unsigned short max_time);
+unsigned char getche(void);
+# 18 "main.c" 2
+
 
 char pass[5];
 
@@ -18007,6 +18022,11 @@ void init_config(void) {
     init_i2c();
     init_ds1307();
  init_timer0();
+    init_uart();
+
+
+
+
 
 
     write_external_eeprom(200,'0');
@@ -18091,10 +18111,18 @@ void main(void) {
 
             if(menu_f == 0)
             {
-
                 view_log(key);
             }
-# 132 "main.c"
+
+            else if(menu_f == 2)
+            {
+                clear_log(key);
+            }
+            else if(menu_f == 1)
+            {
+                 download_log();
+            }
+# 138 "main.c"
         }
     }
 }

@@ -1,19 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"20 view_log.c
-[; ;view_log.c: 20: extern char overflow;
-[v _overflow `uc ~T0 @X0 0 e ]
-"19
-[; ;view_log.c: 19: extern char lap;
+"9 clear_log.c
+[; ;clear_log.c: 9: extern char lap;
 [v _lap `uc ~T0 @X0 0 e ]
-"10 ./external_eeprom_2.h
-[; ;./external_eeprom_2.h: 10: unsigned char read_external_eeprom(unsigned char );
-[v _read_external_eeprom `(uc ~T0 @X0 0 ef1`uc ]
 "32 ./clcd.h
 [; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"33
-[; ;./clcd.h: 33: void clcd_putch(const unsigned char data, unsigned char addr);
-[v _clcd_putch `(v ~T0 @X0 0 ef2`Cuc`uc ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1253,161 +1244,31 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"18 view_log.c
-[; ;view_log.c: 18: char view_array[11];
-[v _view_array `uc ~T0 @X0 -> 11 `i e ]
-"22
-[; ;view_log.c: 22: char start_index = 0, apend_index = 0;
-[v _start_index `uc ~T0 @X0 1 e ]
-[i _start_index
--> -> 0 `i `uc
-]
-[v _apend_index `uc ~T0 @X0 1 e ]
-[i _apend_index
--> -> 0 `i `uc
-]
-"24
-[; ;view_log.c: 24: void view_log(char key)
-[v _view_log `(v ~T0 @X0 1 ef1`uc ]
-"25
-[; ;view_log.c: 25: {
+"14 clear_log.c
+[; ;clear_log.c: 14: void clear_log(char key)
+[v _clear_log `(v ~T0 @X0 1 ef1`uc ]
+"15
+[; ;clear_log.c: 15: {
 {
-[e :U _view_log ]
-"24
-[; ;view_log.c: 24: void view_log(char key)
+[e :U _clear_log ]
+"14
+[; ;clear_log.c: 14: void clear_log(char key)
 [v _key `uc ~T0 @X0 1 r1 ]
-"25
-[; ;view_log.c: 25: {
+"15
+[; ;clear_log.c: 15: {
 [f ]
-"28
-[; ;view_log.c: 28:     if (overflow == 0) {
-[e $ ! == -> _overflow `i -> 0 `i 1089  ]
-{
-"29
-[; ;view_log.c: 29:         start_index = 0;
-[e = _start_index -> -> 0 `i `uc ]
-"31
-[; ;view_log.c: 31:         if (key == 5 && apend_index < lap - 1) {
-[e $ ! && == -> _key `i -> 5 `i < -> _apend_index `i - -> _lap `i -> 1 `i 1090  ]
-{
-"32
-[; ;view_log.c: 32:             apend_index++;
-[e ++ _apend_index -> -> 1 `i `uc ]
-"33
-[; ;view_log.c: 33:         }
-}
-[e :U 1090 ]
-"35
-[; ;view_log.c: 35:         if (key == 6 && apend_index > 0) {
-[e $ ! && == -> _key `i -> 6 `i > -> _apend_index `i -> 0 `i 1091  ]
-{
-"36
-[; ;view_log.c: 36:             apend_index--;
-[e -- _apend_index -> -> 1 `i `uc ]
-"37
-[; ;view_log.c: 37:         }
-}
-[e :U 1091 ]
-"38
-[; ;view_log.c: 38:     } else if (overflow == 1) {
-}
-[e $U 1092  ]
-[e :U 1089 ]
-[e $ ! == -> _overflow `i -> 1 `i 1093  ]
-{
-"39
-[; ;view_log.c: 39:         start_index = lap;
-[e = _start_index _lap ]
-"41
-[; ;view_log.c: 41:         if (key == 5 && apend_index < 9) {
-[e $ ! && == -> _key `i -> 5 `i < -> _apend_index `i -> 9 `i 1094  ]
-{
-"42
-[; ;view_log.c: 42:             apend_index++;
-[e ++ _apend_index -> -> 1 `i `uc ]
-"43
-[; ;view_log.c: 43:         }
-}
-[e :U 1094 ]
-"44
-[; ;view_log.c: 44:         if (key == 6 && apend_index > 0) {
-[e $ ! && == -> _key `i -> 6 `i > -> _apend_index `i -> 0 `i 1095  ]
-{
-"45
-[; ;view_log.c: 45:             apend_index--;
-[e -- _apend_index -> -> 1 `i `uc ]
-"46
-[; ;view_log.c: 46:         }
-}
-[e :U 1095 ]
-"47
-[; ;view_log.c: 47:     }
-}
-[e :U 1093 ]
-[e :U 1092 ]
-"50
-[; ;view_log.c: 50:     for (int j = 0; j < 10; j++) {
-{
-[v _j `i ~T0 @X0 1 a ]
-[e = _j -> 0 `i ]
-[e $ < _j -> 10 `i 1096  ]
-[e $U 1097  ]
-[e :U 1096 ]
-{
-"51
-[; ;view_log.c: 51:         view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
-[e = *U + &U _view_array * -> -> _j `ui `ux -> -> # *U &U _view_array `ui `ux -> ( _read_external_eeprom (1 -> + * % + -> _start_index `i -> _apend_index `i -> 10 `i -> 10 `i _j `uc `uc ]
-"52
-[; ;view_log.c: 52:     }
-}
-[e ++ _j -> 1 `i ]
-[e $ < _j -> 10 `i 1096  ]
-[e :U 1097 ]
-}
-"55
-[; ;view_log.c: 55:     clcd_print("Entered View Log", (0x80 + (0)));
+"16
+[; ;clear_log.c: 16:     lap=0;
+[e = _lap -> -> 0 `i `uc ]
+"17
+[; ;clear_log.c: 17:     clcd_print("   LOG CLEARED   ",(0x80 + (0)));
 [e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
-"56
-[; ;view_log.c: 56:     clcd_putch('0' + apend_index, (0xC0 + (0)));
-[e ( _clcd_putch (2 , -> + -> 48 `ui -> _apend_index `ui `uc -> + -> 192 `i -> 0 `i `uc ]
-"59
-[; ;view_log.c: 59:     clcd_putch(view_array[0], (0xC0 + (2)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 2 `i `uc ]
-"60
-[; ;view_log.c: 60:     clcd_putch(view_array[1], (0xC0 + (3)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 3 `i `uc ]
-"61
-[; ;view_log.c: 61:     clcd_putch(':', (0xC0 + (4)));
-[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 4 `i `uc ]
-"63
-[; ;view_log.c: 63:     clcd_putch(view_array[2], (0xC0 + (5)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 5 `i `uc ]
-"64
-[; ;view_log.c: 64:     clcd_putch(view_array[3], (0xC0 + (6)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 3 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 6 `i `uc ]
-"65
-[; ;view_log.c: 65:     clcd_putch(':', (0xC0 + (7)));
-[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 7 `i `uc ]
-"67
-[; ;view_log.c: 67:     clcd_putch(view_array[4], (0xC0 + (8)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 4 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 8 `i `uc ]
-"68
-[; ;view_log.c: 68:     clcd_putch(view_array[5], (0xC0 + (9)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 5 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 9 `i `uc ]
-"71
-[; ;view_log.c: 71:     clcd_putch(view_array[6], (0xC0 + (11)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 6 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 11 `i `uc ]
-"72
-[; ;view_log.c: 72:     clcd_putch(view_array[7], (0xC0 + (12)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 7 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 12 `i `uc ]
-"75
-[; ;view_log.c: 75:     clcd_putch(view_array[8], (0xC0 + (14)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 8 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 14 `i `uc ]
-"76
-[; ;view_log.c: 76:     clcd_putch(view_array[9], (0xC0 + (15)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 9 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 15 `i `uc ]
-"80
-[; ;view_log.c: 80: }
+"18
+[; ;clear_log.c: 18:     clcd_print("                 ",(0xC0 + (0)));
+[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 0 `i `uc ]
+"22
+[; ;clear_log.c: 22: }
 [e :UE 1088 ]
 }
-[a 1C 69 110 116 101 114 101 100 32 86 105 101 119 32 76 111 103 0 ]
+[a 1C 32 32 32 76 79 71 32 67 76 69 65 82 69 68 32 32 32 0 ]
+[a 2C 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]

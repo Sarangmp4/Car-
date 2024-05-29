@@ -17971,53 +17971,44 @@ unsigned char read_switches(unsigned char detection_type);
 
 char view_array[11];
 extern char lap;
-char overflow;
+extern char overflow;
 
-char start_index=0, apend_index=0;
+char start_index = 0, apend_index = 0;
 
-void view_log(char key) {
+void view_log(char key)
+{
 
 
-    if(overflow==0)
-    {
-      start_index=0;
+    if (overflow == 0) {
+        start_index = 0;
 
-      if(key==5 && apend_index < lap-1)
-      {
-          apend_index++;
-      }
-
-      if(key==6 && apend_index > 0)
-      {
-          apend_index--;
-      }
-    }
-    else if(overflow==1)
-    {
-        start_index=lap;
-
-        if(key==5 && apend_index <9)
-        {
-        apend_index++;
+        if (key == 5 && apend_index < lap - 1) {
+            apend_index++;
         }
-        if(key==6 && apend_index > 0)
-      {
-          apend_index--;
-      }
+
+        if (key == 6 && apend_index > 0) {
+            apend_index--;
+        }
+    } else if (overflow == 1) {
+        start_index = lap;
+
+        if (key == 5 && apend_index < 9) {
+            apend_index++;
+        }
+        if (key == 6 && apend_index > 0) {
+            apend_index--;
+        }
     }
-
-
-
 
 
     for (int j = 0; j < 10; j++) {
-        clcd_putch('0' + (start_index+(apend_index%10))+1, (0xC0 + (0)));
-        view_array[j] = read_external_eeprom( (start_index+(apend_index%10))*10 + j);
-
+        view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
     }
 
 
     clcd_print("Entered View Log", (0x80 + (0)));
+    clcd_putch('0' + apend_index, (0xC0 + (0)));
+
 
     clcd_putch(view_array[0], (0xC0 + (2)));
     clcd_putch(view_array[1], (0xC0 + (3)));
@@ -18037,7 +18028,6 @@ void view_log(char key) {
 
     clcd_putch(view_array[8], (0xC0 + (14)));
     clcd_putch(view_array[9], (0xC0 + (15)));
-
 
 
 

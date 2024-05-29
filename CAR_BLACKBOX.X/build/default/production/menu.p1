@@ -1270,157 +1270,196 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 "18
-[; ;menu.c: 18: char log_index=0;
+[; ;menu.c: 18: char star_index=0;
+[v _star_index `uc ~T0 @X0 1 e ]
+[i _star_index
+-> -> 0 `i `uc
+]
+"19
+[; ;menu.c: 19: char log_index=0;
 [v _log_index `uc ~T0 @X0 1 e ]
 [i _log_index
 -> -> 0 `i `uc
 ]
-"19
-[; ;menu.c: 19: short press_delay=0;
+"20
+[; ;menu.c: 20: short press_delay=0;
 [v _press_delay `s ~T0 @X0 1 e ]
 [i _press_delay
 -> -> 0 `i `s
 ]
-"20
-[; ;menu.c: 20: void menu(char key)
-[v _menu `(v ~T0 @X0 1 ef1`uc ]
 "21
-[; ;menu.c: 21: {
+[; ;menu.c: 21: void menu(char key)
+[v _menu `(v ~T0 @X0 1 ef1`uc ]
+"22
+[; ;menu.c: 22: {
 {
 [e :U _menu ]
-"20
-[; ;menu.c: 20: void menu(char key)
-[v _key `uc ~T0 @X0 1 r1 ]
 "21
-[; ;menu.c: 21: {
-[f ]
+[; ;menu.c: 21: void menu(char key)
+[v _key `uc ~T0 @X0 1 r1 ]
 "22
-[; ;menu.c: 22:     clcd_print(logs[log_index], (0x80 + (2)));
-[e ( _clcd_print (2 , -> *U + &U _logs * -> _log_index `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 128 `i -> 2 `i `uc ]
+[; ;menu.c: 22: {
+[f ]
 "23
-[; ;menu.c: 23:     clcd_print(logs[(log_index+1)], (0xC0 + (2)));
+[; ;menu.c: 23:     clcd_print(logs[log_index], (0x80 + (2)));
+[e ( _clcd_print (2 , -> *U + &U _logs * -> _log_index `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 128 `i -> 2 `i `uc ]
+"24
+[; ;menu.c: 24:     clcd_print(logs[(log_index+1)], (0xC0 + (2)));
 [e ( _clcd_print (2 , -> *U + &U _logs * -> -> + -> _log_index `i -> 1 `i `ui `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 192 `i -> 2 `i `uc ]
-"25
-[; ;menu.c: 25:     if(star_flag==0)
-[e $ ! == -> _star_flag `i -> 0 `i 1089  ]
 "26
-[; ;menu.c: 26:     {
-{
+[; ;menu.c: 26:     if(star_flag==0)
+[e $ ! == -> _star_flag `i -> 0 `i 1089  ]
 "27
-[; ;menu.c: 27:         clcd_putch('*',(0x80 + (0)));
-[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
+[; ;menu.c: 27:     {
+{
 "28
-[; ;menu.c: 28:         clcd_putch(' ',(0xC0 + (0)));
-[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[; ;menu.c: 28:         clcd_putch('*',(0x80 + (0)));
+[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
 "29
-[; ;menu.c: 29:     }
+[; ;menu.c: 29:         clcd_putch(' ',(0xC0 + (0)));
+[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+"30
+[; ;menu.c: 30:     }
 }
 [e $U 1090  ]
-"30
-[; ;menu.c: 30:     else
-[e :U 1089 ]
 "31
-[; ;menu.c: 31:     {
-{
+[; ;menu.c: 31:     else
+[e :U 1089 ]
 "32
-[; ;menu.c: 32:         clcd_putch(' ',(0x80 + (0)));
-[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
+[; ;menu.c: 32:     {
+{
 "33
-[; ;menu.c: 33:         clcd_putch('*',(0xC0 + (0)));
-[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[; ;menu.c: 33:         clcd_putch(' ',(0x80 + (0)));
+[e ( _clcd_putch (2 , -> -> 32 `ui `uc -> + -> 128 `i -> 0 `i `uc ]
 "34
-[; ;menu.c: 34:     }
+[; ;menu.c: 34:         clcd_putch('*',(0xC0 + (0)));
+[e ( _clcd_putch (2 , -> -> 42 `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+"35
+[; ;menu.c: 35:     }
 }
 [e :U 1090 ]
-"37
-[; ;menu.c: 37:     if(key==5 )
-[e $ ! == -> _key `i -> 5 `i 1091  ]
 "38
-[; ;menu.c: 38:     {
-{
+[; ;menu.c: 38:     if(key==5 )
+[e $ ! == -> _key `i -> 5 `i 1091  ]
 "39
-[; ;menu.c: 39:         if(star_flag==0)
-[e $ ! == -> _star_flag `i -> 0 `i 1092  ]
+[; ;menu.c: 39:     {
+{
 "40
-[; ;menu.c: 40:             star_flag=1;
-[e = _star_flag -> -> 1 `i `uc ]
-[e $U 1093  ]
+[; ;menu.c: 40:         if(star_flag==0)
+[e $ ! == -> _star_flag `i -> 0 `i 1092  ]
 "41
-[; ;menu.c: 41:         else if(log_index<3)
+[; ;menu.c: 41:         {
+{
+"42
+[; ;menu.c: 42:             star_flag=1;
+[e = _star_flag -> -> 1 `i `uc ]
+"43
+[; ;menu.c: 43:             star_index++;
+[e ++ _star_index -> -> 1 `i `uc ]
+"44
+[; ;menu.c: 44:         }
+}
+[e $U 1093  ]
+"45
+[; ;menu.c: 45:         else if(log_index<3)
 [e :U 1092 ]
 [e $ ! < -> _log_index `i -> 3 `i 1094  ]
-"42
-[; ;menu.c: 42:             log_index++;
-[e ++ _log_index -> -> 1 `i `uc ]
-[e :U 1094 ]
-[e :U 1093 ]
-"44
-[; ;menu.c: 44:     }
-}
-[e :U 1091 ]
-"45
-[; ;menu.c: 45:     if(key==6 )
-[e $ ! == -> _key `i -> 6 `i 1095  ]
 "46
-[; ;menu.c: 46:     {
+[; ;menu.c: 46:         {
 {
 "47
-[; ;menu.c: 47:          if(star_flag==1)
-[e $ ! == -> _star_flag `i -> 1 `i 1096  ]
+[; ;menu.c: 47:             log_index++;
+[e ++ _log_index -> -> 1 `i `uc ]
 "48
-[; ;menu.c: 48:             star_flag=0;
-[e = _star_flag -> -> 0 `i `uc ]
-[e $U 1097  ]
+[; ;menu.c: 48:             star_index++;
+[e ++ _star_index -> -> 1 `i `uc ]
 "49
-[; ;menu.c: 49:         else if(log_index>0)
-[e :U 1096 ]
-[e $ ! > -> _log_index `i -> 0 `i 1098  ]
-"50
-[; ;menu.c: 50:             log_index--;
-[e -- _log_index -> -> 1 `i `uc ]
-[e :U 1098 ]
-[e :U 1097 ]
+[; ;menu.c: 49:         }
+}
+[e :U 1094 ]
+[e :U 1093 ]
 "51
 [; ;menu.c: 51:     }
 }
-[e :U 1095 ]
+[e :U 1091 ]
+"52
+[; ;menu.c: 52:     if(key==6 )
+[e $ ! == -> _key `i -> 6 `i 1095  ]
+"53
+[; ;menu.c: 53:     {
+{
 "54
-[; ;menu.c: 54:     if(key==15)
-[e $ ! == -> _key `i -> 15 `i 1099  ]
+[; ;menu.c: 54:          if(star_flag==1)
+[e $ ! == -> _star_flag `i -> 1 `i 1096  ]
 "55
-[; ;menu.c: 55:     {
+[; ;menu.c: 55:          {
 {
 "56
-[; ;menu.c: 56:         clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
+[; ;menu.c: 56:            star_flag=0;
+[e = _star_flag -> -> 0 `i `uc ]
 "57
-[; ;menu.c: 57:         main_f=3;
-[e = _main_f -> -> 3 `i `uc ]
+[; ;menu.c: 57:            star_index--;
+[e -- _star_index -> -> 1 `i `uc ]
 "58
-[; ;menu.c: 58:         menu_f=log_index;
-[e = _menu_f _log_index ]
-"59
-[; ;menu.c: 59:     }
+[; ;menu.c: 58:          }
 }
-[e :U 1099 ]
+[e $U 1097  ]
 "60
-[; ;menu.c: 60:     if(key==16)
-[e $ ! == -> _key `i -> 16 `i 1100  ]
+[; ;menu.c: 60:         else if(log_index>0)
+[e :U 1096 ]
+[e $ ! > -> _log_index `i -> 0 `i 1098  ]
 "61
-[; ;menu.c: 61:     {
+[; ;menu.c: 61:         {
 {
 "62
-[; ;menu.c: 62:         clcd_write(0x01, 0);
-[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
+[; ;menu.c: 62:             log_index--;
+[e -- _log_index -> -> 1 `i `uc ]
 "63
-[; ;menu.c: 63:         main_f=0;
-[e = _main_f -> -> 0 `i `uc ]
+[; ;menu.c: 63:             star_index--;
+[e -- _star_index -> -> 1 `i `uc ]
 "64
-[; ;menu.c: 64:     }
+[; ;menu.c: 64:         }
+}
+[e :U 1098 ]
+[e :U 1097 ]
+"65
+[; ;menu.c: 65:     }
+}
+[e :U 1095 ]
+"68
+[; ;menu.c: 68:     if(key==15)
+[e $ ! == -> _key `i -> 15 `i 1099  ]
+"69
+[; ;menu.c: 69:     {
+{
+"70
+[; ;menu.c: 70:         clcd_write(0x01, 0);
+[e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
+"71
+[; ;menu.c: 71:         main_f=3;
+[e = _main_f -> -> 3 `i `uc ]
+"72
+[; ;menu.c: 72:         menu_f=star_index;
+[e = _menu_f _star_index ]
+"73
+[; ;menu.c: 73:     }
+}
+[e :U 1099 ]
+"74
+[; ;menu.c: 74:     if(key==16)
+[e $ ! == -> _key `i -> 16 `i 1100  ]
+"75
+[; ;menu.c: 75:     {
+{
+"76
+[; ;menu.c: 76:         main_f=0;
+[e = _main_f -> -> 0 `i `uc ]
+"77
+[; ;menu.c: 77:     }
 }
 [e :U 1100 ]
-"67
-[; ;menu.c: 67: }
+"80
+[; ;menu.c: 80: }
 [e :UE 1088 ]
 }
 [a 4C 83 101 116 32 116 105 109 101 0 ]

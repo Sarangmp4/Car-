@@ -1,4 +1,4 @@
-# 1 "menu.c"
+# 1 "uart.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,15 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "menu.c" 2
-
-
-
-
-
-
-
-
+# 1 "uart.c" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -17921,101 +17913,115 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 9 "menu.c" 2
+# 1 "uart.c" 2
 
-# 1 "./main.h" 1
-# 14 "./main.h"
-void dashboard();
-void store_event();
-void password(char key);
-void menu(char key);
-void view_log(char key);
-void download_log();
-void clear_log(char key);
-void settime(char key);
-void change_pass(char key);
-# 10 "menu.c" 2
-
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 11 "menu.c" 2
-
-# 1 "./clcd.h" 1
-# 31 "./clcd.h"
-void init_clcd(void);
-void clcd_print(const unsigned char *data, unsigned char addr);
-void clcd_putch(const unsigned char data, unsigned char addr);
-void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 12 "menu.c" 2
+# 1 "./uart.h" 1
 
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
-char main_f, menu_f;
-extern char key;
-char star_flag=0;
-char star_index=0;
-char log_index=0;
-short press_delay=0;
-void menu(char key)
+
+
+
+
+void init_uart(void);
+void putch(unsigned char byte);
+int puts(const char *s);
+unsigned char getch(void);
+unsigned char getch_with_timeout(unsigned short max_time);
+unsigned char getche(void);
+# 2 "uart.c" 2
+
+
+void init_uart(void)
 {
-    clcd_print(logs[log_index], (0x80 + (2)));
-    clcd_print(logs[(log_index+1)], (0xC0 + (2)));
 
-    if(star_flag==0)
-    {
-        clcd_putch('*',(0x80 + (0)));
-        clcd_putch(' ',(0xC0 + (0)));
-    }
-    else
-    {
-        clcd_putch(' ',(0x80 + (0)));
-        clcd_putch('*',(0xC0 + (0)));
-    }
+ TRISC7 = 1;
+ TRISC6 = 0;
 
 
-    if(key==5 )
-    {
-        if(star_flag==0)
-        {
-            star_flag=1;
-            star_index++;
-        }
-        else if(log_index<3)
-        {
-            log_index++;
-            star_index++;
-        }
 
-    }
-    if(key==6 )
-    {
-         if(star_flag==1)
-         {
-           star_flag=0;
-           star_index--;
-         }
+ TX9 = 0;
 
-        else if(log_index>0)
-        {
-            log_index--;
-            star_index--;
-        }
-    }
+ TXEN = 1;
 
 
-    if(key==15)
-    {
-        clcd_write(0x01, 0);
-        main_f=3;
-        menu_f=star_index;
-    }
-    if(key==16)
-    {
-        main_f=0;
-    }
+ SYNC = 0;
+
+ SENDB = 0;
 
 
+ BRGH = 1;
+
+
+
+ SPEN = 1;
+
+ RX9 = 0;
+
+ CREN = 1;
+
+
+
+ ABDOVF = 0;
+
+ BRG16 = 0;
+
+ WUE = 0;
+
+ ABDEN = 0;
+
+
+
+ SPBRG = 129;
+
+
+
+ TXIE = 1;
+
+ TXIF = 0;
+
+ RCIE = 1;
+
+ RCIF = 0;
+}
+
+void putch(unsigned char byte)
+{
+
+
+
+ while(!TXIF)
+ {
+  continue;
+ }
+ TXREG = byte;
+}
+
+int puts(const char *s)
+{
+ while(*s)
+ {
+  putch(*s++);
+ }
+ return 0;
+}
+
+
+unsigned char getch(void)
+{
+
+
+ while(!RCIF)
+ {
+  continue;
+ }
+ return RCREG;
+}
+
+unsigned char getche(void)
+{
+ unsigned char c;
+
+ putch(c = getch());
+
+ return (c);
 }

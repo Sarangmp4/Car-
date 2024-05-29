@@ -15,6 +15,7 @@
 #include "i2c.h"
 #include "timer0.h"
 #include "external_eeprom_2.h"
+#include "uart.h"
 
 char pass[5];
 
@@ -25,6 +26,11 @@ void init_config(void) {
     init_i2c();
     init_ds1307();
 	init_timer0();
+    init_uart();
+    
+    
+    
+    
     
     /*writing password to external eeprom*/
     write_external_eeprom(200,'0');
@@ -109,18 +115,18 @@ void main(void) {
             
             if(menu_f == VIEWLOG)
             {
-                
                 view_log(key);
             }
             
-            else if(menu_f == DOWNLOADLOG)
-            {
-                download_log();
-            }
             else if(menu_f == CLEARLOG)
             {
                 clear_log(key);
-            }/*
+            }
+            else if(menu_f == DOWNLOADLOG)
+            {
+                 download_log();
+            }
+            /*
             else if(menu_f == SETTIME)
             {
                 settime(key);

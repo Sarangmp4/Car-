@@ -1,19 +1,25 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"20 view_log.c
-[; ;view_log.c: 20: extern char overflow;
-[v _overflow `uc ~T0 @X0 0 e ]
-"19
-[; ;view_log.c: 19: extern char lap;
-[v _lap `uc ~T0 @X0 0 e ]
-"10 ./external_eeprom_2.h
-[; ;./external_eeprom_2.h: 10: unsigned char read_external_eeprom(unsigned char );
-[v _read_external_eeprom `(uc ~T0 @X0 0 ef1`uc ]
 "32 ./clcd.h
 [; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"33
-[; ;./clcd.h: 33: void clcd_putch(const unsigned char data, unsigned char addr);
-[v _clcd_putch `(v ~T0 @X0 0 ef2`Cuc`uc ]
+"16 download_log.c
+[; ;download_log.c: 16: extern char overflow;
+[v _overflow `uc ~T0 @X0 0 e ]
+"15
+[; ;download_log.c: 15: extern char lap;
+[v _lap `uc ~T0 @X0 0 e ]
+"9 ./uart.h
+[; ;./uart.h: 9: int puts(const char *s);
+[v _puts `(i ~T0 @X0 0 ef1`*Cuc ]
+"10 ./external_eeprom_2.h
+[; ;./external_eeprom_2.h: 10: unsigned char read_external_eeprom(unsigned char );
+[v _read_external_eeprom `(uc ~T0 @X0 0 ef1`uc ]
+"8 ./uart.h
+[; ;./uart.h: 8: void putch(unsigned char byte);
+[v _putch `(v ~T0 @X0 0 ef1`uc ]
+"17 download_log.c
+[; ;download_log.c: 17: extern char main_f;
+[v _main_f `uc ~T0 @X0 0 e ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1253,161 +1259,145 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"18 view_log.c
-[; ;view_log.c: 18: char view_array[11];
-[v _view_array `uc ~T0 @X0 -> 11 `i e ]
-"22
-[; ;view_log.c: 22: char start_index = 0, apend_index = 0;
-[v _start_index `uc ~T0 @X0 1 e ]
-[i _start_index
+"20 download_log.c
+[; ;download_log.c: 20: char download_array[11];
+[v _download_array `uc ~T0 @X0 -> 11 `i e ]
+"21
+[; ;download_log.c: 21: char start = 0;
+[v _start `uc ~T0 @X0 1 e ]
+[i _start
 -> -> 0 `i `uc
 ]
-[v _apend_index `uc ~T0 @X0 1 e ]
-[i _apend_index
--> -> 0 `i `uc
-]
+"23
+[; ;download_log.c: 23: char var;
+[v _var `uc ~T0 @X0 1 e ]
 "24
-[; ;view_log.c: 24: void view_log(char key)
-[v _view_log `(v ~T0 @X0 1 ef1`uc ]
-"25
-[; ;view_log.c: 25: {
+[; ;download_log.c: 24: char last;
+[v _last `uc ~T0 @X0 1 e ]
+"26
+[; ;download_log.c: 26: void download_log() {
+[v _download_log `(v ~T0 @X0 1 ef ]
 {
-[e :U _view_log ]
-"24
-[; ;view_log.c: 24: void view_log(char key)
-[v _key `uc ~T0 @X0 1 r1 ]
-"25
-[; ;view_log.c: 25: {
+[e :U _download_log ]
 [f ]
+"27
+[; ;download_log.c: 27:     clcd_print("  Download Log   ", (0x80 + (0)));
+[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
 "28
-[; ;view_log.c: 28:     if (overflow == 0) {
-[e $ ! == -> _overflow `i -> 0 `i 1089  ]
-{
-"29
-[; ;view_log.c: 29:         start_index = 0;
-[e = _start_index -> -> 0 `i `uc ]
-"31
-[; ;view_log.c: 31:         if (key == 5 && apend_index < lap - 1) {
-[e $ ! && == -> _key `i -> 5 `i < -> _apend_index `i - -> _lap `i -> 1 `i 1090  ]
-{
+[; ;download_log.c: 28:     clcd_print(" SUCCESSFULL ", (0xC0 + (3)));
+[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 3 `i `uc ]
 "32
-[; ;view_log.c: 32:             apend_index++;
-[e ++ _apend_index -> -> 1 `i `uc ]
+[; ;download_log.c: 32:     if (overflow == 1) {
+[e $ ! == -> _overflow `i -> 1 `i 1089  ]
+{
 "33
-[; ;view_log.c: 33:         }
+[; ;download_log.c: 33:         var = 10;
+[e = _var -> -> 10 `i `uc ]
+"34
+[; ;download_log.c: 34:     }
 }
-[e :U 1090 ]
+[e :U 1089 ]
 "35
-[; ;view_log.c: 35:         if (key == 6 && apend_index > 0) {
-[e $ ! && == -> _key `i -> 6 `i > -> _apend_index `i -> 0 `i 1091  ]
+[; ;download_log.c: 35:     if (overflow == 0) {
+[e $ ! == -> _overflow `i -> 0 `i 1090  ]
 {
 "36
-[; ;view_log.c: 36:             apend_index--;
-[e -- _apend_index -> -> 1 `i `uc ]
+[; ;download_log.c: 36:         var = lap;
+[e = _var _lap ]
 "37
-[; ;view_log.c: 37:         }
+[; ;download_log.c: 37:     }
 }
-[e :U 1091 ]
-"38
-[; ;view_log.c: 38:     } else if (overflow == 1) {
-}
-[e $U 1092  ]
-[e :U 1089 ]
-[e $ ! == -> _overflow `i -> 1 `i 1093  ]
-{
+[e :U 1090 ]
 "39
-[; ;view_log.c: 39:         start_index = lap;
-[e = _start_index _lap ]
+[; ;download_log.c: 39:     puts("# TIME   EV   SP \n\r");
+[e ( _puts (1 :s 3C ]
 "41
-[; ;view_log.c: 41:         if (key == 5 && apend_index < 9) {
-[e $ ! && == -> _key `i -> 5 `i < -> _apend_index `i -> 9 `i 1094  ]
+[; ;download_log.c: 41:     for (last = 0; last < var; last++) {
 {
-"42
-[; ;view_log.c: 42:             apend_index++;
-[e ++ _apend_index -> -> 1 `i `uc ]
-"43
-[; ;view_log.c: 43:         }
-}
-[e :U 1094 ]
+[e = _last -> -> 0 `i `uc ]
+[e $U 1094  ]
+[e :U 1091 ]
+{
 "44
-[; ;view_log.c: 44:         if (key == 6 && apend_index > 0) {
-[e $ ! && == -> _key `i -> 6 `i > -> _apend_index `i -> 0 `i 1095  ]
-{
-"45
-[; ;view_log.c: 45:             apend_index--;
-[e -- _apend_index -> -> 1 `i `uc ]
-"46
-[; ;view_log.c: 46:         }
-}
-[e :U 1095 ]
-"47
-[; ;view_log.c: 47:     }
-}
-[e :U 1093 ]
-[e :U 1092 ]
-"50
-[; ;view_log.c: 50:     for (int j = 0; j < 10; j++) {
+[; ;download_log.c: 44:         for (int j = 0; j < 10; j++) {
 {
 [v _j `i ~T0 @X0 1 a ]
 [e = _j -> 0 `i ]
-[e $ < _j -> 10 `i 1096  ]
-[e $U 1097  ]
-[e :U 1096 ]
+[e $ < _j -> 10 `i 1095  ]
+[e $U 1096  ]
+[e :U 1095 ]
 {
-"51
-[; ;view_log.c: 51:         view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
-[e = *U + &U _view_array * -> -> _j `ui `ux -> -> # *U &U _view_array `ui `ux -> ( _read_external_eeprom (1 -> + * % + -> _start_index `i -> _apend_index `i -> 10 `i -> 10 `i _j `uc `uc ]
-"52
-[; ;view_log.c: 52:     }
+"45
+[; ;download_log.c: 45:             download_array[j] = read_external_eeprom((start + last) % 10 * 10 + j);
+[e = *U + &U _download_array * -> -> _j `ui `ux -> -> # *U &U _download_array `ui `ux -> ( _read_external_eeprom (1 -> + * % + -> _start `i -> _last `i -> 10 `i -> 10 `i _j `uc `uc ]
+"46
+[; ;download_log.c: 46:         }
 }
 [e ++ _j -> 1 `i ]
-[e $ < _j -> 10 `i 1096  ]
-[e :U 1097 ]
+[e $ < _j -> 10 `i 1095  ]
+[e :U 1096 ]
 }
+"48
+[; ;download_log.c: 48:         putch(download_array[0]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
+"49
+[; ;download_log.c: 49:         putch(download_array[1]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
+"50
+[; ;download_log.c: 50:         putch(':');
+[e ( _putch (1 -> -> 58 `ui `uc ]
+"51
+[; ;download_log.c: 51:         putch(download_array[2]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
+"52
+[; ;download_log.c: 52:         putch(download_array[3]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 3 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
+"53
+[; ;download_log.c: 53:         putch(':');
+[e ( _putch (1 -> -> 58 `ui `uc ]
+"54
+[; ;download_log.c: 54:         putch(download_array[4]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 4 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "55
-[; ;view_log.c: 55:     clcd_print("Entered View Log", (0x80 + (0)));
-[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
+[; ;download_log.c: 55:         putch(download_array[5]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 5 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "56
-[; ;view_log.c: 56:     clcd_putch('0' + apend_index, (0xC0 + (0)));
-[e ( _clcd_putch (2 , -> + -> 48 `ui -> _apend_index `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+[; ;download_log.c: 56:         putch(' ');
+[e ( _putch (1 -> -> 32 `ui `uc ]
 "59
-[; ;view_log.c: 59:     clcd_putch(view_array[0], (0xC0 + (2)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 0 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 2 `i `uc ]
+[; ;download_log.c: 59:         putch(download_array[6]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 6 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "60
-[; ;view_log.c: 60:     clcd_putch(view_array[1], (0xC0 + (3)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 1 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 3 `i `uc ]
+[; ;download_log.c: 60:         putch(download_array[7]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 7 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "61
-[; ;view_log.c: 61:     clcd_putch(':', (0xC0 + (4)));
-[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 4 `i `uc ]
-"63
-[; ;view_log.c: 63:     clcd_putch(view_array[2], (0xC0 + (5)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 2 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 5 `i `uc ]
+[; ;download_log.c: 61:         putch(' ');
+[e ( _putch (1 -> -> 32 `ui `uc ]
 "64
-[; ;view_log.c: 64:     clcd_putch(view_array[3], (0xC0 + (6)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 3 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 6 `i `uc ]
+[; ;download_log.c: 64:         putch(download_array[8]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 8 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "65
-[; ;view_log.c: 65:     clcd_putch(':', (0xC0 + (7)));
-[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 7 `i `uc ]
+[; ;download_log.c: 65:         putch(download_array[9]);
+[e ( _putch (1 -> *U + &U _download_array * -> -> -> 9 `i `ui `ux -> -> # *U &U _download_array `ui `ux `uc ]
 "67
-[; ;view_log.c: 67:     clcd_putch(view_array[4], (0xC0 + (8)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 4 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 8 `i `uc ]
-"68
-[; ;view_log.c: 68:     clcd_putch(view_array[5], (0xC0 + (9)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 5 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 9 `i `uc ]
-"71
-[; ;view_log.c: 71:     clcd_putch(view_array[6], (0xC0 + (11)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 6 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 11 `i `uc ]
+[; ;download_log.c: 67:         puts("\n\r");
+[e ( _puts (1 :s 4C ]
+"69
+[; ;download_log.c: 69:     }
+}
+[e ++ _last -> -> 1 `i `uc ]
+[e :U 1094 ]
+[e $ < -> _last `i -> _var `i 1091  ]
+[e :U 1092 ]
+}
+"70
+[; ;download_log.c: 70:     main_f = 2;
+[e = _main_f -> -> 2 `i `uc ]
 "72
-[; ;view_log.c: 72:     clcd_putch(view_array[7], (0xC0 + (12)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 7 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 12 `i `uc ]
-"75
-[; ;view_log.c: 75:     clcd_putch(view_array[8], (0xC0 + (14)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 8 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 14 `i `uc ]
-"76
-[; ;view_log.c: 76:     clcd_putch(view_array[9], (0xC0 + (15)));
-[e ( _clcd_putch (2 , -> *U + &U _view_array * -> -> -> 9 `i `ui `ux -> -> # *U &U _view_array `ui `ux `uc -> + -> 192 `i -> 15 `i `uc ]
-"80
-[; ;view_log.c: 80: }
+[; ;download_log.c: 72: }
 [e :UE 1088 ]
 }
-[a 1C 69 110 116 101 114 101 100 32 86 105 101 119 32 76 111 103 0 ]
+[a 2C 32 83 85 67 67 69 83 83 70 85 76 76 32 0 ]
+[a 1C 32 32 68 111 119 110 108 111 97 100 32 76 111 103 32 32 32 0 ]
+[a 3C 35 32 84 73 77 69 32 32 32 69 86 32 32 32 83 80 32 10 13 0 ]
+[a 4C 10 13 0 ]
