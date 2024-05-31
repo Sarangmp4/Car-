@@ -17952,8 +17952,8 @@ void clcd_write(unsigned char bit_values, unsigned char control_bit);
 # 12 "menu.c" 2
 
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
-char main_f, menu_f;
+char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time       ","Change Passwrd"};
+extern char main_f, menu_f;
 extern char key;
 char star_flag=0;
 char star_index=0;
@@ -18014,6 +18014,7 @@ void menu(char key)
     }
     if(key==16)
     {
+        clcd_write(0x01, 0);
         main_f=0;
     }
 

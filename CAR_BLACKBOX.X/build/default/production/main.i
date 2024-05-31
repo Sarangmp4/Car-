@@ -18026,9 +18026,6 @@ void init_config(void) {
 
 
 
-
-
-
     write_external_eeprom(200,'0');
     write_external_eeprom(201,'0');
     write_external_eeprom(202,'0');
@@ -18065,7 +18062,7 @@ void main(void) {
         {
             pre_key=key;
             key_time++;
-            if(key_time == 1000)
+            if(key_time == 500)
             {
                 key=key+10;
             }
@@ -18074,7 +18071,7 @@ void main(void) {
                 key=0;
             }
         }
-        else if(key_time > 0 && key_time <1000)
+        else if(key_time > 0 && key_time <500)
         {
             key_time=0;
             key=pre_key;
@@ -18096,11 +18093,6 @@ void main(void) {
             }
         } else if (main_f == 1) {
             password(key);
-            if(flag==1)
-            {
-                clcd_write(0x01, 0);
-                main_f=2;
-            }
         }
         else if(main_f == 2)
         {
@@ -18122,7 +18114,14 @@ void main(void) {
             {
                  download_log();
             }
-# 138 "main.c"
+            else if(menu_f == 4)
+            {
+               change_pass(key);
+            }
+
+
+
+
         }
     }
 }

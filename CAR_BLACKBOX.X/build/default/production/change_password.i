@@ -1,4 +1,4 @@
-# 1 "clear_log.c"
+# 1 "change_password.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "clear_log.c" 2
+# 1 "change_password.c" 2
 
 
 
@@ -14,13 +14,6 @@
 
 
 
-
-extern char store[11];
-extern char overflow;
-extern char lap;
-extern char main_f;
-extern unsigned short adc_reg_val;
-extern unsigned char time[9];
 
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
@@ -17928,7 +17921,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 15 "clear_log.c" 2
+# 9 "change_password.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17941,7 +17934,14 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 16 "clear_log.c" 2
+# 10 "change_password.c" 2
+
+# 1 "./matrix_keypad.h" 1
+# 39 "./matrix_keypad.h"
+void init_matrix_keypad(void);
+unsigned char scan_key(void);
+unsigned char read_switches(unsigned char detection_type);
+# 11 "change_password.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17949,45 +17949,110 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 17 "clear_log.c" 2
+# 12 "change_password.c" 2
 
-# 1 "./matrix_keypad.h" 1
-# 39 "./matrix_keypad.h"
-void init_matrix_keypad(void);
-unsigned char scan_key(void);
-unsigned char read_switches(unsigned char detection_type);
-# 18 "clear_log.c" 2
-
-
-void clear_log(char key)
-{
-    lap=0;
-    overflow=0;
-
-
-    clcd_print("   LOG CLEARED   ",(0x80 + (0)));
-    clcd_print("                 ",(0xC0 + (0)));
-
-
-    store[0]=time[0];
-    store[1]=time[1];
-    store[2]=time[3];
-    store[3]=time[4];
-    store[4]=time[6];
-    store[5]=time[7];
-
-
-    store[6]='C';
-    store[7]='L';
+# 1 "./external_eeprom_2.h" 1
 
 
 
-        store[8]=(adc_reg_val / 10) + 48;
-        store[9]=(adc_reg_val % 10) + 48;
 
-    if(key==16)
-    {
-        main_f=2;
+
+
+
+
+void write_external_eeprom(unsigned char , unsigned char );
+unsigned char read_external_eeprom(unsigned char );
+# 13 "change_password.c" 2
+
+
+extern char pass[5];
+char temp1[5], temp2[5];
+extern char main_f;
+char ind = 0;
+int del = 0;
+char reset_flag = 0;
+
+int my_strcp(char *one, char *two) {
+    int k = 0, last = 0;
+    while (one[k] != '\0') {
+        if (one[k] != two[k]) {
+            last = one[k] - two[k];
+            break;
+        }
+        k++;
     }
+    return last;
+}
 
+void change_pass(char key) {
+    if (reset_flag == 0) {
+        clcd_print("  New Password : ", (0x80 + (0)));
+
+
+        if (del++ < 500) {
+            clcd_putch('_', (0xC0 + (ind)));
+        } else if (del > 500 && del < 1000) {
+            clcd_putch(' ', (0xC0 + (ind)));
+        } else
+            del = 0;
+
+        if (key == 5) {
+            temp1[ind] = '0';
+            clcd_putch('*', (0xC0 + (ind)));
+            ind++;
+        } else if (key == 6) {
+            temp1[ind] = '1';
+            clcd_putch('*', (0xC0 + (ind)));
+            ind++;
+        }
+        if (ind == 4) {
+            temp1[ind] = '\0';
+            reset_flag = 1;
+            ind = 0;
+            clcd_write(0x01, 0);
+        }
+    } else if (reset_flag == 1) {
+        clcd_print("  Retype Password : ", (0x80 + (0)));
+
+        if (del++ < 500) {
+            clcd_putch('_', (0xC0 + (ind)));
+        } else if (del > 500 && del < 1000) {
+            clcd_putch(' ', (0xC0 + (ind)));
+        } else
+            del = 0;
+
+        if (key == 5) {
+            temp2[ind] = '0';
+            clcd_putch('*', (0xC0 + (ind)));
+            ind++;
+        } else if (key == 6) {
+            temp2[ind] = '1';
+            clcd_putch('*', (0xC0 + (ind)));
+            ind++;
+        }
+        if (ind == 4) {
+            temp2[ind] = '\0';
+            if (my_strcp(temp1, temp2) == 0) {
+                pass[0] = temp1[0];
+                write_external_eeprom((200), temp1[0]);
+                pass[1] = temp1[1];
+                write_external_eeprom((201), temp1[1]);
+                pass[2] = temp1[2];
+                write_external_eeprom((202), temp1[2]);
+                pass[3] = temp1[3];
+                write_external_eeprom((203), temp1[3]);
+
+                clcd_print(" Password Change  ", (0x80 + (0)));
+                clcd_print("   SUCCESSFULL  ", (0xC0 + (0)));
+                for (unsigned long int delay = 200000; delay--;);
+                ind = 0;
+                reset_flag = 0;
+                main_f = 2;
+            } else {
+                main_f = 2;
+            }
+        }
+
+
+    }
 }

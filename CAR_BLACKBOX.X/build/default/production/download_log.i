@@ -17972,7 +17972,7 @@ unsigned char read_external_eeprom(unsigned char );
 # 12 "download_log.c" 2
 
 
-
+extern char store[11];
 extern char lap;
 extern char overflow;
 extern char main_f;
@@ -18028,6 +18028,10 @@ void download_log() {
         puts("\n\r");
 
     }
+
+    store[6]='D';
+    store[7]='L';
+
     main_f = 2;
 
 }

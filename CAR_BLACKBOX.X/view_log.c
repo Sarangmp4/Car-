@@ -5,24 +5,28 @@
  * Created on 27 May, 2024, 4:48 PM
  */
 
-extern char store[10];
-extern char main_f;
-
-
 #include <xc.h>
 #include "main.h"
 #include "clcd.h"
 #include "external_eeprom_2.h"
 #include"matrix_keypad.h"
 
+extern char store[11];
+extern char main_f;
 char view_array[11];
 extern char lap;
 extern char overflow;
+extern unsigned short adc_reg_val;
+extern unsigned char time[9];
 
 char start_index = 0, apend_index = 0;
 
-void view_log(char key) 
-{
+void view_log(char key) {
+
+
+    if (key == 16) {
+        main_f = 2;
+    }
 
 
     if (overflow == 0) {
@@ -35,6 +39,26 @@ void view_log(char key)
         if (key == MK_SW6 && apend_index > 0) {
             apend_index--;
         }
+
+
+        /*storing time*/
+        store[0] = time[0];
+        store[1] = time[1];
+        store[2] = time[3];
+        store[3] = time[4];
+        store[4] = time[6];
+        store[5] = time[7];
+
+        /*storing event mode*/
+        store[6] = 'C';
+        store[7] = 'L';
+
+        /*storing speed*/
+
+        store[8] = (adc_reg_val / 10) + 48;
+        store[9] = (adc_reg_val % 10) + 48;
+
+
     } else if (overflow == 1) {
         start_index = lap;
 
@@ -44,6 +68,8 @@ void view_log(char key)
         if (key == MK_SW6 && apend_index > 0) {
             apend_index--;
         }
+
+
     }
 
 
@@ -74,7 +100,5 @@ void view_log(char key)
     /*speed*/
     clcd_putch(view_array[8], LINE2(14));
     clcd_putch(view_array[9], LINE2(15));
-
-
 
 }

@@ -14,11 +14,6 @@
 
 
 
-extern char store[10];
-extern char main_f;
-
-
-
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -17925,7 +17920,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 12 "view_log.c" 2
+# 8 "view_log.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17938,7 +17933,7 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 13 "view_log.c" 2
+# 9 "view_log.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17946,7 +17941,7 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 14 "view_log.c" 2
+# 10 "view_log.c" 2
 
 # 1 "./external_eeprom_2.h" 1
 
@@ -17959,24 +17954,32 @@ void clcd_write(unsigned char bit_values, unsigned char control_bit);
 
 void write_external_eeprom(unsigned char , unsigned char );
 unsigned char read_external_eeprom(unsigned char );
-# 15 "view_log.c" 2
+# 11 "view_log.c" 2
 
 # 1 "./matrix_keypad.h" 1
 # 39 "./matrix_keypad.h"
 void init_matrix_keypad(void);
 unsigned char scan_key(void);
 unsigned char read_switches(unsigned char detection_type);
-# 16 "view_log.c" 2
+# 12 "view_log.c" 2
 
 
+extern char store[11];
+extern char main_f;
 char view_array[11];
 extern char lap;
 extern char overflow;
+extern unsigned short adc_reg_val;
+extern unsigned char time[9];
 
 char start_index = 0, apend_index = 0;
 
-void view_log(char key)
-{
+void view_log(char key) {
+
+
+    if (key == 16) {
+        main_f = 2;
+    }
 
 
     if (overflow == 0) {
@@ -17989,6 +17992,26 @@ void view_log(char key)
         if (key == 6 && apend_index > 0) {
             apend_index--;
         }
+
+
+
+        store[0] = time[0];
+        store[1] = time[1];
+        store[2] = time[3];
+        store[3] = time[4];
+        store[4] = time[6];
+        store[5] = time[7];
+
+
+        store[6] = 'C';
+        store[7] = 'L';
+
+
+
+        store[8] = (adc_reg_val / 10) + 48;
+        store[9] = (adc_reg_val % 10) + 48;
+
+
     } else if (overflow == 1) {
         start_index = lap;
 
@@ -17998,6 +18021,8 @@ void view_log(char key)
         if (key == 6 && apend_index > 0) {
             apend_index--;
         }
+
+
     }
 
 
@@ -18028,7 +18053,5 @@ void view_log(char key)
 
     clcd_putch(view_array[8], (0xC0 + (14)));
     clcd_putch(view_array[9], (0xC0 + (15)));
-
-
 
 }

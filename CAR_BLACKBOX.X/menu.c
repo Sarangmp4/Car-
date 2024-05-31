@@ -11,8 +11,8 @@
 #include "matrix_keypad.h"
 #include "clcd.h"
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time","Change Password"};
-char main_f, menu_f;
+char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time       ","Change Passwrd"};
+extern char main_f, menu_f;
 extern char key;
 char star_flag=0;
 char star_index=0;
@@ -73,6 +73,7 @@ void menu(char key)
     }
     if(key==16)
     {
+        CLEAR_DISP_SCREEN;
         main_f=0;
     }
    

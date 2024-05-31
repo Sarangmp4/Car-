@@ -29,9 +29,6 @@ void init_config(void) {
     init_uart();
     
     
-    
-    
-    
     /*writing password to external eeprom*/
     write_external_eeprom(200,'0');
     write_external_eeprom(201,'0');
@@ -69,7 +66,7 @@ void main(void) {
         {
             pre_key=key;
             key_time++;
-            if(key_time == 1000)
+            if(key_time == 500)
             {
                 key=key+10;
             }
@@ -78,7 +75,7 @@ void main(void) {
                 key=0;
             }
         }
-        else if(key_time > 0 && key_time <1000)
+        else if(key_time > 0 && key_time <500)
         {
             key_time=0;
             key=pre_key;
@@ -100,11 +97,6 @@ void main(void) {
             }
         } else if (main_f == PASSWORD) {
             password(key);
-            if(flag==1)
-            {
-                CLEAR_DISP_SCREEN;
-                main_f=2;
-            }
         }
         else if(main_f == MENU)
         {
@@ -126,14 +118,13 @@ void main(void) {
             {
                  download_log();
             }
-            /*
+            else if(menu_f == CHANGEPASS)
+            {
+               change_pass(key); 
+            }/*
             else if(menu_f == SETTIME)
             {
                 settime(key);
-            }
-            else if(menu_f == CHANGEPASS)
-            {
-                change_pass(key);
             }*/
         }
     }

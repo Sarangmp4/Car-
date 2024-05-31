@@ -1,10 +1,25 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"9 clear_log.c
-[; ;clear_log.c: 9: extern char lap;
+"11 clear_log.c
+[; ;clear_log.c: 11: extern char lap;
 [v _lap `uc ~T0 @X0 0 e ]
+"10
+[; ;clear_log.c: 10: extern char overflow;
+[v _overflow `uc ~T0 @X0 0 e ]
 "32 ./clcd.h
 [; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
+"9 clear_log.c
+[; ;clear_log.c: 9: extern char store[11];
+[v _store `uc ~T0 @X0 -> 0 `x e ]
+"14
+[; ;clear_log.c: 14: extern unsigned char time[9];
+[v _time `uc ~T0 @X0 -> 0 `x e ]
+"13
+[; ;clear_log.c: 13: extern unsigned short adc_reg_val;
+[v _adc_reg_val `us ~T0 @X0 0 e ]
+"12
+[; ;clear_log.c: 12: extern char main_f;
+[v _main_f `uc ~T0 @X0 0 e ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1244,30 +1259,76 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"14 clear_log.c
-[; ;clear_log.c: 14: void clear_log(char key)
+"20 clear_log.c
+[; ;clear_log.c: 20: void clear_log(char key)
 [v _clear_log `(v ~T0 @X0 1 ef1`uc ]
-"15
-[; ;clear_log.c: 15: {
+"21
+[; ;clear_log.c: 21: {
 {
 [e :U _clear_log ]
-"14
-[; ;clear_log.c: 14: void clear_log(char key)
+"20
+[; ;clear_log.c: 20: void clear_log(char key)
 [v _key `uc ~T0 @X0 1 r1 ]
-"15
-[; ;clear_log.c: 15: {
+"21
+[; ;clear_log.c: 21: {
 [f ]
-"16
-[; ;clear_log.c: 16:     lap=0;
-[e = _lap -> -> 0 `i `uc ]
-"17
-[; ;clear_log.c: 17:     clcd_print("   LOG CLEARED   ",(0x80 + (0)));
-[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
-"18
-[; ;clear_log.c: 18:     clcd_print("                 ",(0xC0 + (0)));
-[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 0 `i `uc ]
 "22
-[; ;clear_log.c: 22: }
+[; ;clear_log.c: 22:     lap=0;
+[e = _lap -> -> 0 `i `uc ]
+"23
+[; ;clear_log.c: 23:     overflow=0;
+[e = _overflow -> -> 0 `i `uc ]
+"26
+[; ;clear_log.c: 26:     clcd_print("   LOG CLEARED   ",(0x80 + (0)));
+[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
+"27
+[; ;clear_log.c: 27:     clcd_print("                 ",(0xC0 + (0)));
+[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 0 `i `uc ]
+"30
+[; ;clear_log.c: 30:     store[0]=time[0];
+[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"31
+[; ;clear_log.c: 31:     store[1]=time[1];
+[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"32
+[; ;clear_log.c: 32:     store[2]=time[3];
+[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"33
+[; ;clear_log.c: 33:     store[3]=time[4];
+[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"34
+[; ;clear_log.c: 34:     store[4]=time[6];
+[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"35
+[; ;clear_log.c: 35:     store[5]=time[7];
+[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"38
+[; ;clear_log.c: 38:     store[6]='C';
+[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 67 `ui `uc ]
+"39
+[; ;clear_log.c: 39:     store[7]='L';
+[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 76 `ui `uc ]
+"43
+[; ;clear_log.c: 43:         store[8]=(adc_reg_val / 10) + 48;
+[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
+"44
+[; ;clear_log.c: 44:         store[9]=(adc_reg_val % 10) + 48;
+[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
+"46
+[; ;clear_log.c: 46:     if(key==16)
+[e $ ! == -> _key `i -> 16 `i 1089  ]
+"47
+[; ;clear_log.c: 47:     {
+{
+"48
+[; ;clear_log.c: 48:         main_f=2;
+[e = _main_f -> -> 2 `i `uc ]
+"49
+[; ;clear_log.c: 49:     }
+}
+[e :U 1089 ]
+"51
+[; ;clear_log.c: 51: }
 [e :UE 1088 ]
 }
 [a 1C 32 32 32 76 79 71 32 67 76 69 65 82 69 68 32 32 32 0 ]

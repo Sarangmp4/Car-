@@ -17961,12 +17961,12 @@ unsigned short read_adc(unsigned char channel);
 # 14 "password.c" 2
 
 
-int index = 0;
+char index = 0;
 char chance = 2;
 extern char tick_count;
 
 int delay = 0;
-char flag = 0;
+extern char main_f;
 char temp_password[5];
 extern char pass[5];
 
@@ -18009,8 +18009,10 @@ void password(char key) {
     if (index == 4) {
         temp_password[index] = '\0';
         if (my_strcmp(pass,temp_password) == 0) {
-            flag = 1;
-            return;
+            clcd_write(0x01, 0);
+            chance=3;
+            main_f=2;
+
 
 
         } else {

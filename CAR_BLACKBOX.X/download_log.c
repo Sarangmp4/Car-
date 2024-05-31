@@ -11,7 +11,7 @@
 #include "uart.h"
 #include "external_eeprom_2.h"
 
-
+extern char store[11];
 extern char lap;
 extern char overflow;
 extern char main_f;
@@ -67,6 +67,10 @@ void download_log() {
         puts("\n\r");
 
     }
+    /*storing event mode*/
+    store[6]='D';
+    store[7]='L';
+            
     main_f = 2;
 
 }

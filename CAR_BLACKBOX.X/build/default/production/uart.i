@@ -17938,50 +17938,21 @@ void init_uart(void)
  TRISC6 = 0;
 
 
-
- TX9 = 0;
-
- TXEN = 1;
-
-
- SYNC = 0;
-
- SENDB = 0;
-
-
  BRGH = 1;
-
-
-
  SPEN = 1;
 
- RX9 = 0;
+
 
  CREN = 1;
 
 
 
- ABDOVF = 0;
-
- BRG16 = 0;
-
- WUE = 0;
-
- ABDEN = 0;
-
 
 
  SPBRG = 129;
 
+    RCIE = 1;
 
-
- TXIE = 1;
-
- TXIF = 0;
-
- RCIE = 1;
-
- RCIF = 0;
 }
 
 void putch(unsigned char byte)
