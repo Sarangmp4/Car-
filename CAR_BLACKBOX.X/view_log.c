@@ -41,23 +41,7 @@ void view_log(char key) {
         }
 
 
-        /*storing time*/
-        store[0] = time[0];
-        store[1] = time[1];
-        store[2] = time[3];
-        store[3] = time[4];
-        store[4] = time[6];
-        store[5] = time[7];
-
-        /*storing event mode*/
-        store[6] = 'C';
-        store[7] = 'L';
-
-        /*storing speed*/
-
-        store[8] = (adc_reg_val / 10) + 48;
-        store[9] = (adc_reg_val % 10) + 48;
-
+        
 
     } else if (overflow == 1) {
         start_index = lap;

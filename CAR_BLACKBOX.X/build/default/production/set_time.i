@@ -1,4 +1,4 @@
-# 1 "view_log.c"
+# 1 "set_time.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "view_log.c" 2
+# 1 "set_time.c" 2
+
 
 
 
@@ -17920,7 +17921,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 8 "view_log.c" 2
+# 9 "set_time.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17933,7 +17934,7 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 9 "view_log.c" 2
+# 10 "set_time.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17941,101 +17942,100 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 10 "view_log.c" 2
-
-# 1 "./external_eeprom_2.h" 1
-
-
-
-
-
-
-
-
-void write_external_eeprom(unsigned char , unsigned char );
-unsigned char read_external_eeprom(unsigned char );
-# 11 "view_log.c" 2
+# 11 "set_time.c" 2
 
 # 1 "./matrix_keypad.h" 1
 # 39 "./matrix_keypad.h"
 void init_matrix_keypad(void);
 unsigned char scan_key(void);
 unsigned char read_switches(unsigned char detection_type);
-# 12 "view_log.c" 2
+# 12 "set_time.c" 2
 
 
-extern char store[11];
-extern char main_f;
-char view_array[11];
-extern char lap;
-extern char overflow;
-extern unsigned short adc_reg_val;
+
+char hr, min, sec;
+char pos_flag = 0, t_flag = 0;
 extern unsigned char time[9];
+extern unsigned short adc_reg_val;
+extern char store[11];
+extern unsigned char clock_reg[3];
+extern char main_f;
 
-char start_index = 0, apend_index = 0;
-
-void view_log(char key) {
+void settime(char key) {
 
 
+    clcd_print("     HH:MM:SS    ", (0x80 + (0)));
+    if (t_flag == 0) {
+        hr = ((time[0] - 48)*10 + (time[0] - 48));
+        min = ((time[3] - 48)*10 + (time[4] - 48));
+        sec = ((time[6] - 48)*10 + (time[7] - 48));
+        t_flag = 1;
+    }
+
+    clcd_putch('0' + (hr / 10), (0xC0 + (0)));
+    clcd_putch('0' + (hr % 10), (0xC0 + (1)));
+
+    clcd_putch(':', (0xC0 + (2)));
+    clcd_putch('0' + (min / 10), (0xC0 + (3)));
+    clcd_putch('0' + (min % 10), (0xC0 + (4)));
+
+    clcd_putch(':', (0xC0 + (5)));
+    clcd_putch('0' + (sec / 10), (0xC0 + (6)));
+    clcd_putch('0' + (sec % 10), (0xC0 + (7)));
+
+    if (key == 5) {
+        if (pos_flag == 0) {
+            if (sec == 59) {
+                sec = 0;
+            } else
+                sec++;
+
+        } else if (pos_flag == 1) {
+            if (min == 59) {
+                min = 0;
+            }
+            min++;
+        } else if (pos_flag == 2) {
+            if (hr == 23) {
+                hr = 0;
+            }
+            hr++;
+        }
+    } else if (key == 6) {
+        pos_flag++;
+
+        if (pos_flag == 3) {
+            pos_flag = 0;
+        }
+    }
+    if (key == 15) {
+
+        clock_reg[0] = ((hr / 10) << 4) | (hr % 10);
+        clock_reg[0] = ((min / 10) << 4) | (min % 10);
+        clock_reg[0] = ((sec / 10) << 4) | (sec % 10);
+
+
+
+        store[0] = time[0];
+        store[1] = time[1];
+        store[2] = time[3];
+        store[3] = time[4];
+        store[4] = time[6];
+        store[5] = time[7];
+
+
+        store[6] = 'S';
+        store[7] = 'T';
+
+
+        store[8] = (adc_reg_val / 10) + 48;
+        store[9] = (adc_reg_val % 10) + 48;
+
+        main_f = 2;
+
+    }
     if (key == 16) {
         main_f = 2;
     }
-
-
-    if (overflow == 0) {
-        start_index = 0;
-
-        if (key == 5 && apend_index < lap - 1) {
-            apend_index++;
-        }
-
-        if (key == 6 && apend_index > 0) {
-            apend_index--;
-        }
-
-
-
-
-    } else if (overflow == 1) {
-        start_index = lap;
-
-        if (key == 5 && apend_index < 9) {
-            apend_index++;
-        }
-        if (key == 6 && apend_index > 0) {
-            apend_index--;
-        }
-
-
-    }
-
-
-    for (int j = 0; j < 10; j++) {
-        view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
-    }
-
-
-    clcd_print("Entered View Log", (0x80 + (0)));
-    clcd_putch('0' + apend_index, (0xC0 + (0)));
-
-
-    clcd_putch(view_array[0], (0xC0 + (2)));
-    clcd_putch(view_array[1], (0xC0 + (3)));
-    clcd_putch(':', (0xC0 + (4)));
-
-    clcd_putch(view_array[2], (0xC0 + (5)));
-    clcd_putch(view_array[3], (0xC0 + (6)));
-    clcd_putch(':', (0xC0 + (7)));
-
-    clcd_putch(view_array[4], (0xC0 + (8)));
-    clcd_putch(view_array[5], (0xC0 + (9)));
-
-
-    clcd_putch(view_array[6], (0xC0 + (11)));
-    clcd_putch(view_array[7], (0xC0 + (12)));
-
-
-    clcd_putch(view_array[8], (0xC0 + (14)));
-    clcd_putch(view_array[9], (0xC0 + (15)));
 
 }

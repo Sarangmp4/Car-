@@ -18021,22 +18021,21 @@ void init_config(void) {
     init_adc();
     init_i2c();
     init_ds1307();
- init_timer0();
+    init_timer0();
     init_uart();
 
 
 
-    write_external_eeprom(200,'0');
-    write_external_eeprom(201,'0');
-    write_external_eeprom(202,'0');
-    write_external_eeprom(203,'0');
+    write_external_eeprom(200, '0');
+    write_external_eeprom(201, '0');
+    write_external_eeprom(202, '0');
+    write_external_eeprom(203, '0');
 
 
-for(int j=0; j<4; j++)
-{
-    pass[j] = read_external_eeprom(j+200);
-}
-    pass[4]='\0';
+    for (int j = 0; j < 4; j++) {
+        pass[j] = read_external_eeprom(j + 200);
+    }
+    pass[4] = '\0';
 
 
 }
@@ -18045,6 +18044,9 @@ char pre_key;
 unsigned short adc_reg_val;
 extern char flag;
 int key_time;
+
+
+
 
 
 char main_f = 0, menu_f = 0;
@@ -18058,32 +18060,26 @@ void main(void) {
 
         key = read_switches(0);
 
-        if(key != 0xFF)
-        {
-            pre_key=key;
+        if (key != 0xFF) {
+            pre_key = key;
             key_time++;
-            if(key_time == 500)
-            {
-                key=key+10;
+            if (key_time == 500) {
+                key = key + 10;
+            } else {
+                key = 0;
             }
-            else
-            {
-                key=0;
-            }
-        }
-        else if(key_time > 0 && key_time <500)
-        {
-            key_time=0;
-            key=pre_key;
-        }
-        else
-        {
-            key_time=0;
-            key=0;
+        } else if (key_time > 0 && key_time < 500) {
+            key_time = 0;
+            key = pre_key;
+        } else {
+            key_time = 0;
+            key = 0;
         }
 
 
-        adc_reg_val = read_adc(0x04)/10.33;
+        adc_reg_val = read_adc(0x04) / 10.33;
+
+
 
         if (main_f == 0) {
             dashboard();
@@ -18093,35 +18089,23 @@ void main(void) {
             }
         } else if (main_f == 1) {
             password(key);
-        }
-        else if(main_f == 2)
-        {
+        } else if (main_f == 2) {
             menu(key);
-        }
-        else if(main_f == 3)
-        {
+        } else if (main_f == 3) {
 
-            if(menu_f == 0)
-            {
+            if (menu_f == 0) {
                 view_log(key);
             }
-
-            else if(menu_f == 2)
-            {
+            else if (menu_f == 2) {
                 clear_log(key);
+            } else if (menu_f == 1) {
+                download_log();
+            } else if (menu_f == 4) {
+                change_pass(key);
+            } else if (menu_f == 3) {
+
+                settime(key);
             }
-            else if(menu_f == 1)
-            {
-                 download_log();
-            }
-            else if(menu_f == 4)
-            {
-               change_pass(key);
-            }
-
-
-
-
         }
     }
 }

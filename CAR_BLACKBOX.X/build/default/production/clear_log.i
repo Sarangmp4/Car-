@@ -17958,36 +17958,58 @@ unsigned char scan_key(void);
 unsigned char read_switches(unsigned char detection_type);
 # 18 "clear_log.c" 2
 
-
-void clear_log(char key)
-{
-    lap=0;
-    overflow=0;
-
-
-    clcd_print("   LOG CLEARED   ",(0x80 + (0)));
-    clcd_print("                 ",(0xC0 + (0)));
-
-
-    store[0]=time[0];
-    store[1]=time[1];
-    store[2]=time[3];
-    store[3]=time[4];
-    store[4]=time[6];
-    store[5]=time[7];
-
-
-    store[6]='C';
-    store[7]='L';
+# 1 "./external_eeprom_2.h" 1
 
 
 
-        store[8]=(adc_reg_val / 10) + 48;
-        store[9]=(adc_reg_val % 10) + 48;
 
-    if(key==16)
-    {
-        main_f=2;
+
+
+
+
+void write_external_eeprom(unsigned char , unsigned char );
+unsigned char read_external_eeprom(unsigned char );
+# 19 "clear_log.c" 2
+
+
+void clear_log(char key) {
+    lap = 0;
+    overflow = 0;
+
+
+    clcd_print("   LOG CLEARED   ", (0x80 + (0)));
+    clcd_print("                 ", (0xC0 + (0)));
+
+
+    if (key == 16) {
+
+
+
+    store[0] = time[0];
+    store[1] = time[1];
+    store[2] = time[3];
+    store[3] = time[4];
+    store[4] = time[6];
+    store[5] = time[7];
+
+
+    store[6] = 'C';
+    store[7] = 'L';
+
+
+
+    store[8] = (adc_reg_val / 10) + 48;
+    store[9] = (adc_reg_val % 10) + 48;
+
+
+
+    for (char k = 0; k < 10; k++) {
+        write_external_eeprom((k), store[k]);
     }
+    main_f = 2;
+
+    }
+
+
 
 }

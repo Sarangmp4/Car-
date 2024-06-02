@@ -1,28 +1,52 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"11 clear_log.c
-[; ;clear_log.c: 11: extern char lap;
-[v _lap `uc ~T0 @X0 0 e ]
-"10
-[; ;clear_log.c: 10: extern char overflow;
-[v _overflow `uc ~T0 @X0 0 e ]
-"32 ./clcd.h
-[; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
-[v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"9 clear_log.c
-[; ;clear_log.c: 9: extern char store[11];
-[v _store `uc ~T0 @X0 -> 0 `x e ]
-"14
-[; ;clear_log.c: 14: extern unsigned char time[9];
-[v _time `uc ~T0 @X0 -> 0 `x e ]
-"13
-[; ;clear_log.c: 13: extern unsigned short adc_reg_val;
-[v _adc_reg_val `us ~T0 @X0 0 e ]
-"9 ./external_eeprom_2.h
-[; ;./external_eeprom_2.h: 9: void write_external_eeprom(unsigned char , unsigned char );
-[v _write_external_eeprom `(v ~T0 @X0 0 ef2`uc`uc ]
-"12 clear_log.c
-[; ;clear_log.c: 12: extern char main_f;
-[v _main_f `uc ~T0 @X0 0 e ]
+"39207 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39207: extern volatile __bit TRISC3 __attribute__((address(0x7CA3)));
+[v _TRISC3 `Vb ~T0 @X0 0 e@31907 ]
+"39210
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 39210: extern volatile __bit TRISC4 __attribute__((address(0x7CA4)));
+[v _TRISC4 `Vb ~T0 @X0 0 e@31908 ]
+"30475
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 30475: extern volatile unsigned char SSPCON1 __attribute__((address(0xFC6)));
+[v _SSPCON1 `Vuc ~T0 @X0 0 e@4038 ]
+"30793
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 30793: extern volatile unsigned char SSPADD __attribute__((address(0xFC8)));
+[v _SSPADD `Vuc ~T0 @X0 0 e@4040 ]
+"34875
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 34875: extern volatile __bit CKE __attribute__((address(0x7E3E)));
+[v _CKE `Vb ~T0 @X0 0 e@32318 ]
+"38871
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 38871: extern volatile __bit SMP __attribute__((address(0x7E3F)));
+[v _SMP `Vb ~T0 @X0 0 e@32319 ]
+"38901
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 38901: extern volatile __bit SSPIF __attribute__((address(0x7CF3)));
+[v _SSPIF `Vb ~T0 @X0 0 e@31987 ]
+"34737
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 34737: extern volatile __bit BCLIF __attribute__((address(0x7D0B)));
+[v _BCLIF `Vb ~T0 @X0 0 e@32011 ]
+"32487
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32487: extern volatile __bit ACKSTAT __attribute__((address(0x7E2E)));
+[v _ACKSTAT `Vb ~T0 @X0 0 e@32302 ]
+"38856
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 38856: extern volatile __bit SEN __attribute__((address(0x7E28)));
+[v _SEN `Vb ~T0 @X0 0 e@32296 ]
+"36087
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36087: extern volatile __bit PEN __attribute__((address(0x7E2A)));
+[v _PEN `Vb ~T0 @X0 0 e@32298 ]
+"36363
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36363: extern volatile __bit RSEN __attribute__((address(0x7E29)));
+[v _RSEN `Vb ~T0 @X0 0 e@32297 ]
+"30800
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 30800: extern volatile unsigned char SSPBUF __attribute__((address(0xFC9)));
+[v _SSPBUF `Vuc ~T0 @X0 0 e@4041 ]
+"36270
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 36270: extern volatile __bit RCEN __attribute__((address(0x7E2B)));
+[v _RCEN `Vb ~T0 @X0 0 e@32299 ]
+"32481
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32481: extern volatile __bit ACKDT __attribute__((address(0x7E2D)));
+[v _ACKDT `Vb ~T0 @X0 0 e@32301 ]
+"32484
+[; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32484: extern volatile __bit ACKEN __attribute__((address(0x7E2C)));
+[v _ACKEN `Vb ~T0 @X0 0 e@32300 ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1262,88 +1286,218 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"21 clear_log.c
-[; ;clear_log.c: 21: void clear_log(char key) {
-[v _clear_log `(v ~T0 @X0 1 ef1`uc ]
+"4 i2c.c
+[; ;i2c.c: 4: void init_i2c(void)
+[v _init_i2c `(v ~T0 @X0 1 ef ]
+"5
+[; ;i2c.c: 5: {
 {
-[e :U _clear_log ]
-[v _key `uc ~T0 @X0 1 r1 ]
+[e :U _init_i2c ]
 [f ]
-"22
-[; ;clear_log.c: 22:     lap = 0;
-[e = _lap -> -> 0 `i `uc ]
-"23
-[; ;clear_log.c: 23:     overflow = 0;
-[e = _overflow -> -> 0 `i `uc ]
-"26
-[; ;clear_log.c: 26:     clcd_print("   LOG CLEARED   ", (0x80 + (0)));
-[e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
-"27
-[; ;clear_log.c: 27:     clcd_print("                 ", (0xC0 + (0)));
-[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 0 `i `uc ]
-"30
-[; ;clear_log.c: 30:     if (key == 16) {
-[e $ ! == -> _key `i -> 16 `i 1089  ]
-{
-"34
-[; ;clear_log.c: 34:     store[0] = time[0];
-[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"35
-[; ;clear_log.c: 35:     store[1] = time[1];
-[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"36
-[; ;clear_log.c: 36:     store[2] = time[3];
-[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"37
-[; ;clear_log.c: 37:     store[3] = time[4];
-[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"38
-[; ;clear_log.c: 38:     store[4] = time[6];
-[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"39
-[; ;clear_log.c: 39:     store[5] = time[7];
-[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"42
-[; ;clear_log.c: 42:     store[6] = 'C';
-[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 67 `ui `uc ]
-"43
-[; ;clear_log.c: 43:     store[7] = 'L';
-[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 76 `ui `uc ]
-"47
-[; ;clear_log.c: 47:     store[8] = (adc_reg_val / 10) + 48;
-[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"48
-[; ;clear_log.c: 48:     store[9] = (adc_reg_val % 10) + 48;
-[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"52
-[; ;clear_log.c: 52:     for (char k = 0; k < 10; k++) {
-{
-[v _k `uc ~T0 @X0 1 a ]
-[e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1090  ]
-[e $U 1091  ]
-[e :U 1090 ]
-{
-"53
-[; ;clear_log.c: 53:         write_external_eeprom((k), store[k]);
-[e ( _write_external_eeprom (2 , -> _k `uc -> *U + &U _store * -> _k `ux -> -> # *U &U _store `ui `ux `uc ]
-"54
-[; ;clear_log.c: 54:     }
-}
-[e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1090  ]
-[e :U 1091 ]
-}
-"55
-[; ;clear_log.c: 55:     main_f = 2;
-[e = _main_f -> -> 2 `i `uc ]
-"57
-[; ;clear_log.c: 57:     }
-}
-[e :U 1089 ]
-"61
-[; ;clear_log.c: 61: }
+"7
+[; ;i2c.c: 7:  TRISC3 = 1;
+[e = _TRISC3 -> -> 1 `i `b ]
+"8
+[; ;i2c.c: 8:  TRISC4 = 1;
+[e = _TRISC4 -> -> 1 `i `b ]
+"10
+[; ;i2c.c: 10:  SSPCON1 = 0x28;
+[e = _SSPCON1 -> -> 40 `i `uc ]
+"12
+[; ;i2c.c: 12:  SSPADD = 0x31;
+[e = _SSPADD -> -> 49 `i `uc ]
+"14
+[; ;i2c.c: 14:  CKE = 0;
+[e = _CKE -> -> 0 `i `b ]
+"16
+[; ;i2c.c: 16:  SMP = 1;
+[e = _SMP -> -> 1 `i `b ]
+"18
+[; ;i2c.c: 18:  SSPIF = 0;
+[e = _SSPIF -> -> 0 `i `b ]
+"20
+[; ;i2c.c: 20:  BCLIF = 0;
+[e = _BCLIF -> -> 0 `i `b ]
+"21
+[; ;i2c.c: 21: }
 [e :UE 1088 ]
 }
-[a 1C 32 32 32 76 79 71 32 67 76 69 65 82 69 68 32 32 32 0 ]
-[a 2C 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+"23
+[; ;i2c.c: 23: void i2c_idle(void)
+[v _i2c_idle `(v ~T0 @X0 1 ef ]
+"24
+[; ;i2c.c: 24: {
+{
+[e :U _i2c_idle ]
+[f ]
+"25
+[; ;i2c.c: 25:  while (!SSPIF);
+[e $U 1090  ]
+[e :U 1091 ]
+[e :U 1090 ]
+[e $ ! _SSPIF 1091  ]
+[e :U 1092 ]
+"26
+[; ;i2c.c: 26:  SSPIF = 0;
+[e = _SSPIF -> -> 0 `i `b ]
+"27
+[; ;i2c.c: 27: }
+[e :UE 1089 ]
+}
+"29
+[; ;i2c.c: 29: void i2c_ack(void)
+[v _i2c_ack `(v ~T0 @X0 1 ef ]
+"30
+[; ;i2c.c: 30: {
+{
+[e :U _i2c_ack ]
+[f ]
+"31
+[; ;i2c.c: 31:  if (ACKSTAT)
+[e $ ! _ACKSTAT 1094  ]
+"32
+[; ;i2c.c: 32:  {
+{
+"34
+[; ;i2c.c: 34:  }
+}
+[e :U 1094 ]
+"35
+[; ;i2c.c: 35: }
+[e :UE 1093 ]
+}
+"37
+[; ;i2c.c: 37: void i2c_start(void)
+[v _i2c_start `(v ~T0 @X0 1 ef ]
+"38
+[; ;i2c.c: 38: {
+{
+[e :U _i2c_start ]
+[f ]
+"39
+[; ;i2c.c: 39:  SEN = 1;
+[e = _SEN -> -> 1 `i `b ]
+"40
+[; ;i2c.c: 40:  i2c_idle();
+[e ( _i2c_idle ..  ]
+"41
+[; ;i2c.c: 41: }
+[e :UE 1095 ]
+}
+"43
+[; ;i2c.c: 43: void i2c_stop(void)
+[v _i2c_stop `(v ~T0 @X0 1 ef ]
+"44
+[; ;i2c.c: 44: {
+{
+[e :U _i2c_stop ]
+[f ]
+"45
+[; ;i2c.c: 45:  PEN = 1;
+[e = _PEN -> -> 1 `i `b ]
+"46
+[; ;i2c.c: 46:  i2c_idle();
+[e ( _i2c_idle ..  ]
+"47
+[; ;i2c.c: 47: }
+[e :UE 1096 ]
+}
+"49
+[; ;i2c.c: 49: void i2c_rep_start(void)
+[v _i2c_rep_start `(v ~T0 @X0 1 ef ]
+"50
+[; ;i2c.c: 50: {
+{
+[e :U _i2c_rep_start ]
+[f ]
+"51
+[; ;i2c.c: 51:  RSEN = 1;
+[e = _RSEN -> -> 1 `i `b ]
+"52
+[; ;i2c.c: 52:  i2c_idle();
+[e ( _i2c_idle ..  ]
+"53
+[; ;i2c.c: 53: }
+[e :UE 1097 ]
+}
+"55
+[; ;i2c.c: 55: void i2c_write(unsigned char data)
+[v _i2c_write `(v ~T0 @X0 1 ef1`uc ]
+"56
+[; ;i2c.c: 56: {
+{
+[e :U _i2c_write ]
+"55
+[; ;i2c.c: 55: void i2c_write(unsigned char data)
+[v _data `uc ~T0 @X0 1 r1 ]
+"56
+[; ;i2c.c: 56: {
+[f ]
+"57
+[; ;i2c.c: 57:  SSPBUF = data;
+[e = _SSPBUF _data ]
+"58
+[; ;i2c.c: 58:  i2c_idle();
+[e ( _i2c_idle ..  ]
+"59
+[; ;i2c.c: 59: }
+[e :UE 1098 ]
+}
+"61
+[; ;i2c.c: 61: void i2c_rx_mode(void)
+[v _i2c_rx_mode `(v ~T0 @X0 1 ef ]
+"62
+[; ;i2c.c: 62: {
+{
+[e :U _i2c_rx_mode ]
+[f ]
+"63
+[; ;i2c.c: 63:  RCEN = 1;
+[e = _RCEN -> -> 1 `i `b ]
+"64
+[; ;i2c.c: 64:  i2c_idle();
+[e ( _i2c_idle ..  ]
+"65
+[; ;i2c.c: 65: }
+[e :UE 1099 ]
+}
+"67
+[; ;i2c.c: 67: void i2c_no_ack(void)
+[v _i2c_no_ack `(v ~T0 @X0 1 ef ]
+"68
+[; ;i2c.c: 68: {
+{
+[e :U _i2c_no_ack ]
+[f ]
+"69
+[; ;i2c.c: 69:  ACKDT = 1;
+[e = _ACKDT -> -> 1 `i `b ]
+"70
+[; ;i2c.c: 70:  ACKEN = 1;
+[e = _ACKEN -> -> 1 `i `b ]
+"71
+[; ;i2c.c: 71: }
+[e :UE 1100 ]
+}
+"73
+[; ;i2c.c: 73: unsigned char i2c_read(void)
+[v _i2c_read `(uc ~T0 @X0 1 ef ]
+"74
+[; ;i2c.c: 74: {
+{
+[e :U _i2c_read ]
+[f ]
+"75
+[; ;i2c.c: 75:  i2c_rx_mode();
+[e ( _i2c_rx_mode ..  ]
+"76
+[; ;i2c.c: 76:  i2c_no_ack();
+[e ( _i2c_no_ack ..  ]
+"78
+[; ;i2c.c: 78:  return SSPBUF;
+[e ) _SSPBUF ]
+[e $UE 1101  ]
+"79
+[; ;i2c.c: 79: }
+[e :UE 1101 ]
+}

@@ -57,6 +57,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "22
 [; ;./main.h: 22: void change_pass(char key);
 [v _change_pass `(v ~T0 @X0 0 ef1`uc ]
+"21
+[; ;./main.h: 21: void settime(char key);
+[v _settime `(v ~T0 @X0 0 ef1`uc ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
 [; <" RXF6SIDH equ 0D60h ;# ">
@@ -1321,65 +1324,63 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 27:     init_ds1307();
 [e ( _init_ds1307 ..  ]
 "28
-[; ;main.c: 28:  init_timer0();
+[; ;main.c: 28:     init_timer0();
 [e ( _init_timer0 ..  ]
 "29
 [; ;main.c: 29:     init_uart();
 [e ( _init_uart ..  ]
 "33
-[; ;main.c: 33:     write_external_eeprom(200,'0');
+[; ;main.c: 33:     write_external_eeprom(200, '0');
 [e ( _write_external_eeprom (2 , -> -> 200 `i `uc -> -> 48 `ui `uc ]
 "34
-[; ;main.c: 34:     write_external_eeprom(201,'0');
+[; ;main.c: 34:     write_external_eeprom(201, '0');
 [e ( _write_external_eeprom (2 , -> -> 201 `i `uc -> -> 48 `ui `uc ]
 "35
-[; ;main.c: 35:     write_external_eeprom(202,'0');
+[; ;main.c: 35:     write_external_eeprom(202, '0');
 [e ( _write_external_eeprom (2 , -> -> 202 `i `uc -> -> 48 `ui `uc ]
 "36
-[; ;main.c: 36:     write_external_eeprom(203,'0');
+[; ;main.c: 36:     write_external_eeprom(203, '0');
 [e ( _write_external_eeprom (2 , -> -> 203 `i `uc -> -> 48 `ui `uc ]
 "39
-[; ;main.c: 39: for(int j=0; j<4; j++)
+[; ;main.c: 39:     for (int j = 0; j < 4; j++) {
 {
 [v _j `i ~T0 @X0 1 a ]
 [e = _j -> 0 `i ]
 [e $ < _j -> 4 `i 1089  ]
 [e $U 1090  ]
 [e :U 1089 ]
-"40
-[; ;main.c: 40: {
 {
-"41
-[; ;main.c: 41:     pass[j] = read_external_eeprom(j+200);
+"40
+[; ;main.c: 40:         pass[j] = read_external_eeprom(j + 200);
 [e = *U + &U _pass * -> -> _j `ui `ux -> -> # *U &U _pass `ui `ux -> ( _read_external_eeprom (1 -> + _j -> 200 `i `uc `uc ]
-"42
-[; ;main.c: 42: }
+"41
+[; ;main.c: 41:     }
 }
 [e ++ _j -> 1 `i ]
 [e $ < _j -> 4 `i 1089  ]
 [e :U 1090 ]
 }
-"43
-[; ;main.c: 43:     pass[4]='\0';
+"42
+[; ;main.c: 42:     pass[4] = '\0';
 [e = *U + &U _pass * -> -> -> 4 `i `ui `ux -> -> # *U &U _pass `ui `ux -> -> 0 `ui `uc ]
-"46
-[; ;main.c: 46: }
+"45
+[; ;main.c: 45: }
 [e :UE 1088 ]
 }
-"47
-[; ;main.c: 47: char key;
+"46
+[; ;main.c: 46: char key;
 [v _key `uc ~T0 @X0 1 e ]
-"48
-[; ;main.c: 48: char pre_key;
+"47
+[; ;main.c: 47: char pre_key;
 [v _pre_key `uc ~T0 @X0 1 e ]
-"49
-[; ;main.c: 49: unsigned short adc_reg_val;
+"48
+[; ;main.c: 48: unsigned short adc_reg_val;
 [v _adc_reg_val `us ~T0 @X0 1 e ]
-"51
-[; ;main.c: 51: int key_time;
+"50
+[; ;main.c: 50: int key_time;
 [v _key_time `i ~T0 @X0 1 e ]
-"54
-[; ;main.c: 54: char main_f = 0, menu_f = 0;
+"56
+[; ;main.c: 56: char main_f = 0, menu_f = 0;
 [v _main_f `uc ~T0 @X0 1 e ]
 [i _main_f
 -> -> 0 `i `uc
@@ -1389,229 +1390,204 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"56
-[; ;main.c: 56: void main(void) {
+"58
+[; ;main.c: 58: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"57
-[; ;main.c: 57:     init_config();
+"59
+[; ;main.c: 59:     init_config();
 [e ( _init_config ..  ]
-"61
-[; ;main.c: 61:     while (1) {
+"63
+[; ;main.c: 63:     while (1) {
 [e :U 1094 ]
 {
-"63
-[; ;main.c: 63:         key = read_switches(0);
-[e = _key -> ( _read_switches (1 -> -> 0 `i `uc `uc ]
 "65
-[; ;main.c: 65:         if(key != 0xFF)
-[e $ ! != -> _key `i -> 255 `i 1096  ]
-"66
-[; ;main.c: 66:         {
-{
+[; ;main.c: 65:         key = read_switches(0);
+[e = _key -> ( _read_switches (1 -> -> 0 `i `uc `uc ]
 "67
-[; ;main.c: 67:             pre_key=key;
-[e = _pre_key _key ]
+[; ;main.c: 67:         if (key != 0xFF) {
+[e $ ! != -> _key `i -> 255 `i 1096  ]
+{
 "68
-[; ;main.c: 68:             key_time++;
-[e ++ _key_time -> 1 `i ]
+[; ;main.c: 68:             pre_key = key;
+[e = _pre_key _key ]
 "69
-[; ;main.c: 69:             if(key_time == 500)
-[e $ ! == _key_time -> 500 `i 1097  ]
+[; ;main.c: 69:             key_time++;
+[e ++ _key_time -> 1 `i ]
 "70
-[; ;main.c: 70:             {
+[; ;main.c: 70:             if (key_time == 500) {
+[e $ ! == _key_time -> 500 `i 1097  ]
 {
 "71
-[; ;main.c: 71:                 key=key+10;
+[; ;main.c: 71:                 key = key + 10;
 [e = _key -> + -> _key `i -> 10 `i `uc ]
 "72
-[; ;main.c: 72:             }
+[; ;main.c: 72:             } else {
 }
 [e $U 1098  ]
-"73
-[; ;main.c: 73:             else
 [e :U 1097 ]
-"74
-[; ;main.c: 74:             {
 {
-"75
-[; ;main.c: 75:                 key=0;
+"73
+[; ;main.c: 73:                 key = 0;
 [e = _key -> -> 0 `i `uc ]
-"76
-[; ;main.c: 76:             }
+"74
+[; ;main.c: 74:             }
 }
 [e :U 1098 ]
-"77
-[; ;main.c: 77:         }
+"75
+[; ;main.c: 75:         } else if (key_time > 0 && key_time < 500) {
 }
 [e $U 1099  ]
-"78
-[; ;main.c: 78:         else if(key_time > 0 && key_time <500)
 [e :U 1096 ]
 [e $ ! && > _key_time -> 0 `i < _key_time -> 500 `i 1100  ]
-"79
-[; ;main.c: 79:         {
 {
-"80
-[; ;main.c: 80:             key_time=0;
+"76
+[; ;main.c: 76:             key_time = 0;
 [e = _key_time -> 0 `i ]
-"81
-[; ;main.c: 81:             key=pre_key;
+"77
+[; ;main.c: 77:             key = pre_key;
 [e = _key _pre_key ]
-"82
-[; ;main.c: 82:         }
+"78
+[; ;main.c: 78:         } else {
 }
 [e $U 1101  ]
-"83
-[; ;main.c: 83:         else
 [e :U 1100 ]
-"84
-[; ;main.c: 84:         {
 {
-"85
-[; ;main.c: 85:             key_time=0;
+"79
+[; ;main.c: 79:             key_time = 0;
 [e = _key_time -> 0 `i ]
-"86
-[; ;main.c: 86:             key=0;
+"80
+[; ;main.c: 80:             key = 0;
 [e = _key -> -> 0 `i `uc ]
-"87
-[; ;main.c: 87:         }
+"81
+[; ;main.c: 81:         }
 }
 [e :U 1101 ]
 [e :U 1099 ]
-"90
-[; ;main.c: 90:         adc_reg_val = read_adc(0x04)/10.33;
+"84
+[; ;main.c: 84:         adc_reg_val = read_adc(0x04) / 10.33;
 [e = _adc_reg_val -> / -> -> ( _read_adc (1 -> -> 4 `i `uc `ui `d .10.33 `us ]
-"92
-[; ;main.c: 92:         if (main_f == 0) {
+"88
+[; ;main.c: 88:         if (main_f == 0) {
 [e $ ! == -> _main_f `i -> 0 `i 1102  ]
 {
-"93
-[; ;main.c: 93:             dashboard();
+"89
+[; ;main.c: 89:             dashboard();
 [e ( _dashboard ..  ]
-"94
-[; ;main.c: 94:             if (key == 5) {
+"90
+[; ;main.c: 90:             if (key == 5) {
 [e $ ! == -> _key `i -> 5 `i 1103  ]
 {
-"95
-[; ;main.c: 95:                 clcd_write(0x01, 0);
+"91
+[; ;main.c: 91:                 clcd_write(0x01, 0);
 [e ( _clcd_write (2 , -> -> 1 `i `uc -> -> 0 `i `uc ]
-"96
-[; ;main.c: 96:                 main_f = 1;
+"92
+[; ;main.c: 92:                 main_f = 1;
 [e = _main_f -> -> 1 `i `uc ]
-"97
-[; ;main.c: 97:             }
+"93
+[; ;main.c: 93:             }
 }
 [e :U 1103 ]
-"98
-[; ;main.c: 98:         } else if (main_f == 1) {
+"94
+[; ;main.c: 94:         } else if (main_f == 1) {
 }
 [e $U 1104  ]
 [e :U 1102 ]
 [e $ ! == -> _main_f `i -> 1 `i 1105  ]
 {
-"99
-[; ;main.c: 99:             password(key);
+"95
+[; ;main.c: 95:             password(key);
 [e ( _password (1 _key ]
-"100
-[; ;main.c: 100:         }
+"96
+[; ;main.c: 96:         } else if (main_f == 2) {
 }
 [e $U 1106  ]
-"101
-[; ;main.c: 101:         else if(main_f == 2)
 [e :U 1105 ]
 [e $ ! == -> _main_f `i -> 2 `i 1107  ]
-"102
-[; ;main.c: 102:         {
 {
-"103
-[; ;main.c: 103:             menu(key);
+"97
+[; ;main.c: 97:             menu(key);
 [e ( _menu (1 _key ]
-"104
-[; ;main.c: 104:         }
+"98
+[; ;main.c: 98:         } else if (main_f == 3) {
 }
 [e $U 1108  ]
-"105
-[; ;main.c: 105:         else if(main_f == 3)
 [e :U 1107 ]
 [e $ ! == -> _main_f `i -> 3 `i 1109  ]
-"106
-[; ;main.c: 106:         {
 {
-"108
-[; ;main.c: 108:             if(menu_f == 0)
+"100
+[; ;main.c: 100:             if (menu_f == 0) {
 [e $ ! == -> _menu_f `i -> 0 `i 1110  ]
-"109
-[; ;main.c: 109:             {
 {
-"110
-[; ;main.c: 110:                 view_log(key);
+"101
+[; ;main.c: 101:                 view_log(key);
 [e ( _view_log (1 _key ]
-"111
-[; ;main.c: 111:             }
+"102
+[; ;main.c: 102:             }
 }
 [e $U 1111  ]
-"113
-[; ;main.c: 113:             else if(menu_f == 2)
+"103
+[; ;main.c: 103:             else if (menu_f == 2) {
 [e :U 1110 ]
 [e $ ! == -> _menu_f `i -> 2 `i 1112  ]
-"114
-[; ;main.c: 114:             {
 {
-"115
-[; ;main.c: 115:                 clear_log(key);
+"104
+[; ;main.c: 104:                 clear_log(key);
 [e ( _clear_log (1 _key ]
-"116
-[; ;main.c: 116:             }
+"105
+[; ;main.c: 105:             } else if (menu_f == 1) {
 }
 [e $U 1113  ]
-"117
-[; ;main.c: 117:             else if(menu_f == 1)
 [e :U 1112 ]
 [e $ ! == -> _menu_f `i -> 1 `i 1114  ]
-"118
-[; ;main.c: 118:             {
 {
-"119
-[; ;main.c: 119:                  download_log();
+"106
+[; ;main.c: 106:                 download_log();
 [e ( _download_log ..  ]
-"120
-[; ;main.c: 120:             }
+"107
+[; ;main.c: 107:             } else if (menu_f == 4) {
 }
 [e $U 1115  ]
-"121
-[; ;main.c: 121:             else if(menu_f == 4)
 [e :U 1114 ]
 [e $ ! == -> _menu_f `i -> 4 `i 1116  ]
-"122
-[; ;main.c: 122:             {
 {
-"123
-[; ;main.c: 123:                change_pass(key);
+"108
+[; ;main.c: 108:                 change_pass(key);
 [e ( _change_pass (1 _key ]
-"124
-[; ;main.c: 124:             }
+"109
+[; ;main.c: 109:             } else if (menu_f == 3) {
 }
+[e $U 1117  ]
 [e :U 1116 ]
+[e $ ! == -> _menu_f `i -> 3 `i 1118  ]
+{
+"111
+[; ;main.c: 111:                 settime(key);
+[e ( _settime (1 _key ]
+"112
+[; ;main.c: 112:             }
+}
+[e :U 1118 ]
+[e :U 1117 ]
 [e :U 1115 ]
 [e :U 1113 ]
 [e :U 1111 ]
-"129
-[; ;main.c: 129:         }
+"113
+[; ;main.c: 113:         }
 }
 [e :U 1109 ]
 [e :U 1108 ]
 [e :U 1106 ]
 [e :U 1104 ]
-"130
-[; ;main.c: 130:     }
+"114
+[; ;main.c: 114:     }
 }
 [e :U 1093 ]
 [e $U 1094  ]
 [e :U 1095 ]
-"131
-[; ;main.c: 131: }
+"115
+[; ;main.c: 115: }
 [e :UE 1092 ]
 }

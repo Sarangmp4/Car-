@@ -32,7 +32,7 @@ void display_time(void) {
     clock_reg[1] = read_ds1307(MIN_ADDR);
     clock_reg[2] = read_ds1307(SEC_ADDR);
 
-    if (clock_reg[0] & 0x40) {
+    if (clock_reg[0] & 0x40) { /* 12 hr*/
         time[0] = '0' + ((clock_reg[0] >> 4) & 0x01);
         time[1] = '0' + (clock_reg[0] & 0x0F);
     } else {

@@ -18014,7 +18014,6 @@ void password(char key) {
             main_f=2;
 
 
-
         } else {
 
             if (chance == 0) {

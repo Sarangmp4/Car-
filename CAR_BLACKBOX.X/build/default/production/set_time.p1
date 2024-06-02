@@ -1,27 +1,24 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"11 clear_log.c
-[; ;clear_log.c: 11: extern char lap;
-[v _lap `uc ~T0 @X0 0 e ]
-"10
-[; ;clear_log.c: 10: extern char overflow;
-[v _overflow `uc ~T0 @X0 0 e ]
 "32 ./clcd.h
 [; ;./clcd.h: 32: void clcd_print(const unsigned char *data, unsigned char addr);
 [v _clcd_print `(v ~T0 @X0 0 ef2`*Cuc`uc ]
-"9 clear_log.c
-[; ;clear_log.c: 9: extern char store[11];
-[v _store `uc ~T0 @X0 -> 0 `x e ]
-"14
-[; ;clear_log.c: 14: extern unsigned char time[9];
+"17 set_time.c
+[; ;set_time.c: 17: extern unsigned char time[9];
 [v _time `uc ~T0 @X0 -> 0 `x e ]
-"13
-[; ;clear_log.c: 13: extern unsigned short adc_reg_val;
+"33 ./clcd.h
+[; ;./clcd.h: 33: void clcd_putch(const unsigned char data, unsigned char addr);
+[v _clcd_putch `(v ~T0 @X0 0 ef2`Cuc`uc ]
+"20 set_time.c
+[; ;set_time.c: 20: extern unsigned char clock_reg[3];
+[v _clock_reg `uc ~T0 @X0 -> 0 `x e ]
+"19
+[; ;set_time.c: 19: extern char store[11];
+[v _store `uc ~T0 @X0 -> 0 `x e ]
+"18
+[; ;set_time.c: 18: extern unsigned short adc_reg_val;
 [v _adc_reg_val `us ~T0 @X0 0 e ]
-"9 ./external_eeprom_2.h
-[; ;./external_eeprom_2.h: 9: void write_external_eeprom(unsigned char , unsigned char );
-[v _write_external_eeprom `(v ~T0 @X0 0 ef2`uc`uc ]
-"12 clear_log.c
-[; ;clear_log.c: 12: extern char main_f;
+"21
+[; ;set_time.c: 21: extern char main_f;
 [v _main_f `uc ~T0 @X0 0 e ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 54: __asm("RXF6SIDH equ 0D60h");
@@ -1262,88 +1259,236 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32464
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
-"21 clear_log.c
-[; ;clear_log.c: 21: void clear_log(char key) {
-[v _clear_log `(v ~T0 @X0 1 ef1`uc ]
+"15 set_time.c
+[; ;set_time.c: 15: char hr, min, sec;
+[v _hr `uc ~T0 @X0 1 e ]
+[v _min `uc ~T0 @X0 1 e ]
+[v _sec `uc ~T0 @X0 1 e ]
+"16
+[; ;set_time.c: 16: char pos_flag = 0, t_flag = 0;
+[v _pos_flag `uc ~T0 @X0 1 e ]
+[i _pos_flag
+-> -> 0 `i `uc
+]
+[v _t_flag `uc ~T0 @X0 1 e ]
+[i _t_flag
+-> -> 0 `i `uc
+]
+"23
+[; ;set_time.c: 23: void settime(char key) {
+[v _settime `(v ~T0 @X0 1 ef1`uc ]
 {
-[e :U _clear_log ]
+[e :U _settime ]
 [v _key `uc ~T0 @X0 1 r1 ]
 [f ]
-"22
-[; ;clear_log.c: 22:     lap = 0;
-[e = _lap -> -> 0 `i `uc ]
-"23
-[; ;clear_log.c: 23:     overflow = 0;
-[e = _overflow -> -> 0 `i `uc ]
 "26
-[; ;clear_log.c: 26:     clcd_print("   LOG CLEARED   ", (0x80 + (0)));
+[; ;set_time.c: 26:     clcd_print("     HH:MM:SS    ", (0x80 + (0)));
 [e ( _clcd_print (2 , :s 1C -> + -> 128 `i -> 0 `i `uc ]
 "27
-[; ;clear_log.c: 27:     clcd_print("                 ", (0xC0 + (0)));
-[e ( _clcd_print (2 , :s 2C -> + -> 192 `i -> 0 `i `uc ]
+[; ;set_time.c: 27:     if (t_flag == 0) {
+[e $ ! == -> _t_flag `i -> 0 `i 1089  ]
+{
+"28
+[; ;set_time.c: 28:         hr = ((time[0] - 48)*10 + (time[0] - 48));
+[e = _hr -> + * - -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
+"29
+[; ;set_time.c: 29:         min = ((time[3] - 48)*10 + (time[4] - 48));
+[e = _min -> + * - -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
 "30
-[; ;clear_log.c: 30:     if (key == 16) {
-[e $ ! == -> _key `i -> 16 `i 1089  ]
-{
-"34
-[; ;clear_log.c: 34:     store[0] = time[0];
-[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"35
-[; ;clear_log.c: 35:     store[1] = time[1];
-[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"36
-[; ;clear_log.c: 36:     store[2] = time[3];
-[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"37
-[; ;clear_log.c: 37:     store[3] = time[4];
-[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"38
-[; ;clear_log.c: 38:     store[4] = time[6];
-[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"39
-[; ;clear_log.c: 39:     store[5] = time[7];
-[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"42
-[; ;clear_log.c: 42:     store[6] = 'C';
-[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 67 `ui `uc ]
-"43
-[; ;clear_log.c: 43:     store[7] = 'L';
-[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 76 `ui `uc ]
-"47
-[; ;clear_log.c: 47:     store[8] = (adc_reg_val / 10) + 48;
-[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"48
-[; ;clear_log.c: 48:     store[9] = (adc_reg_val % 10) + 48;
-[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"52
-[; ;clear_log.c: 52:     for (char k = 0; k < 10; k++) {
-{
-[v _k `uc ~T0 @X0 1 a ]
-[e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1090  ]
-[e $U 1091  ]
-[e :U 1090 ]
-{
-"53
-[; ;clear_log.c: 53:         write_external_eeprom((k), store[k]);
-[e ( _write_external_eeprom (2 , -> _k `uc -> *U + &U _store * -> _k `ux -> -> # *U &U _store `ui `ux `uc ]
-"54
-[; ;clear_log.c: 54:     }
-}
-[e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1090  ]
-[e :U 1091 ]
-}
-"55
-[; ;clear_log.c: 55:     main_f = 2;
-[e = _main_f -> -> 2 `i `uc ]
-"57
-[; ;clear_log.c: 57:     }
+[; ;set_time.c: 30:         sec = ((time[6] - 48)*10 + (time[7] - 48));
+[e = _sec -> + * - -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
+"31
+[; ;set_time.c: 31:         t_flag = 1;
+[e = _t_flag -> -> 1 `i `uc ]
+"32
+[; ;set_time.c: 32:     }
 }
 [e :U 1089 ]
+"34
+[; ;set_time.c: 34:     clcd_putch('0' + (hr / 10), (0xC0 + (0)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> / -> _hr `i -> 10 `i `ui `uc -> + -> 192 `i -> 0 `i `uc ]
+"35
+[; ;set_time.c: 35:     clcd_putch('0' + (hr % 10), (0xC0 + (1)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> % -> _hr `i -> 10 `i `ui `uc -> + -> 192 `i -> 1 `i `uc ]
+"37
+[; ;set_time.c: 37:     clcd_putch(':', (0xC0 + (2)));
+[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 2 `i `uc ]
+"38
+[; ;set_time.c: 38:     clcd_putch('0' + (min / 10), (0xC0 + (3)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> / -> _min `i -> 10 `i `ui `uc -> + -> 192 `i -> 3 `i `uc ]
+"39
+[; ;set_time.c: 39:     clcd_putch('0' + (min % 10), (0xC0 + (4)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> % -> _min `i -> 10 `i `ui `uc -> + -> 192 `i -> 4 `i `uc ]
+"41
+[; ;set_time.c: 41:     clcd_putch(':', (0xC0 + (5)));
+[e ( _clcd_putch (2 , -> -> 58 `ui `uc -> + -> 192 `i -> 5 `i `uc ]
+"42
+[; ;set_time.c: 42:     clcd_putch('0' + (sec / 10), (0xC0 + (6)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> / -> _sec `i -> 10 `i `ui `uc -> + -> 192 `i -> 6 `i `uc ]
+"43
+[; ;set_time.c: 43:     clcd_putch('0' + (sec % 10), (0xC0 + (7)));
+[e ( _clcd_putch (2 , -> + -> 48 `ui -> % -> _sec `i -> 10 `i `ui `uc -> + -> 192 `i -> 7 `i `uc ]
+"45
+[; ;set_time.c: 45:     if (key == 5) {
+[e $ ! == -> _key `i -> 5 `i 1090  ]
+{
+"46
+[; ;set_time.c: 46:         if (pos_flag == 0) {
+[e $ ! == -> _pos_flag `i -> 0 `i 1091  ]
+{
+"47
+[; ;set_time.c: 47:             if (sec == 59) {
+[e $ ! == -> _sec `i -> 59 `i 1092  ]
+{
+"48
+[; ;set_time.c: 48:                 sec = 0;
+[e = _sec -> -> 0 `i `uc ]
+"49
+[; ;set_time.c: 49:             } else
+}
+[e $U 1093  ]
+[e :U 1092 ]
+"50
+[; ;set_time.c: 50:                 sec++;
+[e ++ _sec -> -> 1 `i `uc ]
+[e :U 1093 ]
+"52
+[; ;set_time.c: 52:         } else if (pos_flag == 1) {
+}
+[e $U 1094  ]
+[e :U 1091 ]
+[e $ ! == -> _pos_flag `i -> 1 `i 1095  ]
+{
+"53
+[; ;set_time.c: 53:             if (min == 59) {
+[e $ ! == -> _min `i -> 59 `i 1096  ]
+{
+"54
+[; ;set_time.c: 54:                 min = 0;
+[e = _min -> -> 0 `i `uc ]
+"55
+[; ;set_time.c: 55:             }
+}
+[e :U 1096 ]
+"56
+[; ;set_time.c: 56:             min++;
+[e ++ _min -> -> 1 `i `uc ]
+"57
+[; ;set_time.c: 57:         } else if (pos_flag == 2) {
+}
+[e $U 1097  ]
+[e :U 1095 ]
+[e $ ! == -> _pos_flag `i -> 2 `i 1098  ]
+{
+"58
+[; ;set_time.c: 58:             if (hr == 23) {
+[e $ ! == -> _hr `i -> 23 `i 1099  ]
+{
+"59
+[; ;set_time.c: 59:                 hr = 0;
+[e = _hr -> -> 0 `i `uc ]
+"60
+[; ;set_time.c: 60:             }
+}
+[e :U 1099 ]
 "61
-[; ;clear_log.c: 61: }
+[; ;set_time.c: 61:             hr++;
+[e ++ _hr -> -> 1 `i `uc ]
+"62
+[; ;set_time.c: 62:         }
+}
+[e :U 1098 ]
+[e :U 1097 ]
+[e :U 1094 ]
+"63
+[; ;set_time.c: 63:     } else if (key == 6) {
+}
+[e $U 1100  ]
+[e :U 1090 ]
+[e $ ! == -> _key `i -> 6 `i 1101  ]
+{
+"64
+[; ;set_time.c: 64:         pos_flag++;
+[e ++ _pos_flag -> -> 1 `i `uc ]
+"66
+[; ;set_time.c: 66:         if (pos_flag == 3) {
+[e $ ! == -> _pos_flag `i -> 3 `i 1102  ]
+{
+"67
+[; ;set_time.c: 67:             pos_flag = 0;
+[e = _pos_flag -> -> 0 `i `uc ]
+"68
+[; ;set_time.c: 68:         }
+}
+[e :U 1102 ]
+"69
+[; ;set_time.c: 69:     }
+}
+[e :U 1101 ]
+[e :U 1100 ]
+"70
+[; ;set_time.c: 70:     if (key == 15) {
+[e $ ! == -> _key `i -> 15 `i 1103  ]
+{
+"72
+[; ;set_time.c: 72:         clock_reg[0] = ((hr / 10) << 4) | (hr % 10);
+[e = *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux -> | << / -> _hr `i -> 10 `i -> 4 `i % -> _hr `i -> 10 `i `uc ]
+"73
+[; ;set_time.c: 73:         clock_reg[0] = ((min / 10) << 4) | (min % 10);
+[e = *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux -> | << / -> _min `i -> 10 `i -> 4 `i % -> _min `i -> 10 `i `uc ]
+"74
+[; ;set_time.c: 74:         clock_reg[0] = ((sec / 10) << 4) | (sec % 10);
+[e = *U + &U _clock_reg * -> -> -> 0 `i `ui `ux -> -> # *U &U _clock_reg `ui `ux -> | << / -> _sec `i -> 10 `i -> 4 `i % -> _sec `i -> 10 `i `uc ]
+"78
+[; ;set_time.c: 78:         store[0] = time[0];
+[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"79
+[; ;set_time.c: 79:         store[1] = time[1];
+[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"80
+[; ;set_time.c: 80:         store[2] = time[3];
+[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"81
+[; ;set_time.c: 81:         store[3] = time[4];
+[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"82
+[; ;set_time.c: 82:         store[4] = time[6];
+[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"83
+[; ;set_time.c: 83:         store[5] = time[7];
+[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+"86
+[; ;set_time.c: 86:         store[6] = 'S';
+[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 83 `ui `uc ]
+"87
+[; ;set_time.c: 87:         store[7] = 'T';
+[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux -> -> 84 `ui `uc ]
+"90
+[; ;set_time.c: 90:         store[8] = (adc_reg_val / 10) + 48;
+[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
+"91
+[; ;set_time.c: 91:         store[9] = (adc_reg_val % 10) + 48;
+[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
+"93
+[; ;set_time.c: 93:         main_f = 2;
+[e = _main_f -> -> 2 `i `uc ]
+"95
+[; ;set_time.c: 95:     }
+}
+[e :U 1103 ]
+"96
+[; ;set_time.c: 96:     if (key == 16) {
+[e $ ! == -> _key `i -> 16 `i 1104  ]
+{
+"97
+[; ;set_time.c: 97:         main_f = 2;
+[e = _main_f -> -> 2 `i `uc ]
+"98
+[; ;set_time.c: 98:     }
+}
+[e :U 1104 ]
+"100
+[; ;set_time.c: 100: }
 [e :UE 1088 ]
 }
-[a 1C 32 32 32 76 79 71 32 67 76 69 65 82 69 68 32 32 32 0 ]
-[a 2C 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 1C 32 32 32 32 32 72 72 58 77 77 58 83 83 32 32 32 32 0 ]

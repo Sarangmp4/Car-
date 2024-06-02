@@ -64,7 +64,6 @@ void password(char key) {
             CLEAR_DISP_SCREEN;
             chance=3;
             main_f=2;
-            
 
 
         } else {
