@@ -1,7 +1,7 @@
 ### HEXMate logfile and output summary ###
 
 ### Command-line arguments ###
- C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o
+ C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o
  -Odist/default/production\CAR_BLACKBOX.X.production.hex
  -logfile=dist/default/production\CAR_BLACKBOX.X.production.hxl
  -format=INHX032
@@ -10,21 +10,21 @@
 
 ### Memory Usage ###
  Input file ranges:
-  0h - 3h		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
-  8h - 2398h		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
-  2E7Eh - 2FFEh		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
-  200000h - 200007h		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
-  300000h - 30000Dh		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
+  0h - 3h		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
+  8h - 249Ah		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
+  2E6Eh - 2FFFh		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
+  200000h - 200007h		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
+  300000h - 30000Dh		(C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
  Unused ranges:
   4h - 7h
-  2399h - 2E7Dh
-  2FFFh - 1FFFFFh
+  249Bh - 2E6Dh
+  3000h - 1FFFFFh
   200008h - 2FFFFFh
 
 ### Hex Memory Map ###
  Legend:
   -- = Unused memory
-  H1 = Input file             (C:\Users\SARANG~1\AppData\Local\Temp\xcAsn84.\driver_tmp_3.o)
+  H1 = Input file             (C:\Users\SARANG~1\AppData\Local\Temp\xcAsd1o.\driver_tmp_3.o)
 ----------------------------------------------------------
          | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F
 ----------------------------------------------------------
@@ -597,9 +597,26 @@
 00002360 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002370 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002380 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00002390 | H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- --
+00002390 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023A0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023B0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023C0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023D0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023E0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+000023F0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002400 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002410 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002420 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002430 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002440 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002450 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002460 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002470 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002480 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00002490 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- --
 ----------------------------------------------------------
-00002E70 | -- -- -- -- -- -- -- -- -- -- -- -- -- -- H1 H1
+00002E60 | -- -- -- -- -- -- -- -- -- -- -- -- -- -- H1 H1
+00002E70 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002E80 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002E90 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002EA0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
@@ -623,7 +640,7 @@
 00002FC0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002FD0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00002FE0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00002FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 --
+00002FF0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 ----------------------------------------------------------
 00200000 | H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- -- -- --
 ----------------------------------------------------------

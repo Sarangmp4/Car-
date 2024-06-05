@@ -11,7 +11,7 @@
 #include "matrix_keypad.h"
 #include "clcd.h"
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time       ","Change Passwrd"};
+char *logs[5]= {" View Log      "," Download log   "," Clear Log       " ," Set time       "," Change Passwrd"};
 extern char main_f, menu_f;
 extern char key;
 char star_flag=0;
@@ -20,8 +20,8 @@ char log_index=0;
 short press_delay=0;
 void menu(char key)
 {
-    clcd_print(logs[log_index], LINE1(2));
-    clcd_print(logs[(log_index+1)], LINE2(2));
+    clcd_print(logs[log_index], LINE1(1));
+    clcd_print(logs[(log_index+1)], LINE2(1));
     
     if(star_flag==0)
     {

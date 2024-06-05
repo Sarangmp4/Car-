@@ -17964,13 +17964,14 @@ unsigned char read_switches(unsigned char detection_type);
 # 12 "view_log.c" 2
 
 
-extern char store[11];
 extern char main_f;
 char view_array[11];
 extern char lap;
 extern char overflow;
 extern unsigned short adc_reg_val;
 extern unsigned char time[9];
+extern char *events[8];
+extern char store[5];
 
 char start_index = 0, apend_index = 0;
 
@@ -18010,7 +18011,7 @@ void view_log(char key) {
     }
 
 
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < 5; j++) {
         view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
     }
 
@@ -18019,23 +18020,24 @@ void view_log(char key) {
     clcd_putch('0' + apend_index, (0xC0 + (0)));
 
 
-    clcd_putch(view_array[0], (0xC0 + (2)));
-    clcd_putch(view_array[1], (0xC0 + (3)));
+    clcd_putch((view_array[0]/10)+48, (0xC0 + (2)));
+    clcd_putch((view_array[0]%10)+48, (0xC0 + (3)));
     clcd_putch(':', (0xC0 + (4)));
 
-    clcd_putch(view_array[2], (0xC0 + (5)));
-    clcd_putch(view_array[3], (0xC0 + (6)));
+    clcd_putch((view_array[1]/10)+48, (0xC0 + (5)));
+    clcd_putch((view_array[1]%10)+48, (0xC0 + (6)));
     clcd_putch(':', (0xC0 + (7)));
 
-    clcd_putch(view_array[4], (0xC0 + (8)));
-    clcd_putch(view_array[5], (0xC0 + (9)));
+    clcd_putch((view_array[2]/10)+48, (0xC0 + (8)));
+    clcd_putch((view_array[2]%10)+48, (0xC0 + (9)));
 
 
-    clcd_putch(view_array[6], (0xC0 + (11)));
-    clcd_putch(view_array[7], (0xC0 + (12)));
+    clcd_print(events[view_array[3]], (0xC0 + (11)));
 
 
-    clcd_putch(view_array[8], (0xC0 + (14)));
-    clcd_putch(view_array[9], (0xC0 + (15)));
+
+    clcd_putch((view_array[4]/10)+48, (0xC0 + (14)));
+    clcd_putch((view_array[4]%10)+48, (0xC0 + (15)));
+
 
 }

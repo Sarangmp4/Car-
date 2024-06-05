@@ -17963,7 +17963,7 @@ unsigned char i2c_read(void);
 # 12 "store_event.c" 2
 
 
-char store[11];
+char store[5];
 extern unsigned char time[9];
 extern char *events[8];
 extern char i;
@@ -17974,28 +17974,23 @@ extern unsigned short adc_reg_val;
 void store_event()
 {
 
-    store[0]=time[0];
-    store[1]=time[1];
-    store[2]=time[3];
-    store[3]=time[4];
-    store[4]=time[6];
-    store[5]=time[7];
+    store[0]=(((time[0]-48)*10)+(time[1]-48));
+    store[1]=(((time[3]-48)*10)+(time[4]-48));
+    store[2]=(((time[6]-48)*10)+(time[7]-48));
 
 
-    store[6]=events[i][0];
-    store[7]=events[i][1];
+    store[3]=i;
 
 
 
-        store[8]=(adc_reg_val / 10) + 48;
-        store[9]=(adc_reg_val % 10) + 48;
+        store[4]=adc_reg_val;
 
-    for(char k=0; k<10; k++)
+    for(char k=0; k<5; k++)
     {
         write_external_eeprom( (lap*10+k),store[k]);
     }
 
-    lap++;
+
     if(lap==10)
     {
         lap=0;

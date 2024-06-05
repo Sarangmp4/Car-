@@ -11,7 +11,7 @@
 #include "external_eeprom_2.h"
 #include "i2c.h"
 
-char store[11];
+char store[5];
 extern unsigned char time[9];
 extern char *events[8];
 extern char i;
@@ -22,28 +22,23 @@ extern unsigned short adc_reg_val;
 void store_event()
 {
     /*storing time*/
-    store[0]=time[0];
-    store[1]=time[1];
-    store[2]=time[3];
-    store[3]=time[4];
-    store[4]=time[6];
-    store[5]=time[7];
-    
+    store[0]=(((time[0]-48)*10)+(time[1]-48)); 
+    store[1]=(((time[3]-48)*10)+(time[4]-48));
+    store[2]=(((time[6]-48)*10)+(time[7]-48));
+   
     /*storing event mode*/
-    store[6]=events[i][0];
-    store[7]=events[i][1];
+    store[3]=i;
     
     /*storing speed*/
 
-        store[8]=(adc_reg_val / 10) + 48;
-        store[9]=(adc_reg_val % 10) + 48;
+        store[4]=adc_reg_val;
         
-    for(char k=0; k<10; k++)
+    for(char k=0; k<5; k++)
     {
         write_external_eeprom( (lap*10+k),store[k]);
     }
     
-    lap++;
+//    lap++;
     if(lap==10)
     {
         lap=0;

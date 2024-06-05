@@ -11,13 +11,14 @@
 #include "external_eeprom_2.h"
 #include"matrix_keypad.h"
 
-extern char store[11];
 extern char main_f;
 char view_array[11];
 extern char lap;
 extern char overflow;
 extern unsigned short adc_reg_val;
 extern unsigned char time[9];
+extern char *events[8];
+extern char store[5];
 
 char start_index = 0, apend_index = 0;
 
@@ -57,7 +58,7 @@ void view_log(char key) {
     }
 
 
-    for (int j = 0; j < 10; j++) {
+    for (int j = 0; j < 5; j++) {
         view_array[j] = read_external_eeprom((start_index + apend_index) % 10 * 10 + j);
     }
 
@@ -66,23 +67,24 @@ void view_log(char key) {
     clcd_putch('0' + apend_index, LINE2(0));
 
     /*time*/
-    clcd_putch(view_array[0], LINE2(2));
-    clcd_putch(view_array[1], LINE2(3));
+    clcd_putch((view_array[0]/10)+48, LINE2(2));
+    clcd_putch((view_array[0]%10)+48, LINE2(3));
     clcd_putch(':', LINE2(4));
 
-    clcd_putch(view_array[2], LINE2(5));
-    clcd_putch(view_array[3], LINE2(6));
+    clcd_putch((view_array[1]/10)+48, LINE2(5));
+    clcd_putch((view_array[1]%10)+48, LINE2(6));
     clcd_putch(':', LINE2(7));
 
-    clcd_putch(view_array[4], LINE2(8));
-    clcd_putch(view_array[5], LINE2(9));
+    clcd_putch((view_array[2]/10)+48, LINE2(8));
+    clcd_putch((view_array[2]%10)+48, LINE2(9));
 
     /*event*/
-    clcd_putch(view_array[6], LINE2(11));
-    clcd_putch(view_array[7], LINE2(12));
+    clcd_print(events[view_array[3]], LINE2(11));
+    //clcd_putch(view_array[3], LINE2(12));
 
     /*speed*/
-    clcd_putch(view_array[8], LINE2(14));
-    clcd_putch(view_array[9], LINE2(15));
+    clcd_putch((view_array[4]/10)+48, LINE2(14));
+    clcd_putch((view_array[4]%10)+48, LINE2(15));
+   
 
 }

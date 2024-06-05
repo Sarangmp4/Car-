@@ -1252,7 +1252,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "14 menu.c
-[; ;menu.c: 14: char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time       ","Change Passwrd"};
+[; ;menu.c: 14: char *logs[5]= {" View Log      "," Download log   "," Clear Log       " ," Set time       "," Change Passwrd"};
 [v _logs `*uc ~T0 @X0 -> 5 `i e ]
 [i _logs
 :U ..
@@ -1301,11 +1301,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;menu.c: 22: {
 [f ]
 "23
-[; ;menu.c: 23:     clcd_print(logs[log_index], (0x80 + (2)));
-[e ( _clcd_print (2 , -> *U + &U _logs * -> _log_index `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 128 `i -> 2 `i `uc ]
+[; ;menu.c: 23:     clcd_print(logs[log_index], (0x80 + (1)));
+[e ( _clcd_print (2 , -> *U + &U _logs * -> _log_index `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 128 `i -> 1 `i `uc ]
 "24
-[; ;menu.c: 24:     clcd_print(logs[(log_index+1)], (0xC0 + (2)));
-[e ( _clcd_print (2 , -> *U + &U _logs * -> -> + -> _log_index `i -> 1 `i `ui `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 192 `i -> 2 `i `uc ]
+[; ;menu.c: 24:     clcd_print(logs[(log_index+1)], (0xC0 + (1)));
+[e ( _clcd_print (2 , -> *U + &U _logs * -> -> + -> _log_index `i -> 1 `i `ui `ux -> -> # *U &U _logs `ui `ux `*Cuc -> + -> 192 `i -> 1 `i `uc ]
 "26
 [; ;menu.c: 26:     if(star_flag==0)
 [e $ ! == -> _star_flag `i -> 0 `i 1089  ]
@@ -1465,8 +1465,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;menu.c: 81: }
 [e :UE 1088 ]
 }
-[a 5C 67 104 97 110 103 101 32 80 97 115 115 119 114 100 0 ]
-[a 2C 68 111 119 110 108 111 97 100 32 108 111 103 32 32 32 0 ]
-[a 1C 86 105 101 119 32 76 111 103 32 32 32 32 32 32 0 ]
-[a 3C 67 108 101 97 114 32 76 111 103 32 32 32 32 32 32 32 0 ]
-[a 4C 83 101 116 32 116 105 109 101 32 32 32 32 32 32 32 0 ]
+[a 5C 32 67 104 97 110 103 101 32 80 97 115 115 119 114 100 0 ]
+[a 2C 32 68 111 119 110 108 111 97 100 32 108 111 103 32 32 32 0 ]
+[a 1C 32 86 105 101 119 32 76 111 103 32 32 32 32 32 32 0 ]
+[a 3C 32 67 108 101 97 114 32 76 111 103 32 32 32 32 32 32 32 0 ]
+[a 4C 32 83 101 116 32 116 105 109 101 32 32 32 32 32 32 32 0 ]

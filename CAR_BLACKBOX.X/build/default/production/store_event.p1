@@ -2,9 +2,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "15 store_event.c
 [; ;store_event.c: 15: extern unsigned char time[9];
 [v _time `uc ~T0 @X0 -> 0 `x e ]
-"16
-[; ;store_event.c: 16: extern char *events[8];
-[v _events `*uc ~T0 @X0 -> 0 `x e ]
 "17
 [; ;store_event.c: 17: extern char i;
 [v _i `uc ~T0 @X0 0 e ]
@@ -1254,8 +1251,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\pic\include\proc\pic18f4580.h: 32464: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "14 store_event.c
-[; ;store_event.c: 14: char store[11];
-[v _store `uc ~T0 @X0 -> 11 `i e ]
+[; ;store_event.c: 14: char store[5];
+[v _store `uc ~T0 @X0 -> 5 `i e ]
 "18
 [; ;store_event.c: 18: char lap=0;
 [v _lap `uc ~T0 @X0 1 e ]
@@ -1277,76 +1274,58 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _store_event ]
 [f ]
 "25
-[; ;store_event.c: 25:     store[0]=time[0];
-[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+[; ;store_event.c: 25:     store[0]=(((time[0]-48)*10)+(time[1]-48));
+[e = *U + &U _store * -> -> -> 0 `i `ui `ux -> -> # *U &U _store `ui `ux -> + * - -> *U + &U _time * -> -> -> 0 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
 "26
-[; ;store_event.c: 26:     store[1]=time[1];
-[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 1 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+[; ;store_event.c: 26:     store[1]=(((time[3]-48)*10)+(time[4]-48));
+[e = *U + &U _store * -> -> -> 1 `i `ui `ux -> -> # *U &U _store `ui `ux -> + * - -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
 "27
-[; ;store_event.c: 27:     store[2]=time[3];
-[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 3 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"28
-[; ;store_event.c: 28:     store[3]=time[4];
-[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 4 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"29
-[; ;store_event.c: 29:     store[4]=time[6];
-[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
+[; ;store_event.c: 27:     store[2]=(((time[6]-48)*10)+(time[7]-48));
+[e = *U + &U _store * -> -> -> 2 `i `ui `ux -> -> # *U &U _store `ui `ux -> + * - -> *U + &U _time * -> -> -> 6 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i -> 10 `i - -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `i -> 48 `i `uc ]
 "30
-[; ;store_event.c: 30:     store[5]=time[7];
-[e = *U + &U _store * -> -> -> 5 `i `ui `ux -> -> # *U &U _store `ui `ux -> *U + &U _time * -> -> -> 7 `i `ui `ux -> -> # *U &U _time `ui `ux `uc ]
-"33
-[; ;store_event.c: 33:     store[6]=events[i][0];
-[e = *U + &U _store * -> -> -> 6 `i `ui `ux -> -> # *U &U _store `ui `ux *U + *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux `ui `ux ]
+[; ;store_event.c: 30:     store[3]=i;
+[e = *U + &U _store * -> -> -> 3 `i `ui `ux -> -> # *U &U _store `ui `ux _i ]
 "34
-[; ;store_event.c: 34:     store[7]=events[i][1];
-[e = *U + &U _store * -> -> -> 7 `i `ui `ux -> -> # *U &U _store `ui `ux *U + *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux `ui `ux ]
-"38
-[; ;store_event.c: 38:         store[8]=(adc_reg_val / 10) + 48;
-[e = *U + &U _store * -> -> -> 8 `i `ui `ux -> -> # *U &U _store `ui `ux -> + / -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"39
-[; ;store_event.c: 39:         store[9]=(adc_reg_val % 10) + 48;
-[e = *U + &U _store * -> -> -> 9 `i `ui `ux -> -> # *U &U _store `ui `ux -> + % -> _adc_reg_val `ui -> -> 10 `i `ui -> -> 48 `i `ui `uc ]
-"41
-[; ;store_event.c: 41:     for(char k=0; k<10; k++)
+[; ;store_event.c: 34:         store[4]=adc_reg_val;
+[e = *U + &U _store * -> -> -> 4 `i `ui `ux -> -> # *U &U _store `ui `ux -> _adc_reg_val `uc ]
+"36
+[; ;store_event.c: 36:     for(char k=0; k<5; k++)
 {
 [v _k `uc ~T0 @X0 1 a ]
 [e = _k -> -> 0 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1089  ]
+[e $ < -> _k `i -> 5 `i 1089  ]
 [e $U 1090  ]
 [e :U 1089 ]
-"42
-[; ;store_event.c: 42:     {
+"37
+[; ;store_event.c: 37:     {
 {
-"43
-[; ;store_event.c: 43:         write_external_eeprom( (lap*10+k),store[k]);
+"38
+[; ;store_event.c: 38:         write_external_eeprom( (lap*10+k),store[k]);
 [e ( _write_external_eeprom (2 , -> + * -> _lap `i -> 10 `i -> _k `i `uc -> *U + &U _store * -> _k `ux -> -> # *U &U _store `ui `ux `uc ]
-"44
-[; ;store_event.c: 44:     }
+"39
+[; ;store_event.c: 39:     }
 }
 [e ++ _k -> -> 1 `i `uc ]
-[e $ < -> _k `i -> 10 `i 1089  ]
+[e $ < -> _k `i -> 5 `i 1089  ]
 [e :U 1090 ]
 }
-"46
-[; ;store_event.c: 46:     lap++;
-[e ++ _lap -> -> 1 `i `uc ]
-"47
-[; ;store_event.c: 47:     if(lap==10)
+"42
+[; ;store_event.c: 42:     if(lap==10)
 [e $ ! == -> _lap `i -> 10 `i 1092  ]
-"48
-[; ;store_event.c: 48:     {
+"43
+[; ;store_event.c: 43:     {
 {
-"49
-[; ;store_event.c: 49:         lap=0;
+"44
+[; ;store_event.c: 44:         lap=0;
 [e = _lap -> -> 0 `i `uc ]
-"50
-[; ;store_event.c: 50:         overflow=1;
+"45
+[; ;store_event.c: 45:         overflow=1;
 [e = _overflow -> -> 1 `i `uc ]
-"51
-[; ;store_event.c: 51:     }
+"46
+[; ;store_event.c: 46:     }
 }
 [e :U 1092 ]
-"52
-[; ;store_event.c: 52: }
+"47
+[; ;store_event.c: 47: }
 [e :UE 1088 ]
 }

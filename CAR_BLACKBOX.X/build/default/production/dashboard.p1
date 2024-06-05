@@ -1269,8 +1269,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;dashboard.c: 21: unsigned char time[9];
 [v _time `uc ~T0 @X0 -> 9 `i e ]
 "24
-[; ;dashboard.c: 24:     char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
-[v _events `*uc ~T0 @X0 -> 8 `i e ]
+[; ;dashboard.c: 24:     char *events[12] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C ","CL","DL","ST","CP"};
+[v _events `*uc ~T0 @X0 -> 12 `i e ]
 [i _events
 :U ..
 :s 1C
@@ -1281,6 +1281,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 :s 6C
 :s 7C
 :s 8C
+:s 9C
+:s 10C
+:s 11C
+:s 12C
 ..
 ]
 "26
@@ -1370,7 +1374,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "53
 [; ;dashboard.c: 53:     clcd_print("  TIME    EV  SP", (0x80 + (0)));
-[e ( _clcd_print (2 , :s 9C -> + -> 128 `i -> 0 `i `uc ]
+[e ( _clcd_print (2 , :s 13C -> + -> 128 `i -> 0 `i `uc ]
 "59
 [; ;dashboard.c: 59:     clcd_print(events[i], (0xC0 + (10)));
 [e ( _clcd_print (2 , -> *U + &U _events * -> _i `ux -> -> # *U &U _events `ui `ux `*Cuc -> + -> 192 `i -> 10 `i `uc ]
@@ -1454,10 +1458,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;dashboard.c: 95: }
 [e :UE 1092 ]
 }
+[a 11C 83 84 0 ]
 [a 2C 71 82 0 ]
-[a 9C 32 32 84 73 77 69 32 32 32 32 69 86 32 32 83 80 0 ]
+[a 13C 32 32 84 73 77 69 32 32 32 32 69 86 32 32 83 80 0 ]
+[a 12C 67 80 0 ]
 [a 1C 79 78 0 ]
 [a 3C 71 78 0 ]
+[a 10C 68 76 0 ]
+[a 9C 67 76 0 ]
 [a 7C 71 52 0 ]
 [a 6C 71 51 0 ]
 [a 5C 71 50 0 ]

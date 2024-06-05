@@ -21,7 +21,7 @@ unsigned char clock_reg[3];
 unsigned char time[9];
 
  /*Array of pointer for storing the gear and event names*/
-    char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
+    char *events[12] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C ","CL","DL","ST","CP"};
 
 void display_time(void) {
     clcd_print(time, LINE2(0));
@@ -32,7 +32,7 @@ void display_time(void) {
     clock_reg[1] = read_ds1307(MIN_ADDR);
     clock_reg[2] = read_ds1307(SEC_ADDR);
 
-    if (clock_reg[0] & 0x40) { /* 12 hr*/
+    if (clock_reg[0] & 0x40) { /* 12 hr */
         time[0] = '0' + ((clock_reg[0] >> 4) & 0x01);
         time[1] = '0' + (clock_reg[0] & 0x0F);
     } else {

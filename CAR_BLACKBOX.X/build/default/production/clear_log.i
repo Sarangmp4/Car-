@@ -21,6 +21,7 @@ extern char lap;
 extern char main_f;
 extern unsigned short adc_reg_val;
 extern unsigned char time[9];
+extern char i;
 
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 3
@@ -17928,7 +17929,7 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 33 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC18Fxxxx_DFP/1.2.26/xc8\\pic\\include\\xc.h" 2 3
-# 15 "clear_log.c" 2
+# 16 "clear_log.c" 2
 
 # 1 "./main.h" 1
 # 14 "./main.h"
@@ -17941,7 +17942,7 @@ void download_log();
 void clear_log(char key);
 void settime(char key);
 void change_pass(char key);
-# 16 "clear_log.c" 2
+# 17 "clear_log.c" 2
 
 # 1 "./clcd.h" 1
 # 31 "./clcd.h"
@@ -17949,14 +17950,14 @@ void init_clcd(void);
 void clcd_print(const unsigned char *data, unsigned char addr);
 void clcd_putch(const unsigned char data, unsigned char addr);
 void clcd_write(unsigned char bit_values, unsigned char control_bit);
-# 17 "clear_log.c" 2
+# 18 "clear_log.c" 2
 
 # 1 "./matrix_keypad.h" 1
 # 39 "./matrix_keypad.h"
 void init_matrix_keypad(void);
 unsigned char scan_key(void);
 unsigned char read_switches(unsigned char detection_type);
-# 18 "clear_log.c" 2
+# 19 "clear_log.c" 2
 
 # 1 "./external_eeprom_2.h" 1
 
@@ -17969,7 +17970,7 @@ unsigned char read_switches(unsigned char detection_type);
 
 void write_external_eeprom(unsigned char , unsigned char );
 unsigned char read_external_eeprom(unsigned char );
-# 19 "clear_log.c" 2
+# 20 "clear_log.c" 2
 
 
 void clear_log(char key) {
@@ -17985,28 +17986,21 @@ void clear_log(char key) {
 
 
 
-    store[0] = time[0];
-    store[1] = time[1];
-    store[2] = time[3];
-    store[3] = time[4];
-    store[4] = time[6];
-    store[5] = time[7];
+
+        store[0] = (((time[0] - 48)*10)+(time[1] - 48));
+        store[1] = (((time[3] - 48)*10)+(time[4] - 48));
+        store[2] = (((time[6] - 48)*10)+(time[7] - 48));
 
 
-    store[6] = 'C';
-    store[7] = 'L';
+        store[3] = i;
 
 
+        store[4] = adc_reg_val;
 
-    store[8] = (adc_reg_val / 10) + 48;
-    store[9] = (adc_reg_val % 10) + 48;
-
-
-
-    for (char k = 0; k < 10; k++) {
-        write_external_eeprom((k), store[k]);
-    }
-    main_f = 2;
+        for (char k = 0; k < 5; k++) {
+            write_external_eeprom((k), store[k]);
+        }
+        main_f = 2;
 
     }
 

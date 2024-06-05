@@ -17952,7 +17952,7 @@ void clcd_write(unsigned char bit_values, unsigned char control_bit);
 # 12 "menu.c" 2
 
 
-char *logs[5]= {"View Log      ","Download log   ","Clear Log       " ,"Set time       ","Change Passwrd"};
+char *logs[5]= {" View Log      "," Download log   "," Clear Log       " ," Set time       "," Change Passwrd"};
 extern char main_f, menu_f;
 extern char key;
 char star_flag=0;
@@ -17961,8 +17961,8 @@ char log_index=0;
 short press_delay=0;
 void menu(char key)
 {
-    clcd_print(logs[log_index], (0x80 + (2)));
-    clcd_print(logs[(log_index+1)], (0xC0 + (2)));
+    clcd_print(logs[log_index], (0x80 + (1)));
+    clcd_print(logs[(log_index+1)], (0xC0 + (1)));
 
     if(star_flag==0)
     {

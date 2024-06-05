@@ -17951,6 +17951,27 @@ unsigned char scan_key(void);
 unsigned char read_switches(unsigned char detection_type);
 # 12 "set_time.c" 2
 
+# 1 "./ds1307.h" 1
+# 18 "./ds1307.h"
+void write_ds1307(unsigned char address1, unsigned char data);
+unsigned char read_ds1307(unsigned char address1);
+void init_ds1307(void);
+# 13 "set_time.c" 2
+
+# 1 "./external_eeprom_2.h" 1
+
+
+
+
+
+
+
+
+void write_external_eeprom(unsigned char , unsigned char );
+unsigned char read_external_eeprom(unsigned char );
+# 14 "set_time.c" 2
+
+
 
 
 char hr, min, sec;
@@ -17960,9 +17981,10 @@ extern unsigned short adc_reg_val;
 extern char store[11];
 extern unsigned char clock_reg[3];
 extern char main_f;
+extern char lap;
+extern char i;
 
 void settime(char key) {
-
 
     clcd_print("     HH:MM:SS    ", (0x80 + (0)));
     if (t_flag == 0) {
@@ -17972,16 +17994,16 @@ void settime(char key) {
         t_flag = 1;
     }
 
-    clcd_putch('0' + (hr / 10), (0xC0 + (0)));
-    clcd_putch('0' + (hr % 10), (0xC0 + (1)));
+    clcd_putch('0' + (hr / 10), (0xC0 + (5)));
+    clcd_putch('0' + (hr % 10), (0xC0 + (6)));
 
-    clcd_putch(':', (0xC0 + (2)));
-    clcd_putch('0' + (min / 10), (0xC0 + (3)));
-    clcd_putch('0' + (min % 10), (0xC0 + (4)));
+    clcd_putch(':', (0xC0 + (7)));
+    clcd_putch('0' + (min / 10), (0xC0 + (8)));
+    clcd_putch('0' + (min % 10), (0xC0 + (9)));
 
-    clcd_putch(':', (0xC0 + (5)));
-    clcd_putch('0' + (sec / 10), (0xC0 + (6)));
-    clcd_putch('0' + (sec % 10), (0xC0 + (7)));
+    clcd_putch(':', (0xC0 + (10)));
+    clcd_putch('0' + (sec / 10), (0xC0 + (11)));
+    clcd_putch('0' + (sec % 10), (0xC0 + (12)));
 
     if (key == 5) {
         if (pos_flag == 0) {
@@ -18010,26 +18032,29 @@ void settime(char key) {
     }
     if (key == 15) {
 
-        clock_reg[0] = ((hr / 10) << 4) | (hr % 10);
-        clock_reg[0] = ((min / 10) << 4) | (min % 10);
-        clock_reg[0] = ((sec / 10) << 4) | (sec % 10);
+
+        write_ds1307(0x02, (hr / 10) << 4 | (hr % 10));
+        write_ds1307(0x01, (min / 10) << 4 | (min % 10));
+        write_ds1307(0x00, (sec / 10) << 4 | (sec % 10));
 
 
 
-        store[0] = time[0];
-        store[1] = time[1];
-        store[2] = time[3];
-        store[3] = time[4];
-        store[4] = time[6];
-        store[5] = time[7];
+
+        store[0] = (((time[0] - 48)*10)+(time[1] - 48));
+        store[1] = (((time[3] - 48)*10)+(time[4] - 48));
+        store[2] = (((time[6] - 48)*10)+(time[7] - 48));
 
 
-        store[6] = 'S';
-        store[7] = 'T';
+        store[3] = i;
 
 
-        store[8] = (adc_reg_val / 10) + 48;
-        store[9] = (adc_reg_val % 10) + 48;
+        store[4] = adc_reg_val;
+
+
+        for (char k = 0; k < 5; k++) {
+            write_external_eeprom((k), store[k]);
+        }
+        lap++;
 
         main_f = 2;
 

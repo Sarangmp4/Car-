@@ -21,7 +21,7 @@ int delay = 0;
 extern char main_f;
 char temp_password[5];  
 extern char pass[5];
-
+int count=0;
 int my_strcmp(char *one, char *two) {
     int k = 0, last = 0;
     while (one[k] != '\0') {
@@ -35,7 +35,14 @@ int my_strcmp(char *one, char *two) {
 }
 
 void password(char key) {
+    
+    if(count++==5000)
+    {
+        count=0;
+        main_f=0;
+    }
 
+    
     clcd_print(" Enter Password ", LINE1(0));
 
     //providing non blocking delay for blink the '-'

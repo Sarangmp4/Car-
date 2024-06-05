@@ -12,16 +12,21 @@
 #include "clcd.h"
 #include "external_eeprom_2.h"
 
+
 extern char pass[5];
 char temp1[5], temp2[5];
 extern char main_f;
 char ind = 0;
 int del = 0;
 char reset_flag = 0;
+extern char i;
 extern unsigned short adc_reg_val;
+
+
 
 extern char store[11];
 extern unsigned char time[9];
+extern char lap;
 
 int my_strcp(char *one, char *two) {
     int k = 0, last = 0;
@@ -101,29 +106,22 @@ void change_pass(char key) {
 
 
                 /*storing event*/
-                
+
                 /*storing time*/
-                store[0] = time[0];
-                store[1] = time[1];
-                store[2] = time[3];
-                store[3] = time[4];
-                store[4] = time[6];
-                store[5] = time[7];
+                store[0] = (((time[0] - 48)*10)+(time[1] - 48));
+                store[1] = (((time[3] - 48)*10)+(time[4] - 48));
+                store[2] = (((time[6] - 48)*10)+(time[7] - 48));
 
                 /*storing event mode*/
-                store[6] = 'C';
-                store[7] = 'L';
+                store[3] = i;
 
                 /*storing speed*/
-
-                store[8] = (adc_reg_val / 10) + 48;
-                store[9] = (adc_reg_val % 10) + 48;
-
-                for (char k = 0; k < 10; k++) {
+                store[4] = adc_reg_val;
+                for (char k = 0; k < 5; k++) {
                     write_external_eeprom((k), store[k]);
                 }
 
-
+//                lap++;
 
                 main_f = 2;
             } else {

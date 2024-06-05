@@ -17985,7 +17985,7 @@ unsigned char clock_reg[3];
 unsigned char time[9];
 
 
-    char *events[8] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C "};
+    char *events[12] = {"ON", "GR", "GN", "G1", "G2", "G3", "G4", "C ","CL","DL","ST","CP"};
 
 void display_time(void) {
     clcd_print(time, (0xC0 + (0)));

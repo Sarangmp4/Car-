@@ -12,6 +12,7 @@ extern char lap;
 extern char main_f;
 extern unsigned short adc_reg_val;
 extern unsigned char time[9];
+extern char i;
 #include <xc.h>
 #include "main.h"
 #include"clcd.h"
@@ -26,34 +27,27 @@ void clear_log(char key) {
     clcd_print("   LOG CLEARED   ", LINE1(0));
     clcd_print("                 ", LINE2(0));
 
-    
+
     if (key == 16) {
-        
-    
-    /*storing time*/
-    store[0] = time[0];
-    store[1] = time[1];
-    store[2] = time[3];
-    store[3] = time[4];
-    store[4] = time[6];
-    store[5] = time[7];
-
-    /*storing event mode*/
-    store[6] = 'C';
-    store[7] = 'L';
-
-    /*storing speed*/
-
-    store[8] = (adc_reg_val / 10) + 48;
-    store[9] = (adc_reg_val % 10) + 48;
 
 
 
-    for (char k = 0; k < 10; k++) {
-        write_external_eeprom((k), store[k]);
-    }
-    main_f = 2;
-    
+        /*storing time*/
+        store[0] = (((time[0] - 48)*10)+(time[1] - 48));
+        store[1] = (((time[3] - 48)*10)+(time[4] - 48));
+        store[2] = (((time[6] - 48)*10)+(time[7] - 48));
+
+        /*storing event mode*/
+        store[3] = i;
+
+        /*storing speed*/
+        store[4] = adc_reg_val;
+
+        for (char k = 0; k < 5; k++) {
+            write_external_eeprom((k), store[k]);
+        }
+        main_f = 2;
+
     }
 
 
